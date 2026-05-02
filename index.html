@@ -964,7 +964,9 @@
   let audioCtx = null;
   let masterGain = null;
   let staticNode = null;
+  let staticGainNode = null;
   let audioOn = false;
+  let ambientTimer = null;
   const toggle = document.getElementById('audioToggle');
 
   function initAudio() {
@@ -974,25 +976,43 @@
     masterGain.gain.value = 0;
     masterGain.connect(audioCtx.destination);
 
-    // ambient radio static
-    const bufferSize = 2 * audioCtx.sampleRate;
+    // ambient radio static — distant lo-fi surveillance feed
+    const bufferSize = 4 * audioCtx.sampleRate;
     const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
     const data = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    // pinkish noise — softer than pure white
+    let b0 = 0, b1 = 0, b2 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const w = Math.random() * 2 - 1;
+      b0 = 0.99765 * b0 + w * 0.0990460;
+      b1 = 0.96300 * b1 + w * 0.2965164;
+      b2 = 0.57000 * b2 + w * 1.0526913;
+      data[i] = (b0 + b1 + b2 + w * 0.1848) * 0.18;
+    }
     staticNode = audioCtx.createBufferSource();
     staticNode.buffer = noiseBuffer;
     staticNode.loop = true;
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 1100;
-    filter.Q.value = 0.6;
-    const staticGain = audioCtx.createGain();
-    staticGain.gain.value = 0.06;
-    staticNode.connect(filter).connect(staticGain).connect(masterGain);
+    const lowpass = audioCtx.createBiquadFilter();
+    lowpass.type = 'lowpass';
+    lowpass.frequency.value = 1800;
+    const highpass = audioCtx.createBiquadFilter();
+    highpass.type = 'highpass';
+    highpass.frequency.value = 200;
+    staticGainNode = audioCtx.createGain();
+    staticGainNode.gain.value = 0.32;
+    staticNode.connect(highpass).connect(lowpass).connect(staticGainNode).connect(masterGain);
     staticNode.start(0);
+
+    // slow LFO modulation on static gain — feels like signal drifting
+    const lfo = audioCtx.createOscillator();
+    const lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 0.07;
+    lfoGain.gain.value = 0.1;
+    lfo.connect(lfoGain).connect(staticGainNode.gain);
+    lfo.start();
   }
 
-  function clickSound() {
+  function clickSound(volume) {
     if (!audioOn || !audioCtx) return;
     const t = audioCtx.currentTime;
     const osc = audioCtx.createOscillator();
@@ -1000,7 +1020,7 @@
     osc.type = 'square';
     osc.frequency.setValueAtTime(2200 + Math.random() * 400, t);
     env.gain.setValueAtTime(0.0001, t);
-    env.gain.exponentialRampToValueAtTime(0.18, t + 0.002);
+    env.gain.exponentialRampToValueAtTime(volume || 0.22, t + 0.002);
     env.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
     osc.connect(env).connect(masterGain);
     osc.start(t);
@@ -1015,11 +1035,26 @@
     osc.type = 'sine';
     osc.frequency.setValueAtTime(140, t);
     osc.frequency.exponentialRampToValueAtTime(60, t + 0.18);
-    env.gain.setValueAtTime(0.4, t);
+    env.gain.setValueAtTime(0.45, t);
     env.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
     osc.connect(env).connect(masterGain);
     osc.start(t);
     osc.stop(t + 0.3);
+  }
+
+  // distant typewriter — fires at random intervals while audio is on
+  function scheduleAmbient() {
+    if (!audioOn) return;
+    const wait = 2500 + Math.random() * 5500;
+    ambientTimer = setTimeout(() => {
+      if (!audioOn) return;
+      // a small burst of 1-3 distant clicks
+      const burst = 1 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < burst; i++) {
+        setTimeout(() => clickSound(0.06 + Math.random() * 0.04), i * (90 + Math.random() * 60));
+      }
+      scheduleAmbient();
+    }, wait);
   }
 
   toggle.addEventListener('click', () => {
@@ -1027,9 +1062,17 @@
     if (audioCtx.state === 'suspended') audioCtx.resume();
     audioOn = !audioOn;
     masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
-    masterGain.gain.linearRampToValueAtTime(audioOn ? 0.5 : 0, audioCtx.currentTime + 0.3);
+    masterGain.gain.linearRampToValueAtTime(audioOn ? 0.85 : 0, audioCtx.currentTime + 0.4);
     toggle.classList.toggle('on', audioOn);
     toggle.textContent = audioOn ? '[ ● ] AUDIO ON' : '[ ◯ ] AUDIO OFF';
+    if (audioOn) {
+      // confirmation: a click + a thud so user immediately hears it works
+      setTimeout(() => clickSound(0.25), 80);
+      setTimeout(() => thudSound(), 280);
+      scheduleAmbient();
+    } else {
+      clearTimeout(ambientTimer);
+    }
   });
 
   // ---------- redactions: click + hold to decrypt ----------
