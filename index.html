@@ -4,30 +4,37 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>glitchcommerce // file 0x7f3a</title>
+<meta name="description" content="we found a glitch in the matrix. mission: make everyone rich." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: #ece4d2;
     --paper-2: #e3d9c1;
+    --paper-3: #d8cdb1;
     --ink: #14110d;
     --ink-soft: #4a4438;
     --stamp: #b3261e;
+    --stamp-soft: rgba(179, 38, 30, 0.85);
     --redact: #0a0a0a;
+    --tab-red: #8b3a2e;
+    --tab-blue: #2e4d6b;
+    --tab-manila: #c79d4b;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
     min-height: 100%;
-    background: var(--paper);
+    background: #1a1814;
     color: var(--ink);
     font-family: 'Special Elite', 'Courier New', monospace;
     cursor: default;
+    overscroll-behavior: none;
   }
 
-  /* paper grain + subtle stains */
+  /* dim desk under all the papers */
   body::before {
     content: '';
     position: fixed;
@@ -35,37 +42,151 @@
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 800px 400px at 20% 10%, rgba(140, 100, 60, 0.08), transparent 60%),
-      radial-gradient(ellipse 600px 300px at 90% 90%, rgba(80, 50, 20, 0.10), transparent 60%),
-      radial-gradient(ellipse 400px 200px at 60% 50%, rgba(120, 80, 40, 0.05), transparent 60%);
+      radial-gradient(ellipse 1200px 800px at 50% 30%, rgba(60, 50, 35, 0.4), transparent 70%);
   }
-  body::after {
+
+  /* ---------- stack of files behind ---------- */
+  .stack {
+    position: relative;
+    max-width: 960px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+
+  .file-edge {
+    position: absolute;
+    background: var(--paper-2);
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.08),
+      0 4px 12px rgba(0,0,0,0.25);
+    pointer-events: auto;
+    cursor: not-allowed;
+    user-select: none;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .file-edge::before {
     content: '';
-    position: fixed;
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .file-edge .tab {
+    position: absolute;
+    top: -22px;
+    padding: 4px 14px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--paper);
+    text-transform: uppercase;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .file-edge.f-002 {
+    top: 8px;
+    left: 18px;
+    right: 6px;
+    height: 60px;
+    transform: rotate(-0.4deg);
+    background: var(--paper-2);
+    z-index: 1;
+  }
+  .file-edge.f-002 .tab { left: 60px; background: var(--tab-red); }
+  .file-edge.f-002 .label {
+    position: absolute;
+    top: 8px;
+    right: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .file-edge.f-003 {
+    top: 18px;
+    left: 32px;
+    right: -4px;
+    height: 40px;
+    transform: rotate(0.5deg);
+    background: var(--paper-3);
+    z-index: 0;
+  }
+  .file-edge.f-003 .tab { left: 180px; background: var(--tab-blue); }
+
+  .file-edge.f-004 {
+    top: 28px;
+    left: -6px;
+    right: 32px;
+    height: 30px;
+    transform: rotate(-0.7deg);
+    background: var(--paper-2);
+    z-index: 0;
+  }
+  .file-edge.f-004 .tab { left: 240px; background: var(--tab-manila); color: var(--ink); }
+
+  .access-denied {
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    color: var(--stamp);
+    background: var(--paper);
+    padding: 4px 10px;
+    border: 1px solid var(--stamp);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 50;
+  }
+  .file-edge:hover .access-denied { opacity: 1; }
+
+  /* ---------- the main page ---------- */
+  .page {
+    position: relative;
+    z-index: 5;
+    background: var(--paper);
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.1),
+      0 8px 30px rgba(0,0,0,0.45);
+    margin-top: 50px;
+    padding: 2.5rem 3rem 3rem;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 800px 400px at 20% 10%, rgba(140, 100, 60, 0.07), transparent 60%),
+      radial-gradient(ellipse 600px 300px at 90% 90%, rgba(80, 50, 20, 0.10), transparent 60%);
+  }
+  .page > * { position: relative; z-index: 1; }
+  .page::before {
+    content: '';
+    position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.35;
+    opacity: 0.3;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
-  .page {
-    position: relative;
-    z-index: 1;
-    max-width: 920px;
-    margin: 0 auto;
-    min-height: 100vh;
-    padding: 3rem 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* document header */
+  /* ---------- top header ---------- */
   .file-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 1rem;
     border-bottom: 2px solid var(--ink);
     padding-bottom: 0.75rem;
     font-family: 'JetBrains Mono', monospace;
@@ -82,9 +203,8 @@
   .file-header .right { text-align: right; }
   .file-header strong { color: var(--ink); font-weight: 500; }
 
-  /* classified banner */
   .banner {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     padding: 0.45rem 0;
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--ink);
@@ -97,14 +217,10 @@
     text-indent: 0.6em;
   }
 
-  /* main body */
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem 0;
-    gap: 3rem;
+  /* ---------- memo block ---------- */
+  .memo {
+    position: relative;
+    padding: 3rem 0 2rem;
   }
 
   .memo-meta {
@@ -113,6 +229,7 @@
     line-height: 2;
     color: var(--ink);
     letter-spacing: 0.04em;
+    margin-bottom: 2.5rem;
   }
   .memo-meta .row { display: flex; gap: 0.6rem; align-items: baseline; }
   .memo-meta .k {
@@ -122,9 +239,7 @@
     letter-spacing: 0.18em;
     font-size: 0.68rem;
   }
-  .memo-meta .v { color: var(--ink); }
 
-  /* headline with redactions */
   .headline {
     font-family: 'Special Elite', monospace;
     font-size: clamp(1.6rem, 4.2vw, 3.1rem);
@@ -132,9 +247,27 @@
     color: var(--ink);
     font-weight: 400;
     letter-spacing: 0.005em;
+    margin-bottom: 2rem;
   }
   .headline .line { display: block; }
 
+  .finding {
+    font-family: 'Special Elite', monospace;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    color: var(--ink);
+    line-height: 1.55;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--ink);
+    margin-bottom: 2rem;
+  }
+  .mission {
+    font-family: 'Special Elite', monospace;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ---------- redactions (scrape-to-decrypt) ---------- */
   .redact {
     display: inline-block;
     background: var(--redact);
@@ -145,94 +278,61 @@
     user-select: none;
     position: relative;
     transform: skewX(-1.5deg);
+    cursor: grab;
     box-shadow:
       0.5px 0 0 rgba(0,0,0,0.6),
       -0.5px 0 0 rgba(0,0,0,0.6);
-    transition: background 0.25s ease, color 0.25s ease;
+    transition: background 0.4s ease, color 0.4s ease, opacity 0.4s ease;
+    overflow: hidden;
   }
-  .redact::before {
-    content: '';
+  .redact:active { cursor: grabbing; }
+  .redact .scrape {
     position: absolute;
-    inset: -2px -2px;
-    background: var(--redact);
-    z-index: -1;
-    filter: blur(0.4px);
-    opacity: 0.9;
-    border-radius: 2px;
+    inset: 0;
+    background: linear-gradient(90deg,
+      rgba(236, 228, 210, 0) 0%,
+      rgba(236, 228, 210, 0.5) 50%,
+      rgba(236, 228, 210, 0) 100%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
   }
-  .redact:hover {
+  .redact.scraping .scrape {
+    transform: translateX(0);
+    transition: transform 2s linear;
+  }
+  .redact.revealed {
     background: transparent;
     color: var(--ink);
-    cursor: help;
+    transform: skewX(0);
+    box-shadow: none;
   }
-  .redact:hover::before {
-    opacity: 0;
-  }
+  .redact.revealed .scrape { opacity: 0; }
 
-  /* finding + mission */
-  .finding {
-    font-family: 'Special Elite', monospace;
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    color: var(--ink);
-    line-height: 1.55;
-    padding-left: 1.2rem;
-    border-left: 3px solid var(--ink);
-  }
-  .mission {
-    font-family: 'Special Elite', monospace;
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
-    color: var(--ink);
-    line-height: 1.6;
-  }
-
-  /* footer / contact */
-  .footer {
-    margin-top: auto;
-    padding-top: 2rem;
-    border-top: 1px dashed var(--ink-soft);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 2rem;
+  .hold-hint {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .footer .leak {
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 0.95rem;
-    font-family: 'Special Elite', monospace;
-    color: var(--ink);
-  }
-  .footer .leak .tag {
-    display: inline-block;
-    background: var(--redact);
-    color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.66rem;
     letter-spacing: 0.25em;
-    padding: 2px 6px;
-    margin-right: 0.6rem;
-    vertical-align: 1px;
+    color: rgba(236, 228, 210, 0.55);
+    background: rgba(0, 0, 0, 0.55);
+    padding: 8px 16px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(4px);
   }
-  .footer a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 1px;
-  }
-  .footer a:hover {
-    color: var(--stamp);
-    border-color: var(--stamp);
-  }
+  .hold-hint.hidden { opacity: 0; }
 
-  /* CONFIDENTIAL stamp */
+  /* ---------- stamps ---------- */
   .stamp {
     position: absolute;
-    top: 26%;
+    top: 24%;
     right: 4%;
     transform: rotate(-14deg);
     border: 4px solid var(--stamp);
@@ -247,25 +347,13 @@
     mix-blend-mode: multiply;
     pointer-events: none;
     user-select: none;
-    text-shadow: 1px 1px 0 rgba(179, 38, 30, 0.2);
     z-index: 5;
-  }
-  .stamp::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 30%, transparent 1px, rgba(236,228,210,0.6) 2px, transparent 3px),
-      radial-gradient(circle at 70% 60%, transparent 1px, rgba(236,228,210,0.6) 2px, transparent 3px),
-      radial-gradient(circle at 40% 80%, transparent 1px, rgba(236,228,210,0.5) 2px, transparent 3px);
-    background-size: 8px 8px, 12px 12px, 6px 6px;
-    pointer-events: none;
   }
 
   .stamp-2 {
     position: absolute;
-    bottom: 10%;
-    left: 6%;
+    bottom: 8%;
+    left: 5%;
     transform: rotate(8deg);
     border: 3px solid var(--ink);
     color: var(--ink);
@@ -281,76 +369,766 @@
     z-index: 5;
   }
 
-  /* responsive */
-  @media (max-width: 700px) {
-    .page { padding: 1.5rem 1.25rem 2.5rem; }
-    .file-header { font-size: 0.62rem; }
-    .footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .stamp { right: 2%; top: 20%; font-size: 1.4rem; }
+  /* ---------- handwritten margin notes ---------- */
+  .handwriting {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    color: #2c3e8b;
+    pointer-events: none;
+    user-select: none;
+    z-index: 4;
+    opacity: 0.78;
+  }
+  .hw-1 {
+    top: 56%;
+    left: -12px;
+    font-size: 1.15rem;
+    transform: rotate(-6deg);
+    line-height: 1.1;
+    width: 150px;
+  }
+  .hw-1 .arrow {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: -2px;
+  }
+  .hw-2 {
+    top: 73%;
+    right: 8%;
+    font-size: 1.6rem;
+    font-weight: 700;
+    transform: rotate(8deg);
+    color: var(--stamp);
+  }
+
+  /* ---------- section divider (sub-headers) ---------- */
+  .subhead {
+    margin: 4rem -0.5rem 1.75rem;
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    background: rgba(0,0,0,0.04);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .subhead .right {
+    color: var(--ink-soft);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+  }
+
+  /* ---------- manifesto block ---------- */
+  .manifesto p {
+    font-family: 'Special Elite', monospace;
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+  }
+  .manifesto p:last-of-type { margin-bottom: 2.5rem; }
+
+  .ways {
+    margin: 2.5rem 0 1rem;
+    padding: 1.5rem 1.75rem;
+    border: 2px solid var(--ink);
+    background: rgba(0,0,0,0.025);
+    font-family: 'Special Elite', monospace;
+    font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+    line-height: 1.85;
+    color: var(--ink);
+    max-width: 600px;
+  }
+  .ways .ways-line {
+    display: block;
+  }
+  .ways .arrow {
+    display: inline-block;
+    margin: 0 0.4em;
+    color: var(--stamp);
+  }
+  .ways .seal {
+    display: block;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--ink-soft);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- scoreboard ---------- */
+  .scoreboard {
+    margin-top: 1.5rem;
+    border: 1px solid var(--ink);
+    background: rgba(255,255,255,0.25);
+  }
+  .scoreboard .row {
+    display: grid;
+    grid-template-columns: 110px 1fr 1fr 1fr 1fr 1fr;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    border-bottom: 1px solid rgba(20,17,13,0.18);
+    align-items: center;
+  }
+  .scoreboard .row:last-child { border-bottom: 0; }
+  .scoreboard .row.head {
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+  }
+  .scoreboard .row.empty {
+    color: rgba(20,17,13,0.4);
+    font-style: italic;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .tag.run-up { background: var(--ink); color: var(--paper); }
+  .tag.stake { background: var(--stamp); color: var(--paper); }
+  .tag.empty { background: transparent; border: 1px dashed var(--ink-soft); color: var(--ink-soft); }
+  .scoreboard .footer-note {
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--ink);
+    background: rgba(0,0,0,0.03);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- dispatches ---------- */
+  .dispatch {
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--ink);
+    background: rgba(255,255,255,0.18);
+    font-family: 'Special Elite', monospace;
+  }
+  .dispatch .meta-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px dashed var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .dispatch .meta-row strong { color: var(--ink); }
+  .dispatch .body {
+    font-size: clamp(0.98rem, 1.4vw, 1.05rem);
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 680px;
+  }
+  .dispatch .body p { margin-bottom: 1rem; }
+  .dispatch .body p:last-child { margin-bottom: 0; }
+  .dispatch .signoff {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--ink-soft);
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: #2c3e8b;
+    line-height: 1.1;
+  }
+  .dispatch .signoff .meta {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .dispatch.future {
+    opacity: 0.55;
+    background: rgba(0,0,0,0.03);
+  }
+  .dispatch.future .body {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .dispatch.future .meta-row {
+    color: var(--ink-soft);
+  }
+
+  /* ---------- footer ---------- */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer .leak-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Special Elite', monospace;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .footer .leak-stamp {
+    display: inline-block;
+    background: var(--redact);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    padding: 4px 8px;
+    transform: rotate(-3deg) scale(0.6);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(.2,1.6,.4,1), opacity 0.3s;
+  }
+  .footer .leak-stamp.land {
+    opacity: 1;
+    transform: rotate(-3deg) scale(1);
+  }
+  .footer a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+  }
+  .footer a:hover { color: var(--stamp); border-color: var(--stamp); }
+
+  /* ---------- audio toggle ---------- */
+  .audio-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    background: rgba(20,17,13,0.85);
+    color: rgba(236,228,210,0.85);
+    border: 1px solid rgba(236,228,210,0.25);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s, color 0.2s;
+  }
+  .audio-toggle:hover {
+    background: rgba(20,17,13,0.95);
+    color: var(--paper);
+  }
+  .audio-toggle.on { color: #00ff9c; border-color: rgba(0,255,156,0.35); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 720px) {
+    .stack { margin: 1rem auto 2rem; padding: 0; }
+    .page { margin-top: 36px; padding: 1.5rem 1.25rem 2rem; }
+    .file-header { font-size: 0.6rem; }
+    .file-edge .tab { font-size: 0.5rem; padding: 3px 10px 5px; }
+    .stamp { right: 2%; top: 22%; font-size: 1.4rem; }
     .stamp-2 { left: 2%; bottom: 4%; }
+    .hw-1 { top: 60%; left: 2%; font-size: 1rem; }
+    .hw-2 { font-size: 1.3rem; }
+    .ways { padding: 1rem 1.1rem; }
+    .scoreboard .row { grid-template-columns: 90px 1fr 1fr; font-size: 0.68rem; }
+    .scoreboard .row .hide-mobile { display: none; }
+    .scoreboard .row.head { font-size: 0.6rem; }
+    .footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .audio-toggle { font-size: 0.55rem; padding: 6px 9px; }
+    .subhead { font-size: 0.62rem; letter-spacing: 0.22em; }
   }
 </style>
 </head>
 <body>
-  <div class="page">
-    <header class="file-header">
-      <div class="left">
-        <span><strong>FILE NO.</strong> &nbsp; GC-0x7f3a / cls-001</span>
-        <span><strong>SUBJECT:</strong> &nbsp; <span style="text-transform:none; letter-spacing:0;">incident report — anomaly observed in market substrate</span></span>
-        <span><strong>STATUS:</strong> &nbsp; <span style="color:var(--stamp);">▮▮▮▮ active</span></span>
+
+  <button class="audio-toggle" id="audioToggle" aria-label="Toggle ambient audio">[ ◯ ] AUDIO OFF</button>
+
+  <div class="stack">
+    <div class="file-edge f-004">
+      <span class="tab">FILE 004</span>
+      <span class="access-denied">⛌ ACCESS DENIED</span>
+    </div>
+    <div class="file-edge f-003">
+      <span class="tab">FILE 003 · ▮▮▮▮▮▮ PROTOCOL</span>
+      <span class="access-denied">⛌ ACCESS DENIED</span>
+    </div>
+    <div class="file-edge f-002">
+      <span class="tab">FILE 002 · MECHANISM</span>
+      <span class="label">CLEARANCE: ▮▮▮</span>
+      <span class="access-denied">⛌ DECLASSIFIED ON DISPATCH 002</span>
+    </div>
+
+    <article class="page">
+
+      <header class="file-header">
+        <div class="left">
+          <span><strong>FILE NO.</strong> &nbsp; GC-0x7f3a / cls-001</span>
+          <span><strong>SUBJECT:</strong> &nbsp; <span style="text-transform:none; letter-spacing:0;">incident report — anomaly observed in market substrate</span></span>
+          <span><strong>STATUS:</strong> &nbsp; <span style="color:var(--stamp);">▮▮▮▮ active</span></span>
+        </div>
+        <div class="right">
+          <span><strong>DATE:</strong> &nbsp; <span id="date">—</span></span>
+          <span><strong>CLASS:</strong> &nbsp; level ▮▮ / eyes only</span>
+          <span><strong>PAGE:</strong> &nbsp; 001 of ▮▮▮</span>
+        </div>
+      </header>
+
+      <div class="banner">classified // do not duplicate // do not distribute</div>
+
+      <!-- ============= MEMO ============= -->
+      <section class="memo">
+        <div class="memo-meta">
+          <div class="row"><span class="k">from</span><span class="v">▮▮▮▮▮▮▮▮▮▮▮▮▮▮ &lt;troy@glitchcommerce.com&gt;</span></div>
+          <div class="row"><span class="k">to</span><span class="v">all hands · all nodes · everyone listening</span></div>
+          <div class="row"><span class="k">re</span><span class="v">an irregularity</span></div>
+        </div>
+
+        <h1 class="headline">
+          <span class="line">we found a glitch</span>
+          <span class="line">in the <span class="redact" data-text="matrix">matrix<span class="scrape"></span></span><span class="redact" data-text=".">.<span class="scrape"></span></span></span>
+        </h1>
+
+        <p class="finding">
+          we know how to make money creation a <span class="redact" data-text="commodity">commodity<span class="scrape"></span></span>.
+        </p>
+
+        <p class="mission">
+          my mission is to make
+          <span class="redact" data-text="everyone">everyone<span class="scrape"></span></span>
+          rich.
+        </p>
+
+        <div class="stamp">CONFIDENTIAL</div>
+        <div class="stamp-2">// EYES ONLY</div>
+
+        <div class="handwriting hw-1">
+          <span class="arrow">↙</span>
+          the engine.<br>not a feature.
+        </div>
+        <div class="handwriting hw-2">!</div>
+      </section>
+
+      <!-- ============= ADDENDUM A · MANIFESTO ============= -->
+      <div class="subhead">
+        <span>ADDENDUM A · OPERATING MANIFESTO</span>
+        <span class="right">filing 001 / 02 may 2026</span>
       </div>
-      <div class="right">
-        <span><strong>DATE:</strong> &nbsp; <span id="date">—</span></span>
-        <span><strong>CLASS:</strong> &nbsp; level ▮▮ / eyes only</span>
-        <span><strong>PAGE:</strong> &nbsp; 001 of ▮▮▮</span>
+
+      <section class="manifesto">
+        <p>
+          we are not asking you to believe.
+          we are telling you what is going to happen.
+        </p>
+
+        <p>
+          when the glitch lands — and it lands, this is when, not if —
+          people are going to run up the scoreboards. quietly first.
+          loudly after. our intent is to put this in the hands of as many
+          as we can, as fast as we can, and let success stories roll in.
+        </p>
+
+        <p>
+          the thesis is open. the execution is ours. money creation is
+          becoming a commodity, and we built the equipment to mine it.
+          every quarter we will come back to this page, sign, date, and
+          tell you what shipped, what worked, what we learned. years
+          from now, this log is the artifact.
+        </p>
+
+        <div class="ways">
+          <span class="ways-line"><strong>two ways in.</strong></span>
+          <span class="ways-line">run the play <span class="arrow">→</span> we take a cut of what you make.</span>
+          <span class="ways-line">stake the play <span class="arrow">→</span> we share the upside, faster, bigger.</span>
+          <span class="ways-line seal">both make you richer than not playing.</span>
+        </div>
+      </section>
+
+      <!-- ============= APPENDIX B · SCOREBOARD ============= -->
+      <div class="subhead">
+        <span>APPENDIX B · SCOREBOARD</span>
+        <span class="right">verified · ongoing · public</span>
       </div>
-    </header>
 
-    <div class="banner">classified // do not duplicate // do not distribute</div>
-
-    <main>
-      <div class="memo-meta">
-        <div class="row"><span class="k">from</span><span class="v">▮▮▮▮▮▮▮▮▮▮▮▮▮▮ &lt;troy@glitchcommerce.com&gt;</span></div>
-        <div class="row"><span class="k">to</span><span class="v">all hands · all nodes · everyone listening</span></div>
-        <div class="row"><span class="k">re</span><span class="v">an irregularity</span></div>
-      </div>
-
-      <h1 class="headline">
-        <span class="line">we found a glitch</span>
-        <span class="line">in the <span class="redact" title="">matrix</span><span class="redact" title="">.</span></span>
-      </h1>
-
-      <p class="finding">
-        we know how to make money creation a <span class="redact" title="">commodity</span>.
+      <p style="font-family:'Special Elite',monospace; font-size:1rem; line-height:1.7; color:var(--ink); max-width:680px; margin-bottom:1.25rem;">
+        the scoreboard starts empty. as plays return, names redact in.
+        cuts and shares of upside paid back to glitchcommerce are
+        redacted on every row — but the row exists. the row is the proof.
       </p>
 
-      <p class="mission">
-        my mission is to make
-        <span class="redact" title="">everyone</span>
-        rich.
+      <div class="scoreboard">
+        <div class="row head">
+          <div>type</div>
+          <div>operator</div>
+          <div>return</div>
+          <div>duration</div>
+          <div class="hide-mobile">play</div>
+          <div class="hide-mobile">our cut</div>
+        </div>
+        <div class="row empty">
+          <div><span class="tag empty">RUN-UP</span></div>
+          <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 2026</div>
+          <div>+$ ▮▮,▮▮▮</div>
+          <div>14 wk</div>
+          <div class="hide-mobile">▮▮▮▮▮▮▮▮ #001</div>
+          <div class="hide-mobile">▮▮ %</div>
+        </div>
+        <div class="row empty">
+          <div><span class="tag empty">STAKE</span></div>
+          <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 2026</div>
+          <div>▮.▮ ×</div>
+          <div>6 wk</div>
+          <div class="hide-mobile">▮▮▮▮▮▮▮▮ #003</div>
+          <div class="hide-mobile">▮▮ %</div>
+        </div>
+        <div class="row empty">
+          <div><span class="tag empty">RUN-UP</span></div>
+          <div>▮▮▮▮ ▮▮▮▮▮▮ · q4 2026</div>
+          <div>+$ ▮▮▮,▮▮▮</div>
+          <div>9 wk</div>
+          <div class="hide-mobile">▮▮▮▮▮▮▮▮ #002</div>
+          <div class="hide-mobile">▮▮ %</div>
+        </div>
+        <div class="row empty">
+          <div><span class="tag empty">STAKE</span></div>
+          <div>▮▮▮▮ ▮▮▮▮▮▮ · q4 2026</div>
+          <div>▮.▮ ×</div>
+          <div>4 wk</div>
+          <div class="hide-mobile">▮▮▮▮▮▮▮▮ #004</div>
+          <div class="hide-mobile">▮▮ %</div>
+        </div>
+        <div class="row empty">
+          <div><span class="tag empty">RUN-UP</span></div>
+          <div>▮▮▮▮ ▮▮▮▮▮▮ · q1 2027</div>
+          <div>+$ ▮,▮▮▮,▮▮▮</div>
+          <div>11 wk</div>
+          <div class="hide-mobile">▮▮▮▮▮▮▮▮ #007</div>
+          <div class="hide-mobile">▮▮ %</div>
+        </div>
+        <div class="footer-note">
+          rows populate as wins are verified. every row paid for the
+          next dispatch. when this scoreboard fills the page, we will
+          print a new one underneath.
+        </div>
+      </div>
+
+      <!-- ============= LOGBOOK · DISPATCHES ============= -->
+      <div class="subhead">
+        <span>LOGBOOK · DISPATCHES</span>
+        <span class="right">quarterly · signed · archived</span>
+      </div>
+
+      <p style="font-family:'Special Elite',monospace; font-size:1rem; line-height:1.7; color:var(--ink); max-width:680px; margin-bottom:1.5rem;">
+        every quarter — until the work is done — i return to this page
+        and write a dispatch. signed. dated. nothing edited after the
+        fact. the log is the receipt.
       </p>
 
-      <div class="stamp">CONFIDENTIAL</div>
-      <div class="stamp-2">// EYES ONLY</div>
-    </main>
+      <article class="dispatch">
+        <div class="meta-row">
+          <span><strong>ENTRY 001</strong> · <span style="text-transform:none; letter-spacing:0;">a signal in the noise</span></span>
+          <span>signed: t.l. · archived 02 may 2026</span>
+        </div>
+        <div class="body">
+          <p>
+            we found it. i don't know how long this works before
+            someone closes the door, or if anyone closes it at all.
+            that's the bet.
+          </p>
+          <p>
+            what i do know: the formula runs, it returns, and right
+            now about <span class="redact" data-text="seventeen">seventeen<span class="scrape"></span></span>
+            people on earth know it exists. by the time you read the
+            next dispatch, that number is bigger.
+          </p>
+          <p>
+            two paths: run it yourself and we cut on what you make,
+            or stake the play and share the upside on what we deploy.
+            no fee up front, ever. dispatch 002 will name the mechanism.
+          </p>
+          <p>
+            the scoreboard above starts empty on purpose. fill it with
+            us. years from now we will scroll back to this entry and
+            laugh at how small the table started.
+          </p>
+          <p>
+            mission is unchanged: make everyone rich.
+            not "everyone who finds us." not "everyone who pays us."
+            everyone.
+          </p>
+        </div>
+        <div class="signoff">
+          — T.L.
+          <span class="meta">glitchcommerce · entry 001 · 02 may 2026</span>
+        </div>
+      </article>
 
-    <footer class="footer">
-      <div class="leak">
-        <span class="tag">LEAK</span>
-        <a href="mailto:troy@glitchcommerce.com">troy@glitchcommerce.com</a>
-      </div>
-      <div>
-        <div>archive ref ▮▮▮▮·▮▮·▮▮</div>
-        <div>node 0x7f3a · v.001</div>
-      </div>
-    </footer>
+      <article class="dispatch future">
+        <div class="meta-row">
+          <span><strong>ENTRY 002</strong> · ▮▮▮▮▮▮▮▮▮▮ ▮▮▮ ▮▮▮▮▮▮▮▮▮</span>
+          <span>scheduled: q3 2026 · ▮▮▮▮▮▮▮▮</span>
+        </div>
+        <div class="body">
+          <p>declassified on filing.</p>
+        </div>
+      </article>
+
+      <article class="dispatch future">
+        <div class="meta-row">
+          <span><strong>ENTRY 003</strong> · ▮▮▮▮▮▮▮▮ ▮▮▮ ▮▮▮▮▮▮</span>
+          <span>scheduled: q4 2026 · ▮▮▮▮▮▮▮▮</span>
+        </div>
+        <div class="body">
+          <p>declassified on filing.</p>
+        </div>
+      </article>
+
+      <article class="dispatch future">
+        <div class="meta-row">
+          <span><strong>ENTRY 004</strong> · ▮▮▮▮▮▮▮▮▮▮▮▮▮</span>
+          <span>scheduled: q1 2027 · ▮▮▮▮▮▮▮▮</span>
+        </div>
+        <div class="body">
+          <p>declassified on filing.</p>
+        </div>
+      </article>
+
+      <!-- ============= FOOTER ============= -->
+      <footer class="footer">
+        <div class="leak-wrap">
+          <span class="leak-stamp" id="leakStamp">LEAK</span>
+          <a href="mailto:troy@glitchcommerce.com">troy@glitchcommerce.com</a>
+        </div>
+        <div>
+          <div>archive ref ▮▮▮▮·▮▮·▮▮</div>
+          <div>node 0x7f3a · v.001 · <span id="ts">—</span></div>
+        </div>
+      </footer>
+
+    </article>
   </div>
 
+  <div class="hold-hint" id="holdHint">↪ click + hold any black bar to decrypt</div>
+
 <script>
+(function() {
+  // ---------- date / timestamp ----------
   const d = new Date();
   const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   document.getElementById('date').textContent =
     `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+
+  function tick() {
+    const dd = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('ts').textContent =
+      `${pad(dd.getUTCHours())}:${pad(dd.getUTCMinutes())}:${pad(dd.getUTCSeconds())} utc`;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- audio (synthesized via WebAudio) ----------
+  let audioCtx = null;
+  let masterGain = null;
+  let staticNode = null;
+  let audioOn = false;
+  const toggle = document.getElementById('audioToggle');
+
+  function initAudio() {
+    if (audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0;
+    masterGain.connect(audioCtx.destination);
+
+    // ambient radio static
+    const bufferSize = 2 * audioCtx.sampleRate;
+    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+    staticNode = audioCtx.createBufferSource();
+    staticNode.buffer = noiseBuffer;
+    staticNode.loop = true;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 1100;
+    filter.Q.value = 0.6;
+    const staticGain = audioCtx.createGain();
+    staticGain.gain.value = 0.06;
+    staticNode.connect(filter).connect(staticGain).connect(masterGain);
+    staticNode.start(0);
+  }
+
+  function clickSound() {
+    if (!audioOn || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const env = audioCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(2200 + Math.random() * 400, t);
+    env.gain.setValueAtTime(0.0001, t);
+    env.gain.exponentialRampToValueAtTime(0.18, t + 0.002);
+    env.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
+    osc.connect(env).connect(masterGain);
+    osc.start(t);
+    osc.stop(t + 0.06);
+  }
+
+  function thudSound() {
+    if (!audioOn || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const env = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(140, t);
+    osc.frequency.exponentialRampToValueAtTime(60, t + 0.18);
+    env.gain.setValueAtTime(0.4, t);
+    env.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+    osc.connect(env).connect(masterGain);
+    osc.start(t);
+    osc.stop(t + 0.3);
+  }
+
+  toggle.addEventListener('click', () => {
+    initAudio();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    audioOn = !audioOn;
+    masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    masterGain.gain.linearRampToValueAtTime(audioOn ? 0.5 : 0, audioCtx.currentTime + 0.3);
+    toggle.classList.toggle('on', audioOn);
+    toggle.textContent = audioOn ? '[ ● ] AUDIO ON' : '[ ◯ ] AUDIO OFF';
+  });
+
+  // ---------- redactions: click + hold to decrypt ----------
+  const HOLD_MS = 2000;
+  const TICK_MS = 100;
+  const redactions = document.querySelectorAll('.redact');
+  let activeRedact = null;
+  let holdTimer = null;
+  let tickTimer = null;
+  let holdStart = 0;
+
+  function startHold(el, ev) {
+    if (el.classList.contains('revealed')) return;
+    if (ev) ev.preventDefault();
+    activeRedact = el;
+    holdStart = performance.now();
+    el.classList.add('scraping');
+    clickSound();
+    tickTimer = setInterval(clickSound, TICK_MS);
+    holdTimer = setTimeout(() => {
+      reveal(el);
+    }, HOLD_MS);
+  }
+
+  function cancelHold() {
+    if (!activeRedact) return;
+    clearTimeout(holdTimer);
+    clearInterval(tickTimer);
+    if (!activeRedact.classList.contains('revealed')) {
+      activeRedact.classList.remove('scraping');
+    }
+    activeRedact = null;
+  }
+
+  function reveal(el) {
+    clearInterval(tickTimer);
+    el.classList.remove('scraping');
+    el.classList.add('revealed');
+    el.textContent = el.dataset.text || el.textContent;
+    activeRedact = null;
+    // satisfying low click on full reveal
+    if (audioOn && audioCtx) {
+      const t = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const env = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(700, t);
+      env.gain.setValueAtTime(0.0001, t);
+      env.gain.exponentialRampToValueAtTime(0.25, t + 0.005);
+      env.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+      osc.connect(env).connect(masterGain);
+      osc.start(t);
+      osc.stop(t + 0.15);
+    }
+    hideHint();
+  }
+
+  redactions.forEach(el => {
+    el.addEventListener('mousedown', e => startHold(el, e));
+    el.addEventListener('touchstart', e => startHold(el, e), { passive: false });
+  });
+  ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
+    document.addEventListener(ev, cancelHold)
+  );
+
+  // ---------- hold hint ----------
+  const hint = document.getElementById('holdHint');
+  let hintHidden = false;
+  function hideHint() {
+    if (hintHidden) return;
+    hintHidden = true;
+    hint.classList.add('hidden');
+    setTimeout(() => hint.remove(), 800);
+  }
+  setTimeout(hideHint, 12000);
+
+  // ---------- LEAK stamp arrives late ----------
+  setTimeout(() => {
+    const stamp = document.getElementById('leakStamp');
+    stamp.classList.add('land');
+    thudSound();
+  }, 900);
+
+  // ---------- status ticker (manifesto subhead bonus) ----------
+  const statuses = ['▮▮▮▮ ACTIVE', '▮▮▮▮ INTERCEPTED', '▮▮▮▮ CIRCULATING', '▮▮▮▮ ARCHIVED', '▮▮▮▮ ACTIVE'];
+  let si = 0;
+  const statusEl = document.querySelector('.file-header .left span:last-child span');
+  if (statusEl) {
+    setInterval(() => {
+      si = (si + 1) % statuses.length;
+      statusEl.style.opacity = '0';
+      setTimeout(() => {
+        statusEl.textContent = statuses[si].toLowerCase();
+        statusEl.style.opacity = '1';
+      }, 300);
+    }, 6000);
+    statusEl.style.transition = 'opacity 0.3s';
+  }
+})();
 </script>
 </body>
 </html>
