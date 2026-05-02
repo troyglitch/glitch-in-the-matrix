@@ -240,56 +240,6 @@
     text-indent: 0.6em;
   }
 
-  /* ---------- live status strip ---------- */
-  .live-strip {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    padding: 0.55rem 0.5rem;
-    margin-top: -1px;
-    border-bottom: 1px dashed var(--ink-soft);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.66rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .live-strip .stat {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .live-strip .stat strong {
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .live-strip .pulse {
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--stamp);
-    box-shadow: 0 0 0 0 rgba(179, 38, 30, 0.5);
-    animation: dot-pulse 2.2s ease-in-out infinite;
-  }
-  @keyframes dot-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(179, 38, 30, 0.6); }
-    50%      { box-shadow: 0 0 0 6px rgba(179, 38, 30, 0); }
-  }
-  .live-strip .num {
-    color: var(--ink);
-    font-weight: 500;
-    transition: color 0.15s ease;
-  }
-  .live-strip .num.flash {
-    color: var(--stamp);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .live-strip .pulse { animation: none; box-shadow: none; }
-  }
-
   /* ---------- paper deterioration (wear over time) ---------- */
   .wear {
     position: absolute;
@@ -987,14 +937,6 @@
     }
     .file-header .right { text-align: left; }
     .banner { font-size: 0.62rem; letter-spacing: 0.4em; padding: 0.35rem 0; }
-    .live-strip {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.4rem;
-      padding: 0.6rem 0.7rem;
-      font-size: 0.58rem;
-      letter-spacing: 0.16em;
-    }
     .wear.coffee { width: 90px; height: 90px; right: 4%; top: 12%; }
     .wear.annotation { font-size: 0.95rem; right: -4px; top: 32%; width: 110px; }
     .wear.thumbprint { width: 60px; height: 75px; }
@@ -1140,18 +1082,13 @@
         </div>
         <div class="right">
           <span><strong>DATE:</strong> &nbsp; <span id="date">—</span></span>
+          <span><strong>LEAKED:</strong> &nbsp; <span id="leakedAgo">—</span> ago</span>
           <span><strong>CLASS:</strong> &nbsp; level ▮▮ / eyes only</span>
           <span><strong>PAGE:</strong> &nbsp; 001 of ▮▮▮</span>
         </div>
       </header>
 
       <div class="banner">classified // do not duplicate // do not distribute</div>
-
-      <div class="live-strip" aria-live="polite">
-        <span class="stat"><strong>ACCESS</strong> · NO. <span class="num" id="accessNo">—</span></span>
-        <span class="stat"><span class="pulse" aria-hidden="true"></span><strong>EYES ON FILE</strong> · ▮▮ + <span class="num" id="eyesOnFile">—</span></span>
-        <span class="stat"><strong>LEAKED</strong> · <span class="num" id="leakedAgo">—</span> ago</span>
-      </div>
 
       <!-- ============= MEMO ============= -->
       <section class="memo">
@@ -1406,31 +1343,7 @@
   document.getElementById('date').textContent =
     `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 
-  // ---------- live counters ----------
-  // ACCESS: real per-browser visit count via localStorage
-  const STORAGE_KEY = 'gc_access';
-  let access = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10) + 1;
-  localStorage.setItem(STORAGE_KEY, String(access));
-  const accessEl = document.getElementById('accessNo');
-  accessEl.textContent = String(access).padStart(3, '0');
-
-  // EYES ON FILE: simulated random walk (3-12), changes every 6-14s
-  const eyesEl = document.getElementById('eyesOnFile');
-  let eyes = 4 + Math.floor(Math.random() * 6);
-  function flashNum(el) {
-    el.classList.add('flash');
-    setTimeout(() => el.classList.remove('flash'), 280);
-  }
-  function tickEyes() {
-    eyes = Math.max(2, Math.min(13, eyes + (Math.random() < 0.5 ? -1 : 1) + (Math.random() < 0.15 ? (Math.random() < 0.5 ? -1 : 1) : 0)));
-    eyesEl.textContent = String(eyes);
-    flashNum(eyesEl);
-    setTimeout(tickEyes, 6000 + Math.random() * 8000);
-  }
-  eyesEl.textContent = String(eyes);
-  setTimeout(tickEyes, 4000);
-
-  // LEAKED ago: real time delta from launch timestamp
+  // ---------- LEAKED ago: real time delta from launch timestamp ----------
   const LAUNCH = new Date('2026-05-02T06:00:00Z').getTime();
   const leakedEl = document.getElementById('leakedAgo');
   function tickLeaked() {
@@ -1442,12 +1355,12 @@
     let s;
     if (day >= 1) s = `${day}d ${hr % 24}h`;
     else if (hr >= 1) s = `${hr}h ${min % 60}m`;
-    else if (min >= 1) s = `${min}m ${sec % 60}s`;
+    else if (min >= 1) s = `${min}m`;
     else s = `${sec}s`;
     leakedEl.textContent = s;
   }
   tickLeaked();
-  setInterval(tickLeaked, 1000);
+  setInterval(tickLeaked, 30000);
 
   // ---------- paper deterioration ----------
   const memoSection = document.querySelector('.memo');
