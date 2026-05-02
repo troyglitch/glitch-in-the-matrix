@@ -662,7 +662,12 @@
     <span class="latin">scribe nomen tuum — write your name</span>
   </div>
 
-  <form class="ledger-form" id="ledgerForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
+  <form class="ledger-form" id="ledgerForm" action="https://formsubmit.co/ajax/troy@glitchcommerce.com" method="POST" novalidate>
+    <!-- formsubmit config -->
+    <input type="hidden" name="_subject" value="the order — new inscription" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_honey" value="" />
     <p class="form-lead">
       the work has VII folios. the next one names the mechanism.<br>
       add your name to the ledger. when the door opens, we will write to you.
@@ -797,11 +802,38 @@
     submitBtn.disabled = true;
 
     const action = form.action;
+    const usingFormsubmit = /formsubmit\.co\/ajax\/[^/]+/.test(action);
     const usingFormspree = /formspree\.io\/f\/[a-zA-Z0-9]{6,}/.test(action) && !/REPLACE_WITH_YOUR_FORM_ID/.test(action);
 
     let ok = false;
 
-    if (usingFormspree) {
+    if (usingFormsubmit) {
+      // Formsubmit.co AJAX endpoint expects JSON
+      const payload = {
+        email: email,
+        standing: standing,
+        note: noteText,
+        folio: 'ii',
+        phrase: 'dives omnes',
+        _subject: 'the order — new inscription',
+        _template: 'table',
+        _captcha: 'false',
+      };
+      try {
+        const r = await fetch(action, {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+        const data = await r.json().catch(() => ({}));
+        ok = r.ok && (data.success === 'true' || data.success === true);
+      } catch (_) {
+        ok = false;
+      }
+    } else if (usingFormspree) {
       try {
         const fd = new FormData(form);
         const r = await fetch(action, {
