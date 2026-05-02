@@ -240,6 +240,175 @@
     text-indent: 0.6em;
   }
 
+  /* ---------- live status strip ---------- */
+  .live-strip {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding: 0.55rem 0.5rem;
+    margin-top: -1px;
+    border-bottom: 1px dashed var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .live-strip .stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .live-strip .stat strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .live-strip .pulse {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--stamp);
+    box-shadow: 0 0 0 0 rgba(179, 38, 30, 0.5);
+    animation: dot-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(179, 38, 30, 0.6); }
+    50%      { box-shadow: 0 0 0 6px rgba(179, 38, 30, 0); }
+  }
+  .live-strip .num {
+    color: var(--ink);
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .live-strip .num.flash {
+    color: var(--stamp);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-strip .pulse { animation: none; box-shadow: none; }
+  }
+
+  /* ---------- paper deterioration (wear over time) ---------- */
+  .wear {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 1.8s ease-in;
+    z-index: 6;
+  }
+  .wear.visible { opacity: 1; }
+
+  .wear.coffee {
+    top: 8%;
+    right: 6%;
+    width: 130px;
+    height: 130px;
+    background:
+      radial-gradient(circle at 50% 50%,
+        transparent 0%,
+        transparent 38%,
+        rgba(120, 70, 30, 0.18) 42%,
+        rgba(120, 70, 30, 0.32) 48%,
+        rgba(80, 45, 18, 0.20) 56%,
+        transparent 62%);
+    transform: rotate(-12deg) scale(0.95);
+    mix-blend-mode: multiply;
+    filter: blur(0.6px);
+  }
+  .wear.coffee::after {
+    content: '';
+    position: absolute;
+    inset: 18% 18%;
+    background:
+      radial-gradient(circle at 60% 35%, rgba(120, 70, 30, 0.10) 0%, transparent 50%),
+      radial-gradient(circle at 30% 70%, rgba(120, 70, 30, 0.08) 0%, transparent 60%);
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+  }
+
+  .wear.annotation {
+    top: 24%;
+    right: -8px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    color: #2c3e8b;
+    transform: rotate(4deg);
+    width: 130px;
+    line-height: 1.2;
+    text-align: left;
+  }
+  .wear.annotation .arr {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: -3px;
+  }
+
+  .wear.thumbprint {
+    bottom: 4%;
+    left: 4%;
+    width: 80px;
+    height: 100px;
+    background:
+      radial-gradient(ellipse 38% 48% at 50% 55%,
+        rgba(60, 40, 20, 0.16) 0%,
+        rgba(60, 40, 20, 0.10) 40%,
+        transparent 75%);
+    mix-blend-mode: multiply;
+    filter: blur(1.2px);
+    transform: rotate(-15deg);
+  }
+  .wear.thumbprint::after {
+    content: '';
+    position: absolute;
+    inset: 22% 28%;
+    background:
+      repeating-radial-gradient(circle at 50% 50%,
+        transparent 0px,
+        transparent 2px,
+        rgba(60, 40, 20, 0.10) 2.5px,
+        transparent 3.2px);
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+  }
+
+  /* page curl — fixed to viewport bottom-right */
+  .page-curl {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2.4s ease-in;
+    z-index: 8;
+    background:
+      linear-gradient(225deg,
+        transparent 0%,
+        transparent 48%,
+        rgba(140, 110, 70, 0.25) 49%,
+        var(--paper-2) 51%,
+        var(--paper) 80%);
+    box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.18);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    transform: scale(0.6) translate(20%, 20%);
+    transform-origin: bottom right;
+  }
+  .page-curl.visible {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+    transition: opacity 1.8s ease-in, transform 2.4s cubic-bezier(.2,.8,.3,1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wear, .page-curl {
+      transition: none;
+      opacity: 1;
+    }
+  }
+
   /* ---------- memo block ---------- */
   .memo {
     position: relative;
@@ -818,6 +987,18 @@
     }
     .file-header .right { text-align: left; }
     .banner { font-size: 0.62rem; letter-spacing: 0.4em; padding: 0.35rem 0; }
+    .live-strip {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+      padding: 0.6rem 0.7rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+    }
+    .wear.coffee { width: 90px; height: 90px; right: 4%; top: 12%; }
+    .wear.annotation { font-size: 0.95rem; right: -4px; top: 32%; width: 110px; }
+    .wear.thumbprint { width: 60px; height: 75px; }
+    .page-curl { width: 44px; height: 44px; }
     .file-edge .tab { font-size: 0.5rem; padding: 3px 10px 5px; }
 
     .memo { padding: 2rem 0 1.5rem; }
@@ -966,6 +1147,12 @@
 
       <div class="banner">classified // do not duplicate // do not distribute</div>
 
+      <div class="live-strip" aria-live="polite">
+        <span class="stat"><strong>ACCESS</strong> · NO. <span class="num" id="accessNo">—</span></span>
+        <span class="stat"><span class="pulse" aria-hidden="true"></span><strong>EYES ON FILE</strong> · ▮▮ + <span class="num" id="eyesOnFile">—</span></span>
+        <span class="stat"><strong>LEAKED</strong> · <span class="num" id="leakedAgo">—</span> ago</span>
+      </div>
+
       <!-- ============= MEMO ============= -->
       <section class="memo">
         <div class="memo-meta">
@@ -984,7 +1171,7 @@
         </p>
 
         <p class="mission">
-          my mission is to make
+          our mission is to make
           <span class="redact" data-text="everyone">everyone<span class="scrape"></span></span>
           rich.
         </p>
@@ -1218,6 +1405,72 @@
   const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   document.getElementById('date').textContent =
     `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+
+  // ---------- live counters ----------
+  // ACCESS: real per-browser visit count via localStorage
+  const STORAGE_KEY = 'gc_access';
+  let access = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10) + 1;
+  localStorage.setItem(STORAGE_KEY, String(access));
+  const accessEl = document.getElementById('accessNo');
+  accessEl.textContent = String(access).padStart(3, '0');
+
+  // EYES ON FILE: simulated random walk (3-12), changes every 6-14s
+  const eyesEl = document.getElementById('eyesOnFile');
+  let eyes = 4 + Math.floor(Math.random() * 6);
+  function flashNum(el) {
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 280);
+  }
+  function tickEyes() {
+    eyes = Math.max(2, Math.min(13, eyes + (Math.random() < 0.5 ? -1 : 1) + (Math.random() < 0.15 ? (Math.random() < 0.5 ? -1 : 1) : 0)));
+    eyesEl.textContent = String(eyes);
+    flashNum(eyesEl);
+    setTimeout(tickEyes, 6000 + Math.random() * 8000);
+  }
+  eyesEl.textContent = String(eyes);
+  setTimeout(tickEyes, 4000);
+
+  // LEAKED ago: real time delta from launch timestamp
+  const LAUNCH = new Date('2026-05-02T06:00:00Z').getTime();
+  const leakedEl = document.getElementById('leakedAgo');
+  function tickLeaked() {
+    const delta = Math.max(0, Date.now() - LAUNCH);
+    const sec = Math.floor(delta / 1000);
+    const min = Math.floor(sec / 60);
+    const hr  = Math.floor(min / 60);
+    const day = Math.floor(hr / 24);
+    let s;
+    if (day >= 1) s = `${day}d ${hr % 24}h`;
+    else if (hr >= 1) s = `${hr}h ${min % 60}m`;
+    else if (min >= 1) s = `${min}m ${sec % 60}s`;
+    else s = `${sec}s`;
+    leakedEl.textContent = s;
+  }
+  tickLeaked();
+  setInterval(tickLeaked, 1000);
+
+  // ---------- paper deterioration ----------
+  const memoSection = document.querySelector('.memo');
+  function addWear(cls, html) {
+    const el = document.createElement('div');
+    el.className = 'wear ' + cls;
+    if (html) el.innerHTML = html;
+    memoSection.appendChild(el);
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+  }
+  // 22s: faint coffee ring blooms in
+  setTimeout(() => addWear('coffee'), 22000);
+  // 55s: handwritten margin annotation appears
+  setTimeout(() => addWear('annotation', '<span class="arr">↗</span>ask M about<br>this one'), 55000);
+  // 110s: page corner curls (fixed-position viewport effect)
+  setTimeout(() => {
+    const curl = document.createElement('div');
+    curl.className = 'page-curl';
+    document.body.appendChild(curl);
+    requestAnimationFrame(() => requestAnimationFrame(() => curl.classList.add('visible')));
+  }, 110000);
+  // 240s: thumbprint smudge
+  setTimeout(() => addWear('thumbprint'), 240000);
 
   function tick() {
     const dd = new Date();
