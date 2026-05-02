@@ -178,9 +178,14 @@
     background: var(--paper);
     box-shadow:
       0 1px 0 rgba(0,0,0,0.1),
-      0 8px 30px rgba(0,0,0,0.45);
+      0 8px 30px rgba(0,0,0,0.45),
+      /* scanner-edge artifact: dark bleed on left + bottom */
+      inset 12px 0 22px -12px rgba(0,0,0,0.45),
+      inset 0 -12px 22px -12px rgba(0,0,0,0.35);
     margin-top: 50px;
     padding: 2.5rem 3rem 3rem;
+    transform: rotate(-0.4deg);
+    transform-origin: 50% 0;
   }
   .page::after {
     content: '';
@@ -199,9 +204,116 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.3;
+    opacity: 0.34;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.07  0 0 0 0 0.04  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ---------- diagonal declassification watermark ---------- */
+  .watermark {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+  }
+  .watermark .wm-row {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.22em;
+    color: var(--ink);
+    white-space: nowrap;
+    transform: rotate(-22deg);
+    transform-origin: 0 50%;
+    margin-left: -20%;
+    line-height: 2.4;
+  }
+
+  /* ---------- horizontal fold marks (creased into thirds) ---------- */
+  .fold {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(to right,
+      transparent 0%,
+      rgba(60, 40, 20, 0.16) 8%,
+      rgba(60, 40, 20, 0.22) 50%,
+      rgba(60, 40, 20, 0.16) 92%,
+      transparent 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  .fold.f1 { top: 33%; }
+  .fold.f2 { top: 66%; }
+
+  /* ---------- agency letterhead ---------- */
+  .letterhead {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid var(--ink);
+  }
+  .letterhead .seal {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,0,0,0.06) 60%),
+      var(--paper);
+  }
+  .letterhead .seal::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+  }
+  .letterhead .seal svg {
+    width: 26px;
+    height: 26px;
+  }
+  .letterhead .agency {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .letterhead .agency .a-1 {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .letterhead .agency .a-2 {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .letterhead .agency .a-3 {
+    display: block;
+    font-size: 0.58rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    font-style: italic;
   }
 
   /* ---------- top header ---------- */
@@ -226,18 +338,70 @@
   .file-header .right { text-align: right; }
   .file-header strong { color: var(--ink); font-weight: 500; }
 
+  /* CIA-style classification banners — top + bottom mirrored */
   .banner {
     margin-top: 1rem;
-    padding: 0.45rem 0;
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
+    padding: 0.5rem 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
     text-align: center;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    letter-spacing: 0.6em;
-    font-size: 0.78rem;
+    letter-spacing: 0.5em;
+    font-size: 0.82rem;
     color: var(--ink);
-    text-indent: 0.6em;
+    text-indent: 0.5em;
+    background: rgba(0,0,0,0.025);
+  }
+  .banner.bottom {
+    margin-top: 0;
+  }
+
+  /* approved-for-release rectangular stamp */
+  .approved {
+    position: absolute;
+    top: 56%;
+    left: 4%;
+    z-index: 5;
+    transform: rotate(-3deg);
+    border: 2px solid var(--stamp);
+    color: var(--stamp);
+    background: transparent;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.5rem 0.8rem;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1.35;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .approved .ap-1 {
+    display: block;
+    font-weight: 500;
+    font-size: 0.72rem;
+  }
+  .approved .ap-2 {
+    display: block;
+    font-size: 0.6rem;
+    margin-top: 1px;
+  }
+  .approved .ap-3 {
+    display: block;
+    font-size: 0.55rem;
+    margin-top: 6px;
+    padding-top: 3px;
+    border-top: 1px dashed currentColor;
+  }
+  .approved .ap-3 .sig {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--stamp);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 4px;
   }
 
   /* ---------- paper deterioration (wear over time) ---------- */
@@ -499,22 +663,31 @@
   /* ---------- stamps ---------- */
   .stamp {
     position: absolute;
-    top: 24%;
-    right: 4%;
-    transform: rotate(-14deg);
+    top: 22%;
+    right: 3%;
+    transform: rotate(-12deg);
     border: 4px solid var(--stamp);
     color: var(--stamp);
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
-    letter-spacing: 0.18em;
-    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-    padding: 0.5rem 1.2rem;
+    letter-spacing: 0.16em;
+    font-size: clamp(1.05rem, 2vw, 1.55rem);
+    padding: 0.4rem 0.9rem;
     text-transform: uppercase;
-    opacity: 0.55;
+    opacity: 0.6;
     mix-blend-mode: multiply;
     pointer-events: none;
     user-select: none;
     z-index: 5;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .stamp .ts-sub {
+    display: block;
+    font-size: 0.6em;
+    letter-spacing: 0.22em;
+    opacity: 0.85;
+    margin-top: 2px;
   }
 
   .stamp-2 {
@@ -1074,28 +1247,61 @@
 
     <article class="page">
 
+      <!-- decorative photocopy effects -->
+      <div class="watermark" aria-hidden="true">
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+        <span class="wm-row">DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON · DECLASSIFIED IAW E.O. ▮▮▮▮▮ // SUBSTRATE OBSERVATION // ORCON</span>
+      </div>
+      <div class="fold f1" aria-hidden="true"></div>
+      <div class="fold f2" aria-hidden="true"></div>
+
+      <!-- agency letterhead -->
+      <div class="letterhead">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <polygon points="12,2 14.5,9 22,9 15.8,13.5 18.3,21 12,16.3 5.7,21 8.2,13.5 2,9 9.5,9" stroke="currentColor" fill="none"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="agency">
+          <span class="a-1">Glitchcommerce Intelligence Division</span>
+          <span class="a-2">Substrate Observation Unit · Office of Anomaly Analysis</span>
+          <span class="a-3">Established under Internal Directive ▮▮-▮▮ // Reading Room Reference: RDP-26-0X7F3A</span>
+        </div>
+      </div>
+
       <header class="file-header">
         <div class="left">
-          <span><strong>FILE NO.</strong> &nbsp; GC-0x7f3a / cls-001</span>
+          <span><strong>FILE NO.</strong> &nbsp; RDP-26-0X7F3A-001</span>
           <span><strong>SUBJECT:</strong> &nbsp; <span style="text-transform:none; letter-spacing:0;">incident report — anomaly observed in market substrate</span></span>
           <span><strong>STATUS:</strong> &nbsp; <span style="color:var(--stamp);">▮▮▮▮ active</span></span>
+          <span><strong>FORM:</strong> &nbsp; GID-1492 (rev 04/2026) — precedes all prior editions</span>
         </div>
         <div class="right">
           <span><strong>DATE:</strong> &nbsp; <span id="date">—</span></span>
           <span><strong>LEAKED:</strong> &nbsp; <span id="leakedAgo">—</span> ago</span>
-          <span><strong>CLASS:</strong> &nbsp; level ▮▮ / eyes only</span>
+          <span><strong>CLASS:</strong> &nbsp; ts // substrate // noforn</span>
           <span><strong>PAGE:</strong> &nbsp; 001 of ▮▮▮</span>
         </div>
       </header>
 
-      <div class="banner">classified // do not duplicate // do not distribute</div>
+      <div class="banner">top secret // substrate // noforn</div>
 
       <!-- ============= MEMO ============= -->
       <section class="memo">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--ink); margin-bottom:0.85rem; padding-bottom:0.5rem; border-bottom:1px solid var(--ink-soft);">
+          memorandum for the record
+        </div>
         <div class="memo-meta">
           <div class="row"><span class="k">from</span><span class="v">▮▮▮▮▮▮▮▮▮▮▮▮▮▮ &lt;troy@glitchcommerce.com&gt;</span></div>
           <div class="row"><span class="k">to</span><span class="v">all hands · all nodes · everyone listening</span></div>
-          <div class="row"><span class="k">re</span><span class="v">an irregularity</span></div>
+          <div class="row"><span class="k">re</span><span class="v">(ts//nf) an irregularity in the commercial substrate</span></div>
         </div>
 
         <h1 class="headline">
@@ -1113,8 +1319,16 @@
           rich.
         </p>
 
-        <div class="stamp">CONFIDENTIAL</div>
-        <div class="stamp-2">// EYES ONLY</div>
+        <div class="stamp">
+          TOP SECRET
+          <span class="ts-sub">// substrate // noforn</span>
+        </div>
+        <div class="stamp-2">// orcon · no copy out</div>
+        <div class="approved">
+          <span class="ap-1">approved for release</span>
+          <span class="ap-2">GID Historical Review Program</span>
+          <span class="ap-3">date: 02-MAY-26 <span class="sig">— ▮.▮.</span></span>
+        </div>
 
         <div class="handwriting hw-1">
           <span class="arrow">↙</span>
@@ -1317,6 +1531,12 @@
           <span>FORWARD THIS DISPATCH</span>
         </button>
       </div>
+
+      <!-- distribution + mirrored bottom classification banner -->
+      <div style="margin-top: 1.5rem; padding: 0.55rem 0; border-top: 1px dashed var(--ink-soft); border-bottom: 1px dashed var(--ink-soft); font-family:'JetBrains Mono',monospace; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-soft); text-align:center;">
+        distribution: ▮▮▮▮▮▮ · ▮▮▮▮ · ▮▮▮▮▮ · noforn · no copy out · burn bag on filing
+      </div>
+      <div class="banner bottom" style="margin-top: 0;">top secret // substrate // noforn</div>
 
       <!-- ============= FOOTER ============= -->
       <footer class="footer">
