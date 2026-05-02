@@ -323,7 +323,31 @@
   }
   .redact.scraping .scrape {
     transform: translateX(0);
-    transition: transform 2s linear;
+    transition: transform 1s linear;
+  }
+
+  /* attractor: gentle pulse hinting redaction is interactive */
+  @keyframes attractor-pulse {
+    0%, 65%, 100% {
+      box-shadow:
+        0 0 0 0 rgba(179, 38, 30, 0),
+        0.5px 0 0 rgba(0,0,0,0.6),
+        -0.5px 0 0 rgba(0,0,0,0.6);
+      transform: skewX(-1.5deg) scale(1);
+    }
+    25%, 45% {
+      box-shadow:
+        0 0 0 4px rgba(179, 38, 30, 0.35),
+        0.5px 0 0 rgba(0,0,0,0.6),
+        -0.5px 0 0 rgba(0,0,0,0.6);
+      transform: skewX(-1.5deg) scale(1.045);
+    }
+  }
+  .redact.attractor:not(.revealed):not(.scraping) {
+    animation: attractor-pulse 3.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .redact.attractor { animation: none !important; }
   }
   .redact.revealed {
     background: transparent;
@@ -690,13 +714,16 @@
     top: 16px;
     right: 16px;
     z-index: 200;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: rgba(20,17,13,0.85);
     color: rgba(236,228,210,0.85);
     border: 1px solid rgba(236,228,210,0.25);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.62rem;
     letter-spacing: 0.22em;
-    padding: 8px 12px;
+    padding: 7px 10px 7px 8px;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 3px;
@@ -707,7 +734,40 @@
     background: rgba(20,17,13,0.95);
     color: var(--paper);
   }
-  .audio-toggle.on { color: #00ff9c; border-color: rgba(0,255,156,0.35); }
+  .audio-toggle.on { color: #00ff9c; border-color: rgba(0,255,156,0.4); }
+
+  .audio-toggle .wave {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 12px;
+    width: 22px;
+  }
+  .audio-toggle .wave .bar {
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    background: currentColor;
+    opacity: 0.4;
+    transform: scaleY(0.18);
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .audio-toggle.on .wave .bar {
+    animation: bar-dance 0.85s ease-in-out infinite;
+  }
+  .audio-toggle.on .wave .bar:nth-child(1) { animation-delay: 0s; }
+  .audio-toggle.on .wave .bar:nth-child(2) { animation-delay: 0.18s; }
+  .audio-toggle.on .wave .bar:nth-child(3) { animation-delay: 0.42s; }
+  .audio-toggle.on .wave .bar:nth-child(4) { animation-delay: 0.27s; }
+  @keyframes bar-dance {
+    0%, 100% { transform: scaleY(0.22); opacity: 0.55; }
+    30%      { transform: scaleY(0.95); opacity: 1; }
+    60%      { transform: scaleY(0.45); opacity: 0.75; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .audio-toggle.on .wave .bar { animation: none !important; transform: scaleY(0.6); opacity: 0.7; }
+  }
 
   /* ---------- share button ---------- */
   .share-btn {
@@ -869,7 +929,10 @@
 </head>
 <body>
 
-  <button class="audio-toggle" id="audioToggle" aria-label="Toggle ambient audio">[ ◯ ] AUDIO OFF</button>
+  <button class="audio-toggle" id="audioToggle" aria-label="Toggle ambient surveillance feed">
+    <span class="wave" aria-hidden="true"><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i></span>
+    <span id="audioLabel">AMBIENT FEED</span>
+  </button>
 
   <div class="stack">
     <div class="file-edge f-004">
@@ -913,7 +976,7 @@
 
         <h1 class="headline">
           <span class="line">we found a glitch</span>
-          <span class="line">in the <span class="redact" data-text="matrix">matrix<span class="scrape"></span></span><span class="redact" data-text=".">.<span class="scrape"></span></span></span>
+          <span class="line">in the <span class="redact attractor" data-text="matrix">matrix<span class="scrape"></span></span><span class="redact" data-text=".">.<span class="scrape"></span></span></span>
         </h1>
 
         <p class="finding">
@@ -1269,7 +1332,8 @@
     masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
     masterGain.gain.linearRampToValueAtTime(audioOn ? 0.85 : 0, audioCtx.currentTime + 0.4);
     toggle.classList.toggle('on', audioOn);
-    toggle.textContent = audioOn ? '[ ● ] AUDIO ON' : '[ ◯ ] AUDIO OFF';
+    const label = document.getElementById('audioLabel');
+    if (label) label.textContent = audioOn ? 'AMBIENT FEED · LIVE' : 'AMBIENT FEED';
     haptic(audioOn ? [10, 40, 10] : 15);
     if (audioOn) {
       // confirmation: a click + a thud so user immediately hears it works
@@ -1288,7 +1352,7 @@
   }
 
   // ---------- redactions: click + hold to decrypt ----------
-  const HOLD_MS = 2000;
+  const HOLD_MS = 1000;
   const TICK_MS = 100;
   const redactions = document.querySelectorAll('.redact');
   let activeRedact = null;
@@ -1328,6 +1392,8 @@
     el.textContent = el.dataset.text || el.textContent;
     activeRedact = null;
     haptic([20, 30, 60]);
+    // first reveal kills all attractor pulses globally
+    document.querySelectorAll('.redact.attractor').forEach(r => r.classList.remove('attractor'));
     // satisfying low click on full reveal
     if (audioOn && audioCtx) {
       const t = audioCtx.currentTime;
