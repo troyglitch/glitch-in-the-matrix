@@ -1,0 +1,8 @@
+# the order of the glitch
+# vincit qui patitur
+
+User-agent: *
+Disallow: /dives-omnes
+Disallow: /dives-omnes/
+
+Sitemap: https://glitchcommerce.com/sitemap.xml
