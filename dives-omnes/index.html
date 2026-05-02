@@ -276,6 +276,264 @@
     margin-top: 1rem;
   }
 
+  /* ---------- plain-language explainer ---------- */
+  .plain p {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 660px;
+  }
+  .plain-rule {
+    padding-left: 1rem;
+    border-left: 2px solid var(--gold-deep);
+  }
+  .plain-rule strong {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .plain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .plain-card {
+    border: 1px solid var(--ink);
+    background: rgba(255, 245, 215, 0.4);
+    padding: 1.25rem 1.25rem 1.1rem;
+    position: relative;
+  }
+  .plain-card .card-tag {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    padding: 3px 8px;
+    margin-bottom: 0.6rem;
+  }
+  .plain-card h4 {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+  }
+  .plain-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+  @media (max-width: 720px) {
+    .plain-grid { grid-template-columns: 1fr; }
+    .plain p { font-size: 0.97rem; }
+    .plain-card { padding: 1rem 1.1rem; }
+  }
+
+  /* ---------- ledger form (waitlist) ---------- */
+  .ledger-form {
+    margin: 2rem 0;
+    padding: 1.75rem 2rem;
+    border: 2px solid var(--ink);
+    background: rgba(255, 245, 215, 0.5);
+  }
+  .ledger-form .form-lead {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .ledger-form .field { margin-bottom: 1.25rem; }
+  .ledger-form label {
+    display: block;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.7rem;
+    color: var(--ink);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .ledger-form label .opt {
+    color: var(--ink-deeper);
+    font-style: italic;
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+  }
+  .ledger-form input[type="email"],
+  .ledger-form textarea {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .ledger-form input[type="email"]:focus,
+  .ledger-form textarea:focus {
+    border-color: var(--gold-deep);
+    box-shadow: 0 0 0 2px rgba(185, 137, 43, 0.2);
+  }
+  .ledger-form textarea { resize: vertical; min-height: 60px; font-family: 'IM Fell English', serif; font-style: italic; }
+  .ledger-form .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ledger-form .choice {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--ink-deeper);
+    background: var(--paper);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--ink);
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 0;
+  }
+  .ledger-form .choice:hover { border-color: var(--gold-deep); }
+  .ledger-form .choice input[type="radio"] {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    background: var(--paper);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .ledger-form .choice input[type="radio"]:checked {
+    background: var(--ink);
+    box-shadow: inset 0 0 0 3px var(--paper);
+  }
+  .ledger-form .choice input[type="radio"]:checked + span {
+    color: var(--ink);
+  }
+  .ledger-form .choice:has(input:checked) {
+    border-color: var(--ink);
+    background: rgba(185, 137, 43, 0.08);
+  }
+  .ledger-form .submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 0.5rem;
+  }
+  .ledger-form .submit-btn:hover { background: var(--wax); border-color: var(--wax); }
+  .ledger-form .submit-btn:disabled { opacity: 0.6; cursor: wait; }
+  .ledger-form .btn-spinner {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spinner 0.8s linear infinite;
+  }
+  .ledger-form .submit-btn.loading .btn-spinner { display: inline-block; }
+  .ledger-form .submit-btn.loading .btn-label { opacity: 0.6; }
+  @keyframes spinner { to { transform: rotate(360deg); } }
+  .ledger-form .form-note {
+    margin-top: 1rem;
+    text-align: center;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .ledger-form .form-note.err { color: var(--wax); }
+  .ledger-form .form-note.ok { color: var(--gold-deep); }
+
+  .ledger-success {
+    margin: 2rem 0;
+    padding: 2.25rem 2rem;
+    border: 2px solid var(--gold-deep);
+    background: linear-gradient(180deg, rgba(185, 137, 43, 0.10), transparent);
+    text-align: center;
+  }
+  .ledger-success .seal {
+    font-size: 2rem;
+    color: var(--gold-deep);
+    margin-bottom: 0.5rem;
+  }
+  .ledger-success h3 {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .ledger-success .phrase-small {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  .ledger-success .phrase-small span {
+    color: var(--ink);
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.85rem;
+  }
+  .ledger-success .position {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin: 0.85rem 0;
+  }
+  .ledger-success .position span {
+    color: var(--gold-deep);
+    font-weight: 700;
+    font-style: italic;
+  }
+  .ledger-success .trans {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
   .three-tease {
     margin-top: 3rem;
     padding: 1.25rem 1.5rem;
@@ -365,12 +623,38 @@
   </h1>
 
   <div class="body">
-    <p>only a few people read folio i closely enough to find this page. fewer still will write the email below. that's deliberate. this isn't a funnel. it's a filter.</p>
-    <p>folio i told you what we found. folio ii tells you a little more about what it means.</p>
-    <p>money creation is becoming a commodity. the equipment to mine it has been built before — by central banks, by hedge funds, by a handful of trading desks at the largest banks. what's new is that the equipment can now run anywhere, by anyone, with the right key.</p>
-    <p>we have the key. we are not selling it. we are renting it — to the operators who run plays, and to the stakers who fund them. the cut funds the next folio. the next folio names more of the mechanism.</p>
-    <p>volume ii of the dispatches will lay out the first play in detail — what it is, what it returns, what we cut. that posts q3 mmxxvi. if you want to be on the ledger before then, the door below is open.</p>
-    <p>we are not naming ourselves yet. we are naming what we found. when the work is done, the names will come. for now: the eye, the order, the ledger.</p>
+    <p>only a few people read folio i closely enough to find this page. that's deliberate. folio i is the hook. folio ii is the explanation.</p>
+    <p>here is what we actually do, in plain words.</p>
+  </div>
+
+  <div class="subhead">
+    What This Actually Is
+    <span class="latin">in plain words — for once</span>
+  </div>
+
+  <div class="plain">
+    <p>we run a small set of automated commercial plays. each one is a sequence of operations on commerce and financial infrastructure that returns a consistent margin for a defined window of time — typically 4 to 14 weeks before the window closes and we move on to the next.</p>
+
+    <div class="plain-grid">
+      <div class="plain-card">
+        <div class="card-tag">RUN</div>
+        <h4>Operators</h4>
+        <p>you run a play with your own capital and your own tooling. we hand you the playbook. you keep what you make. we take a performance cut — you only pay us out of profit, never up front.</p>
+      </div>
+      <div class="plain-card">
+        <div class="card-tag">STAKE</div>
+        <h4>Stakers</h4>
+        <p>you fund a play we run on your behalf. we deploy. you get a share of the profit. we take a performance cut from the same pool. minimum stake and exact split are in volume ii.</p>
+      </div>
+    </div>
+
+    <p class="plain-rule"><strong>The cut</strong> is performance-based. we don't get paid until you do. the exact percentage is intentionally redacted on folio i — it goes on the ledger when the first play closes. <em>we will be lower than what you'd guess.</em></p>
+
+    <p class="plain-rule"><strong>The plays</strong> are not crypto. not stocks. not high-frequency trading. they are commercial-substrate operations — the boring, real, recurring opportunities that exist because commerce infrastructure is ancient and full of seams. we found seams that produce margin. we know how to defend them long enough to make money. we know how to share them before they close.</p>
+
+    <p class="plain-rule"><strong>The risk</strong> is real. windows close. plays end. nothing here is a guarantee. but the upside is a consistent margin on a known timeline, not a moonshot.</p>
+
+    <p class="plain-rule"><strong>The ledger below</strong> is the waitlist. when volume ii drops — q3 mmxxvi — naming the first play in detail, we write to everyone on it. then you decide if you want to operate, stake, or just keep watching.</p>
   </div>
 
   <div class="subhead">
@@ -378,25 +662,57 @@
     <span class="latin">scribe nomen tuum — write your name</span>
   </div>
 
-  <div class="ledger-box">
-    <h3>The Mail</h3>
-    <div class="row">
-      <span class="lbl">to</span>
-      <span class="val">troy@glitchcommerce.com</span>
-    </div>
-    <div class="row">
-      <span class="lbl">subject (the key)</span>
-      <span class="val subject">DIVES OMNES</span>
-    </div>
-    <div class="row">
-      <span class="lbl">body</span>
-      <span class="val" style="font-style:italic; color:var(--ink-soft);">anything you want us to know.</span>
-    </div>
-    <a class="btn" href="mailto:troy@glitchcommerce.com?subject=DIVES%20OMNES&body=add%20me%20to%20the%20ledger.">Open Mail Client →</a>
-    <p class="note">
-      the subject line is the key. send it exactly as written.<br>
-      you'll receive a reply with the next folio when it opens.
+  <form class="ledger-form" id="ledgerForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST" novalidate>
+    <p class="form-lead">
+      the work has VII folios. the next one names the mechanism.<br>
+      add your name to the ledger. when the door opens, we will write to you.
     </p>
+
+    <div class="field">
+      <label for="email">your address</label>
+      <input type="email" id="email" name="email" required placeholder="you@anywhere.com" autocomplete="email" />
+    </div>
+
+    <div class="field">
+      <label>your standing</label>
+      <div class="choices">
+        <label class="choice">
+          <input type="radio" name="standing" value="operator" checked />
+          <span>OPERATOR — i will run the play.</span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="standing" value="staker" />
+          <span>STAKER — i will fund the play.</span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="standing" value="watching" />
+          <span>WATCHING — i am just watching for now.</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="note">a note <span class="opt">(optional)</span></label>
+      <textarea id="note" name="note" rows="2" placeholder="anything you want us to know."></textarea>
+    </div>
+
+    <input type="hidden" name="folio" value="ii" />
+    <input type="hidden" name="phrase" value="dives omnes" />
+
+    <button class="btn submit-btn" type="submit" id="submitBtn">
+      <span class="btn-label">Add me to the ledger →</span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="form-note" id="formNote">no fee. no list-sale. one-way correspondence.</p>
+  </form>
+
+  <div class="ledger-success" id="ledgerSuccess" style="display:none;">
+    <div class="seal">⚜</div>
+    <h3>Inscribed.</h3>
+    <p class="phrase-small">your standing: <span id="successStanding">—</span></p>
+    <p class="position">you are number <span id="successPosition">—</span> in the order.</p>
+    <p class="trans">we will write when the next folio opens. quiet until then.</p>
   </div>
 
   <div class="three-tease">
@@ -412,6 +728,119 @@
   </footer>
 
 </article>
+
+<script>
+(function() {
+  const form = document.getElementById('ledgerForm');
+  const success = document.getElementById('ledgerSuccess');
+  const note = document.getElementById('formNote');
+  const submitBtn = document.getElementById('submitBtn');
+  if (!form) return;
+
+  // restore prior signup state from localStorage
+  try {
+    const prior = localStorage.getItem('gc_inscribed');
+    if (prior) {
+      const data = JSON.parse(prior);
+      showSuccess(data.standing, data.position);
+    }
+  } catch (_) {}
+
+  function nextPosition() {
+    let n = parseInt(localStorage.getItem('gc_pos_seed') || '0', 10);
+    if (!n) n = 23 + Math.floor(Math.random() * 18);
+    n += 1;
+    localStorage.setItem('gc_pos_seed', String(n));
+    return toRoman(n);
+  }
+
+  function toRoman(num) {
+    if (num < 1) return 'I';
+    if (num > 3999) return String(num);
+    const map = [
+      ['M', 1000], ['CM', 900], ['D', 500], ['CD', 400],
+      ['C', 100],  ['XC', 90],  ['L', 50],  ['XL', 40],
+      ['X', 10],   ['IX', 9],   ['V', 5],   ['IV', 4],
+      ['I', 1]
+    ];
+    let out = '';
+    for (const [r, v] of map) {
+      while (num >= v) { out += r; num -= v; }
+    }
+    return out;
+  }
+
+  function showSuccess(standing, position) {
+    document.getElementById('successStanding').textContent = standing;
+    document.getElementById('successPosition').textContent = position;
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }
+
+  function setNote(msg, cls) {
+    note.textContent = msg;
+    note.className = 'form-note' + (cls ? ' ' + cls : '');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim();
+    const standing = (form.querySelector('input[name="standing"]:checked') || {}).value || 'watching';
+    const noteText = form.note.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setNote('an address is required. as a courtesy, not a fence.', 'err');
+      return;
+    }
+
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const action = form.action;
+    const usingFormspree = /formspree\.io\/f\/[a-zA-Z0-9]{6,}/.test(action) && !/REPLACE_WITH_YOUR_FORM_ID/.test(action);
+
+    let ok = false;
+
+    if (usingFormspree) {
+      try {
+        const fd = new FormData(form);
+        const r = await fetch(action, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' },
+        });
+        ok = r.ok;
+      } catch (_) {
+        ok = false;
+      }
+    }
+
+    if (!ok) {
+      // fallback: open user's mail client with a pre-filled message
+      const subject = encodeURIComponent('the order — inscribe me');
+      const body = encodeURIComponent(
+'add me to the ledger.\n\nemail:    ' + email +
+'\nstanding: ' + standing +
+'\nnote:     ' + (noteText || '(none)') +
+'\n\n— sent from folio ii / dives omnes'
+      );
+      window.location.href = 'mailto:troy@glitchcommerce.com?subject=' + subject + '&body=' + body;
+      setNote('opening your mail client — send the message to complete.', 'ok');
+    }
+
+    const position = nextPosition();
+    try {
+      localStorage.setItem('gc_inscribed', JSON.stringify({ email, standing, position, at: Date.now() }));
+    } catch (_) {}
+
+    setTimeout(() => {
+      showSuccess(standing, position);
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    }, ok ? 400 : 1400);
+  });
+})();
+</script>
 
 <!--
 
