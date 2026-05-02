@@ -4,7 +4,30 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>glitchcommerce // file 0x7f3a</title>
-<meta name="description" content="we found a glitch in the matrix. mission: make everyone rich." />
+<meta name="description" content="we found a glitch in the matrix. mission: make everyone rich. classified // do not duplicate." />
+<meta name="theme-color" content="#ece4d2" />
+<link rel="canonical" href="https://glitchcommerce.com/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="we found a glitch in the matrix." />
+<meta property="og:description" content="classified // do not duplicate. mission: make everyone rich. two ways in." />
+<meta property="og:url" content="https://glitchcommerce.com/" />
+<meta property="og:image" content="https://glitchcommerce.com/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Classified document: we found a glitch in the [REDACTED]. CONFIDENTIAL." />
+<meta property="og:site_name" content="glitchcommerce" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="we found a glitch in the matrix." />
+<meta name="twitter:description" content="classified // do not duplicate. mission: make everyone rich." />
+<meta name="twitter:image" content="https://glitchcommerce.com/og.png" />
+
+<!-- favicon: a single redaction bar -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23ece4d2'/%3E%3Crect x='6' y='22' width='52' height='20' fill='%230a0a0a' transform='skewX(-3) translate(-2 0)'/%3E%3C/svg%3E" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
@@ -248,6 +271,7 @@
     font-weight: 400;
     letter-spacing: 0.005em;
     margin-bottom: 2rem;
+    text-wrap: balance;
   }
   .headline .line { display: block; }
 
@@ -432,8 +456,40 @@
     color: var(--ink);
     margin-bottom: 1.5rem;
     max-width: 720px;
+    text-wrap: pretty;
   }
   .manifesto p:last-of-type { margin-bottom: 2.5rem; }
+
+  /* ---------- modern: scroll-driven entrance animations ---------- */
+  @supports (animation-timeline: view()) {
+    .scoreboard .row:not(.head),
+    .dispatch,
+    .ways,
+    .manifesto p {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  /* @starting-style for elements that "appear" */
+  @supports (animation-timeline: view()) {
+    .subhead {
+      view-transition-name: subhead;
+    }
+  }
+  .subhead {
+    transition: background 0.6s ease;
+  }
+  @starting-style {
+    .subhead {
+      background: rgba(179, 38, 30, 0.15);
+    }
+  }
 
   .ways {
     margin: 2.5rem 0 1rem;
@@ -653,23 +709,161 @@
   }
   .audio-toggle.on { color: #00ff9c; border-color: rgba(0,255,156,0.35); }
 
+  /* ---------- share button ---------- */
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .share-btn:hover { background: var(--stamp); }
+  .share-btn:active { transform: scale(0.97); }
+  .share-btn .ico {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    position: relative;
+  }
+  .share-btn .ico::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+  }
+
   /* ---------- responsive ---------- */
   @media (max-width: 720px) {
-    .stack { margin: 1rem auto 2rem; padding: 0; }
-    .page { margin-top: 36px; padding: 1.5rem 1.25rem 2rem; }
-    .file-header { font-size: 0.6rem; }
+    .stack { margin: 0.75rem auto 1.5rem; padding: 0; }
+    .page { margin-top: 38px; padding: 1.25rem 1rem 1.75rem; }
+    .file-header {
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.58rem;
+    }
+    .file-header .right { text-align: left; }
+    .banner { font-size: 0.62rem; letter-spacing: 0.4em; padding: 0.35rem 0; }
     .file-edge .tab { font-size: 0.5rem; padding: 3px 10px 5px; }
-    .stamp { right: 2%; top: 22%; font-size: 1.4rem; }
-    .stamp-2 { left: 2%; bottom: 4%; }
-    .hw-1 { top: 60%; left: 2%; font-size: 1rem; }
-    .hw-2 { font-size: 1.3rem; }
-    .ways { padding: 1rem 1.1rem; }
-    .scoreboard .row { grid-template-columns: 90px 1fr 1fr; font-size: 0.68rem; }
-    .scoreboard .row .hide-mobile { display: none; }
-    .scoreboard .row.head { font-size: 0.6rem; }
+
+    .memo { padding: 2rem 0 1.5rem; }
+    .memo-meta { font-size: 0.66rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .memo-meta .k { width: 50px; font-size: 0.6rem; }
+    .memo-meta .v { word-break: break-word; }
+
+    /* stamps: move CONFIDENTIAL out of the headline path */
+    .stamp {
+      right: 2%;
+      top: 70%;
+      font-size: 1.25rem;
+      padding: 0.35rem 0.8rem;
+      border-width: 3px;
+    }
+    .stamp-2 {
+      left: 2%;
+      bottom: -1rem;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-width: 2px;
+    }
+
+    /* handwriting: move out of body text */
+    .hw-1 {
+      top: auto;
+      bottom: -1.5rem;
+      left: 2%;
+      font-size: 0.95rem;
+      width: 130px;
+    }
+    .hw-2 {
+      top: auto;
+      bottom: 1rem;
+      right: 35%;
+      font-size: 1.4rem;
+    }
+
+    .ways { padding: 1rem 1.1rem; font-size: 0.95rem; }
+
+    /* scoreboard becomes vertical cards on mobile — no column hiding */
+    .scoreboard .row.head { display: none; }
+    .scoreboard .row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "type   operator"
+        "type   ret"
+        "play   dur"
+        "cut    cut";
+      gap: 0.35rem 0.8rem;
+      padding: 0.85rem 0.9rem;
+      font-size: 0.7rem;
+      border-bottom: 1px solid rgba(20,17,13,0.18);
+    }
+    .scoreboard .row > div:nth-child(1) { grid-area: type; align-self: start; }
+    .scoreboard .row > div:nth-child(2) { grid-area: operator; font-weight: 500; }
+    .scoreboard .row > div:nth-child(3) { grid-area: ret; color: var(--ink); font-style: normal; }
+    .scoreboard .row > div:nth-child(4) { grid-area: dur; color: var(--ink-soft); justify-self: end; font-size: 0.62rem; }
+    .scoreboard .row > div:nth-child(5) {
+      grid-area: play; display: block !important;
+      color: var(--ink-soft); font-size: 0.62rem;
+    }
+    .scoreboard .row > div:nth-child(6) {
+      grid-area: cut; display: block !important;
+      padding-top: 0.3rem;
+      border-top: 1px dashed rgba(20,17,13,0.2);
+      font-weight: 500;
+    }
+    .scoreboard .row > div:nth-child(6)::before {
+      content: 'OUR CUT — ';
+      color: var(--ink-soft);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+    }
+    .scoreboard .footer-note { font-size: 0.6rem; padding: 0.6rem 0.9rem; }
+
+    .dispatch { padding: 1rem 1.1rem; }
+    .dispatch .meta-row { font-size: 0.6rem; }
+    .dispatch .body { font-size: 0.92rem; line-height: 1.7; }
+
     .footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .audio-toggle { font-size: 0.55rem; padding: 6px 9px; }
-    .subhead { font-size: 0.62rem; letter-spacing: 0.22em; }
+    .audio-toggle { font-size: 0.55rem; padding: 6px 9px; top: 10px; right: 10px; }
+    .subhead { font-size: 0.6rem; letter-spacing: 0.2em; padding: 0.55rem 0.8rem; }
+    .subhead .right { font-size: 0.55rem; letter-spacing: 0.16em; }
+
+    .hold-hint {
+      font-size: 0.58rem;
+      padding: 6px 12px;
+      bottom: 0.75rem;
+    }
+  }
+
+  /* touch device tweak: redactions reveal on a single tap-and-hold (already works) */
+  @media (hover: none) {
+    .file-edge:active .access-denied { opacity: 1; }
+    .file-edge:hover .access-denied { opacity: 0; }
+  }
+
+  /* respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .file-edge, .stamp, .stamp-2, .leak-stamp, .redact, .redact .scrape,
+    .scoreboard .row, .dispatch, .ways, .manifesto p {
+      transition: none !important;
+      animation: none !important;
+    }
   }
 </style>
 </head>
@@ -926,6 +1120,17 @@
         </div>
       </article>
 
+      <!-- ============= FORWARD ============= -->
+      <div style="margin-top: 3rem; padding: 1.25rem 0; border-top: 1px dashed var(--ink-soft); display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;">
+        <p style="font-family:'Special Elite',monospace; font-size:0.95rem; color:var(--ink); max-width:420px; line-height:1.5;">
+          this dispatch was meant to leak. forward it before it gets sealed.
+        </p>
+        <button class="share-btn" id="shareBtn" aria-label="Forward this dispatch">
+          <span class="ico"></span>
+          <span>FORWARD THIS DISPATCH</span>
+        </button>
+      </div>
+
       <!-- ============= FOOTER ============= -->
       <footer class="footer">
         <div class="leak-wrap">
@@ -1065,6 +1270,7 @@
     masterGain.gain.linearRampToValueAtTime(audioOn ? 0.85 : 0, audioCtx.currentTime + 0.4);
     toggle.classList.toggle('on', audioOn);
     toggle.textContent = audioOn ? '[ ● ] AUDIO ON' : '[ ◯ ] AUDIO OFF';
+    haptic(audioOn ? [10, 40, 10] : 15);
     if (audioOn) {
       // confirmation: a click + a thud so user immediately hears it works
       setTimeout(() => clickSound(0.25), 80);
@@ -1074,6 +1280,12 @@
       clearTimeout(ambientTimer);
     }
   });
+
+  // ---------- haptics ----------
+  function haptic(pattern) {
+    if (!navigator.vibrate) return;
+    try { navigator.vibrate(pattern); } catch (_) {}
+  }
 
   // ---------- redactions: click + hold to decrypt ----------
   const HOLD_MS = 2000;
@@ -1091,7 +1303,9 @@
     holdStart = performance.now();
     el.classList.add('scraping');
     clickSound();
-    tickTimer = setInterval(clickSound, TICK_MS);
+    haptic(8);
+    hideHint();
+    tickTimer = setInterval(() => { clickSound(); haptic(6); }, TICK_MS);
     holdTimer = setTimeout(() => {
       reveal(el);
     }, HOLD_MS);
@@ -1113,6 +1327,7 @@
     el.classList.add('revealed');
     el.textContent = el.dataset.text || el.textContent;
     activeRedact = null;
+    haptic([20, 30, 60]);
     // satisfying low click on full reveal
     if (audioOn && audioCtx) {
       const t = audioCtx.currentTime;
@@ -1154,7 +1369,35 @@
     const stamp = document.getElementById('leakStamp');
     stamp.classList.add('land');
     thudSound();
+    haptic([30, 20, 12]);
   }, 900);
+
+  // ---------- forward / share ----------
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      haptic(15);
+      const shareData = {
+        title: 'glitchcommerce // file 0x7f3a',
+        text: 'we found a glitch in the matrix. classified // do not duplicate.',
+        url: 'https://glitchcommerce.com/',
+      };
+      try {
+        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText('https://glitchcommerce.com/');
+          const orig = shareBtn.querySelector('span:last-child').textContent;
+          shareBtn.querySelector('span:last-child').textContent = '✓ COPIED — NOW LEAK IT';
+          setTimeout(() => { shareBtn.querySelector('span:last-child').textContent = orig; }, 2400);
+        } else {
+          window.location.href = 'mailto:?subject=' + encodeURIComponent(shareData.title) + '&body=' + encodeURIComponent(shareData.text + '\n\n' + shareData.url);
+        }
+      } catch (_) {
+        // user cancelled — silently
+      }
+    });
+  }
 
   // ---------- status ticker (manifesto subhead bonus) ----------
   const statuses = ['▮▮▮▮ ACTIVE', '▮▮▮▮ INTERCEPTED', '▮▮▮▮ CIRCULATING', '▮▮▮▮ ARCHIVED', '▮▮▮▮ ACTIVE'];
