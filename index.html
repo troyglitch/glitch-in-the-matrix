@@ -1,69 +1,43 @@
 <!DOCTYPE html>
 <!--
-
-         .---.
-        /     \
-       | () () |     FOLIO I · GLITCHCOMMERCE
-        \  ^  /      ─────────────────────────
-         |||||
-         |||||       there is a second page.
-         '''''       there is a phrase.
-                     count the redacted letters.
-                     ten in all. roman-indexed.
-                     they form the answer in latin.
-                     the answer is the door.
-
-                     // 33 // 23 // 7 //
-
-                     ▮▮ ▮▮▮▮ — vincit qui patitur
-
+  𓂀
+  ten letters live in this document.
+  each is a small bordered glyph in an ordinary word.
+  hold one for one second.
+  ten of them spell the door.
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>glitchcommerce // folio i</title>
-<meta name="description" content="folio i. there is a glitch. there is a phrase. there is a door." />
+<meta name="description" content="we found a glitch in the matrix. an inscription, not a pitch." />
 <meta name="theme-color" content="#1a1108" />
 <link rel="canonical" href="https://glitchcommerce.com/" />
 
-<!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="we found a glitch in the matrix." />
-<meta property="og:description" content="folio i · the work begins · two ways in" />
+<meta property="og:description" content="folio i · the order of the glitch · continuity since the first mining" />
 <meta property="og:url" content="https://glitchcommerce.com/" />
 <meta property="og:image" content="https://glitchcommerce.com/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="A leaked folio: we found a glitch in the [REDACTED]." />
 <meta property="og:site_name" content="glitchcommerce" />
-
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="we found a glitch in the matrix." />
-<meta name="twitter:description" content="folio i · the work begins · two ways in" />
+<meta name="twitter:description" content="folio i · the order of the glitch" />
 <meta name="twitter:image" content="https://glitchcommerce.com/og.png" />
 
-<!-- favicon: a tiny eye glyph (live-updates as puzzle progresses via JS) -->
-<link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23eee2c4'/%3E%3Cpath d='M8 32 Q32 12 56 32 Q32 52 8 32 Z' stroke='%231a1108' stroke-width='3' fill='none'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%231a1108'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23b9892b'/%3E%3C/svg%3E" />
-
-<!-- PWA -->
-<link rel="manifest" href="/manifest.json" />
-<link rel="apple-touch-icon" href="/icon-192.png" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="The Order" />
-<meta name="mobile-web-app-capable" content="yes" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23eee2c4'/%3E%3Cpath d='M8 32 Q32 12 56 32 Q32 52 8 32 Z' stroke='%231a1108' stroke-width='3' fill='none'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%231a1108'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23b9892b'/%3E%3C/svg%3E" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica+SC&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica+SC&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: #eee2c4;
     --paper-2: #e3d4ac;
     --paper-3: #d6c191;
-    --paper-shade: #c8b07f;
     --ink: #1a1108;
     --ink-soft: #4d3722;
     --ink-deeper: #7d6342;
@@ -86,24 +60,34 @@
     cursor: default;
   }
 
-  /* ---------- desk under the folio ---------- */
   body::before {
     content: '';
     position: fixed; inset: 0; z-index: 0;
     pointer-events: none;
-    background:
-      radial-gradient(ellipse 1200px 700px at 50% 30%, rgba(80, 60, 35, 0.4), transparent 70%);
+    background: radial-gradient(ellipse 1200px 700px at 50% 30%, rgba(80, 60, 35, 0.4), transparent 70%);
   }
 
-  /* ---------- the folio (parchment) ---------- */
+  /* ---------- candlelight (novel: lighting shifts as you scroll deeper) ---------- */
+  .candlelight {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 600px 600px at 50% 35%, transparent 0%, transparent 35%, rgba(0,0,0,0.55) 90%);
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+  }
+
+  /* ---------- the folio (single continuous artifact) ---------- */
   .folio {
     position: relative;
     z-index: 1;
-    max-width: 820px;
+    max-width: 760px;
     margin: 2rem auto 4rem;
     background: var(--paper);
     color: var(--ink);
-    padding: 3rem 3rem 3rem;
+    padding: 2.75rem 3rem 3rem;
     box-shadow:
       0 1px 0 rgba(0,0,0,0.1),
       0 12px 40px rgba(0,0,0,0.55),
@@ -125,37 +109,18 @@
     pointer-events: none;
     background:
       radial-gradient(ellipse 700px 400px at 18% 8%, rgba(140, 100, 60, 0.10), transparent 60%),
-      radial-gradient(ellipse 500px 300px at 88% 92%, rgba(80, 50, 20, 0.14), transparent 60%),
-      radial-gradient(ellipse 220px 140px at 72% 38%, rgba(120, 70, 30, 0.06), transparent 70%);
+      radial-gradient(ellipse 500px 300px at 88% 92%, rgba(80, 50, 20, 0.14), transparent 60%);
   }
   .folio > * { position: relative; z-index: 1; }
 
-  /* ---------- ornament rule ---------- */
-  .rule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    color: var(--gold-deep);
-    font-size: 0.9rem;
-    margin: 1rem 0 1.5rem;
-    user-select: none;
-  }
-  .rule::before, .rule::after {
-    content: '';
-    flex: 1;
-    height: 0;
-    border-top: 1px solid var(--gold-deep);
-    opacity: 0.45;
-  }
-
-  /* ---------- sigil + agency block ---------- */
+  /* ---------- the crest ---------- */
   .crest {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.6rem;
     padding-bottom: 1rem;
+    text-align: center;
   }
   .sigil {
     width: 110px;
@@ -163,45 +128,32 @@
     color: var(--ink);
   }
   .sigil .gold-accent { color: var(--gold-deep); }
-
-  .order {
-    text-align: center;
-    font-family: 'IM Fell DW Pica SC', 'IM Fell English SC', serif;
+  .order .o-1 {
+    display: block;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--ink);
     line-height: 1.2;
   }
-  .order .o-1 {
-    display: block;
-    font-size: 1.15rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
   .order .o-2 {
-    display: block;
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-top: 0.25rem;
-    font-style: italic;
-  }
-  .order .o-3 {
     display: block;
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--gold-deep);
     margin-top: 0.4rem;
     letter-spacing: 0.04em;
   }
 
-  /* ---------- folio meta header ---------- */
+  /* ---------- meta header (trimmed) ---------- */
   .meta-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
-    padding: 0.75rem 0;
+    padding: 0.7rem 0;
     border-top: 1px solid var(--ink-deeper);
     border-bottom: 1px solid var(--ink-deeper);
     font-family: 'JetBrains Mono', monospace;
@@ -215,58 +167,128 @@
   .meta-header strong { color: var(--ink); font-weight: 500; }
   .meta-header .gold { color: var(--gold-deep); }
 
-  /* ---------- transmission body ---------- */
-  .body-block { padding: 2rem 0; position: relative; }
-
-  .from-block {
+  /* ---------- banner ---------- */
+  .banner {
+    margin: 1rem 0 1.25rem;
+    padding: 0.45rem 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    text-align: center;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.5em;
+    font-size: 0.76rem;
+    color: var(--ink);
+    text-indent: 0.5em;
+    background: rgba(0,0,0,0.025);
+  }
+
+  /* ---------- memo header ---------- */
+  .memo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
     line-height: 2;
     color: var(--ink);
-    margin-bottom: 2.5rem;
+    letter-spacing: 0.03em;
+    margin: 1.5rem 0 2rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px dashed var(--ink-deeper);
   }
-  .from-block .row { display: flex; gap: 0.6rem; align-items: baseline; }
-  .from-block .k {
+  .memo .row { display: flex; gap: 0.6rem; align-items: baseline; }
+  .memo .k {
     width: 60px;
     color: var(--ink-deeper);
     text-transform: uppercase;
     letter-spacing: 0.18em;
     font-size: 0.66rem;
   }
-  .from-block .v { color: var(--ink); flex: 1; word-break: break-word; }
+  .memo .v { color: var(--ink); flex: 1; word-break: break-word; }
 
-  .headline {
+  /* ---------- the body of the document ---------- */
+  .body {
+    padding-top: 1rem;
+  }
+  .body h1 {
     font-family: 'IM Fell English', serif;
-    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    line-height: 1.18;
     color: var(--ink);
     font-weight: 400;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     text-wrap: balance;
   }
-  .headline .line { display: block; }
-
-  .finding {
+  .body h1 .line { display: block; }
+  .body p {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+    max-width: 660px;
+    text-wrap: pretty;
+  }
+  .body p.lead {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+  }
+  .body p.italic { font-style: italic; }
+  .body p.spaced { margin-top: 2rem; }
+  .body p.translated {
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: clamp(1.2rem, 2.4vw, 1.55rem);
-    color: var(--ink);
-    line-height: 1.5;
-    padding-left: 1.4rem;
-    border-left: 3px double var(--gold-deep);
-    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    color: var(--ink-deeper);
+    margin: -0.75rem 0 1.75rem;
+    max-width: 560px;
   }
+  .body p.translated .glyph { color: var(--gold-deep); }
 
-  .mission {
+  /* a centered ornament between movements of the document */
+  .ornament {
+    text-align: center;
+    margin: 2.5rem 0 2rem;
     font-family: 'IM Fell English', serif;
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
-    color: var(--ink);
-    line-height: 1.6;
+    color: var(--gold-deep);
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    user-select: none;
   }
 
-  /* ---------- redactions (word reveals) ---------- */
+  /* the two paths line — inline, no boxed card */
+  .paths {
+    margin: 2rem 0;
+    padding: 1.25rem 0;
+    border-top: 1px double var(--ink);
+    border-bottom: 1px double var(--ink);
+    text-align: center;
+  }
+  .paths .lbl {
+    display: block;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+  .paths .line {
+    display: block;
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .paths .arrow { color: var(--wax); margin: 0 0.4em; }
+  .paths .seal {
+    display: block;
+    font-style: italic;
+    margin-top: 0.85rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- redactions ---------- */
   .redact {
     display: inline-block;
     background: var(--ink);
@@ -278,7 +300,7 @@
     position: relative;
     cursor: grab;
     transform: skewX(-1.5deg);
-    transition: background 0.4s, color 0.4s, opacity 0.4s, transform 0.4s;
+    transition: background 0.4s, color 0.4s, transform 0.4s;
     overflow: hidden;
   }
   .redact:active { cursor: grabbing; }
@@ -297,18 +319,8 @@
     color: var(--ink);
     transform: skewX(0);
   }
-  .redact.revealed .scrape { opacity: 0; }
 
-  /* attractor pulse on first redaction */
-  @keyframes attractor-pulse {
-    0%, 65%, 100% { box-shadow: 0 0 0 0 rgba(185, 137, 43, 0); }
-    25%, 45%      { box-shadow: 0 0 0 5px rgba(185, 137, 43, 0.45); }
-  }
-  .redact.attractor:not(.revealed):not(.scraping) {
-    animation: attractor-pulse 3.2s ease-in-out infinite;
-  }
-
-  /* ---------- puzzle redactions: small inline gold-bordered glyphs ---------- */
+  /* puzzle redactions: small inline gold-bordered glyphs */
   .puz {
     display: inline-block;
     background: var(--ink);
@@ -346,8 +358,7 @@
   }
   .puz .scrape {
     position: absolute; inset: 0;
-    background: linear-gradient(90deg,
-      transparent 0%, rgba(238, 226, 196, 0.55) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(238,226,196,0.55) 50%, transparent 100%);
     transform: translateX(-100%);
     pointer-events: none;
   }
@@ -357,122 +368,29 @@
     color: var(--ink);
     transform: scale(1.05);
   }
-  .puz.revealed::after {
-    color: var(--ink);
-    background: var(--gold);
-    border: 1px solid var(--ink);
-  }
-  .puz.revealed .scrape { opacity: 0; }
+  .puz.revealed::after { color: var(--ink); background: var(--gold); border: 1px solid var(--ink); }
 
-  /* attractor on first puzzle redaction (reuses same animation) */
+  @keyframes attractor-pulse {
+    0%, 65%, 100% { box-shadow: 0 0 0 0 rgba(185, 137, 43, 0); }
+    25%, 45%      { box-shadow: 0 0 0 5px rgba(185, 137, 43, 0.45); }
+  }
   .puz.attractor:not(.revealed):not(.scraping) {
     animation: attractor-pulse 3.2s ease-in-out infinite;
   }
 
-  /* ---------- subhead ---------- */
-  .subhead {
-    margin: 3.5rem 0 1.5rem;
-    padding: 0.6rem 0;
-    border-top: 1px solid var(--gold-deep);
-    border-bottom: 1px solid var(--gold-deep);
-    font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 0.92rem;
-    letter-spacing: 0.32em;
-    color: var(--ink);
-    text-transform: uppercase;
-    text-align: center;
-    position: relative;
-    background:
-      linear-gradient(180deg, rgba(185, 137, 43, 0.06), transparent);
-  }
-  .subhead .latin {
-    display: block;
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 0.7rem;
-    color: var(--gold-deep);
-    letter-spacing: 0.1em;
-    text-transform: lowercase;
-    margin-top: 0.25rem;
-    text-align: center;
-  }
-
-  /* ---------- manifesto ---------- */
-  .manifesto p {
-    font-family: 'IM Fell English', serif;
-    font-size: 1.08rem;
-    line-height: 1.75;
-    color: var(--ink);
-    margin-bottom: 1.5rem;
-    max-width: 660px;
-    text-wrap: pretty;
-  }
-
-  .ways {
-    margin: 2.5rem auto 0.5rem;
-    padding: 1.75rem 2rem;
-    border: 2px solid var(--ink);
-    background: rgba(255, 245, 215, 0.4);
-    color: var(--ink);
-    font-family: 'IM Fell English', serif;
-    font-size: 1.15rem;
-    line-height: 1.85;
-    max-width: 580px;
-    position: relative;
-  }
-  .ways::before, .ways::after {
-    content: '✦';
-    position: absolute;
-    color: var(--gold-deep);
-    font-size: 0.8rem;
-    top: -10px;
-    background: var(--paper);
-    padding: 0 8px;
-  }
-  .ways::before { left: 1rem; }
-  .ways::after  { right: 1rem; }
-  .ways .ways-line { display: block; }
-  .ways .ways-line strong {
-    font-family: 'IM Fell DW Pica SC', serif;
-    font-weight: 400;
-    letter-spacing: 0.18em;
-    font-size: 0.95rem;
-  }
-  .ways .arrow { color: var(--wax); margin: 0 0.4em; }
-  .ways .seal {
-    display: block;
-    margin-top: 1rem;
-    padding-top: 0.85rem;
-    border-top: 1px dashed var(--ink-deeper);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-
-  /* ---------- scoreboard (ledger) ---------- */
-  .lead {
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 660px;
-    margin-bottom: 1.25rem;
-    color: var(--ink);
-  }
-
+  /* ---------- inline ledger (compact, document-styled) ---------- */
   .ledger {
-    margin-top: 1rem;
+    margin: 2rem 0;
     border: 1px solid var(--ink);
     background: rgba(255, 245, 215, 0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
   }
   .ledger .row {
     display: grid;
-    grid-template-columns: 100px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 90px 1fr 1fr 80px;
     gap: 0.5rem;
-    padding: 0.7rem 1rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    padding: 0.65rem 1rem;
     color: var(--ink);
     border-bottom: 1px solid var(--ink-deeper);
     align-items: center;
@@ -481,41 +399,31 @@
   .ledger .row.head {
     background: var(--ink);
     color: var(--paper);
-    font-size: 0.66rem;
+    font-size: 0.62rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    padding: 0.55rem 1rem;
+    padding: 0.5rem 1rem;
   }
   .ledger .row.empty { color: var(--ink-deeper); font-style: italic; }
   .tag {
     display: inline-block;
     padding: 2px 7px;
-    border-radius: 0;
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     letter-spacing: 0.18em;
-    font-weight: 500;
     text-transform: uppercase;
-  }
-  .tag.empty { background: transparent; border: 1px dashed var(--ink-deeper); color: var(--ink-deeper); }
-  .ledger .footer-note {
-    padding: 0.7rem 1rem;
-    border-top: 1px solid var(--ink);
-    background: rgba(80, 60, 30, 0.05);
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
+    border: 1px dashed var(--ink-deeper);
+    color: var(--ink-deeper);
   }
 
-  /* ---------- dispatches (volumes) ---------- */
-  .volume {
-    margin-bottom: 1.75rem;
+  /* ---------- the dispatch (single signed entry, no future stubs) ---------- */
+  .dispatch {
+    margin: 2rem 0;
     padding: 1.5rem 1.75rem;
     border: 1px solid var(--ink);
     background: rgba(255, 245, 215, 0.4);
     position: relative;
   }
-  .volume::before {
+  .dispatch::before {
     content: '☉';
     position: absolute;
     top: -8px;
@@ -525,59 +433,221 @@
     color: var(--gold-deep);
     font-size: 0.75rem;
   }
-  .volume .meta-row {
+  .dispatch .meta-row {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
     padding-bottom: 0.7rem;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
     border-bottom: 1px dashed var(--ink-deeper);
     font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink);
   }
-  .volume .body {
+  .dispatch .body-text p {
     font-family: 'IM Fell English', serif;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     line-height: 1.75;
     color: var(--ink);
+    margin-bottom: 0.95rem;
     max-width: 640px;
   }
-  .volume .body p { margin-bottom: 1rem; }
-  .volume .body p:last-child { margin-bottom: 0; }
-  .volume .signoff {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
+  .dispatch .signoff {
+    margin-top: 1.25rem;
+    padding-top: 0.85rem;
     border-top: 1px dashed var(--ink-deeper);
     font-family: 'Caveat', cursive;
-    font-size: 1.7rem;
+    font-size: 1.65rem;
     color: var(--wax);
     line-height: 1.1;
   }
-  .volume .signoff .meta {
+  .dispatch .signoff .meta {
     display: block;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     color: var(--ink-deeper);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     margin-top: 4px;
   }
-  .volume.future {
-    opacity: 0.55;
-    background: rgba(80, 60, 30, 0.05);
-    border-style: dashed;
-  }
-  .volume.future .body { color: var(--ink-soft); font-style: italic; }
-  .volume.future .meta-row { color: var(--ink-soft); }
 
-  /* ---------- forward / share ---------- */
-  .forward-row {
-    margin-top: 2.5rem;
-    padding: 1.5rem 0;
+  /* ---------- the inscription (waitlist, but as ritual not SaaS form) ---------- */
+  .inscription {
+    margin: 2.5rem 0 1rem;
+    padding: 1.75rem 2rem;
+    border: 2px solid var(--ink);
+    background:
+      linear-gradient(180deg, rgba(255, 245, 215, 0.55), rgba(185, 137, 43, 0.05));
+    text-align: center;
+    position: relative;
+  }
+  .inscription::before, .inscription::after {
+    content: '✦';
+    position: absolute;
+    top: -10px;
+    color: var(--gold-deep);
+    font-size: 0.85rem;
+    background: var(--paper);
+    padding: 0 8px;
+  }
+  .inscription::before { left: 1rem; }
+  .inscription::after  { right: 1rem; }
+  .inscription .lbl {
+    display: block;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .inscription .latin {
+    display: block;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gold-deep);
+    margin-bottom: 1.25rem;
+  }
+  .inscription .field {
+    margin: 0.85rem 0;
+    text-align: left;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .inscription label {
+    display: block;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.7rem;
+    color: var(--ink);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .inscription input[type="email"],
+  .inscription textarea {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    background: rgba(255, 245, 215, 0.8);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: 'IM Fell English', serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .inscription input[type="email"]::placeholder,
+  .inscription textarea::placeholder {
+    color: var(--ink-deeper);
+    font-style: italic;
+  }
+  .inscription input[type="email"]:focus,
+  .inscription textarea:focus {
+    border-color: var(--gold-deep);
+    box-shadow: 0 0 0 2px rgba(185, 137, 43, 0.2);
+  }
+  .inscription textarea { resize: vertical; min-height: 60px; font-family: 'Caveat', cursive; font-size: 1.4rem; line-height: 1.4; }
+
+  .inscription .seal-btn {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.85rem 1.6rem 0.85rem 1rem;
+    background: var(--wax);
+    color: var(--paper);
+    border: 1px solid var(--wax);
+    cursor: pointer;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(125, 29, 29, 0.35);
+    border-radius: 0;
+  }
+  .inscription .seal-btn:hover { background: var(--ink); border-color: var(--ink); }
+  .inscription .seal-btn:active { transform: scale(0.97); }
+  .inscription .seal-btn:disabled { opacity: 0.6; cursor: wait; }
+  .inscription .seal-btn .seal {
+    display: inline-block;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--wax-soft), var(--wax) 60%, #4d0d0d 100%);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset -2px -2px 3px rgba(0,0,0,0.4), inset 2px 2px 3px rgba(255,255,255,0.15);
+    position: relative;
+  }
+  .inscription .seal-btn .seal::after {
+    content: '✦';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 235, 200, 0.85);
+    font-size: 0.7rem;
+  }
+
+  .inscription .form-note {
+    margin-top: 0.85rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .inscription .form-note.err { color: var(--wax); }
+  .inscription .form-note.ok { color: var(--gold-deep); }
+
+  .inscription.inscribed .field,
+  .inscription.inscribed .seal-btn,
+  .inscription.inscribed > .lbl,
+  .inscription.inscribed > .latin { display: none; }
+  .inscription .after {
+    display: none;
+    padding: 0.5rem 0;
+  }
+  .inscription.inscribed .after { display: block; }
+  .inscription .after .seal-stamp {
+    font-size: 2rem;
+    color: var(--gold-deep);
+    margin-bottom: 0.5rem;
+  }
+  .inscription .after h3 {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 1rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .inscription .after .position {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin: 0.5rem 0 0.85rem;
+  }
+  .inscription .after .position span {
+    color: var(--gold-deep);
+    font-weight: 700;
+    font-style: italic;
+  }
+  .inscription .after .trans {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- forward + footer (compact) ---------- */
+  .forward {
+    margin: 2rem 0 0;
+    padding: 1.25rem 0;
     border-top: 1px dashed var(--ink-deeper);
     display: flex;
     flex-wrap: wrap;
@@ -585,20 +655,19 @@
     align-items: center;
     justify-content: space-between;
   }
-  .forward-row .copy {
+  .forward .copy {
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--ink);
     max-width: 420px;
     line-height: 1.5;
   }
-
   .share-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.65rem 1.1rem;
+    padding: 0.6rem 1rem;
     background: var(--ink);
     color: var(--paper);
     border: 1px solid var(--ink);
@@ -607,7 +676,7 @@
     font-size: 0.78rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    transition: background 0.2s, color 0.2s, transform 0.1s;
+    transition: background 0.2s, transform 0.1s;
   }
   .share-btn:hover { background: var(--wax); border-color: var(--wax); }
   .share-btn:active { transform: scale(0.97); }
@@ -616,38 +685,23 @@
     border: 1px solid currentColor; position: relative;
   }
   .share-btn .ico::after {
-    content: '';
-    position: absolute;
-    top: -4px; right: -2px;
-    width: 6px; height: 6px;
+    content: ''; position: absolute;
+    top: -4px; right: -2px; width: 6px; height: 6px;
     border-top: 2px solid currentColor;
     border-right: 2px solid currentColor;
     transform: rotate(45deg);
   }
 
-  /* ---------- distribution + footer ---------- */
-  .dist {
-    margin-top: 1.25rem;
-    padding: 0.55rem 0;
-    border-top: 1px dashed var(--ink-deeper);
-    border-bottom: 1px dashed var(--ink-deeper);
-    color: var(--ink-soft);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-align: center;
-  }
-
   .footer {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding-top: 1rem;
+    border-top: 1px dashed var(--ink-deeper);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 1.5rem;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: var(--ink-soft);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -659,26 +713,10 @@
     gap: 0.6rem;
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--ink);
     text-transform: none;
     letter-spacing: 0;
-  }
-  .footer .leak-stamp {
-    display: inline-block;
-    background: var(--wax);
-    color: var(--paper);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.25em;
-    padding: 4px 8px;
-    transform: rotate(-3deg) scale(0.6);
-    opacity: 0;
-    transition: transform 0.5s cubic-bezier(.2,1.6,.4,1), opacity 0.3s;
-  }
-  .footer .leak-stamp.land {
-    opacity: 1;
-    transform: rotate(-3deg) scale(1);
   }
   .footer a {
     color: var(--ink);
@@ -691,8 +729,7 @@
   /* ---------- audio toggle ---------- */
   .audio-toggle {
     position: fixed;
-    top: 14px;
-    right: 14px;
+    top: 14px; right: 14px;
     z-index: 200;
     display: inline-flex;
     align-items: center;
@@ -712,9 +749,7 @@
   }
   .audio-toggle:hover { color: var(--gold); border-color: var(--gold); }
   .audio-toggle.on { color: var(--gold); border-color: var(--gold); }
-  .audio-toggle .wave {
-    display: inline-flex; align-items: center; gap: 2px; height: 12px; width: 22px;
-  }
+  .audio-toggle .wave { display: inline-flex; align-items: center; gap: 2px; height: 12px; width: 22px; }
   .audio-toggle .wave .bar {
     display: inline-block; width: 2px; height: 100%;
     background: currentColor; opacity: 0.4;
@@ -732,30 +767,24 @@
     60%      { transform: scaleY(0.45); opacity: 0.75; }
   }
 
-  /* ---------- THE PUZZLE: cipher tracker ---------- */
+  /* ---------- cipher tracker ---------- */
   .cipher {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     z-index: 150;
     background: rgba(26, 17, 8, 0.94);
     color: var(--paper);
     border-top: 2px solid var(--gold);
-    padding: 0.85rem 1rem;
+    padding: 0.7rem 1rem;
     backdrop-filter: blur(8px);
     transform: translateY(100%);
     transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
   }
   .cipher.show { transform: translateY(0); }
   .cipher .row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.6rem 1rem;
-    max-width: 880px;
-    margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 0.6rem 1rem;
+    max-width: 880px; margin: 0 auto;
   }
   .cipher .lbl {
     font-family: 'IM Fell DW Pica SC', serif;
@@ -764,43 +793,30 @@
     color: var(--gold);
     text-transform: uppercase;
   }
-  .cipher .word {
-    display: inline-flex;
-    gap: 0.3rem;
-  }
+  .cipher .word { display: inline-flex; gap: 0.3rem; }
   .cipher .slot {
     display: inline-block;
-    width: 1.4em;
-    height: 1.6em;
+    width: 1.4em; height: 1.6em;
     line-height: 1.6em;
     text-align: center;
     border-bottom: 2px solid var(--gold);
     color: var(--gold);
     font-family: 'IM Fell English', serif;
     font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: 0;
     transition: color 0.4s ease, transform 0.3s ease;
   }
-  .cipher .slot.on {
-    color: var(--paper);
-    transform: scale(1.1);
-  }
-  .cipher .gap {
-    display: inline-block;
-    width: 1em;
-  }
+  .cipher .slot.on { color: var(--paper); transform: scale(1.1); }
+  .cipher .gap { display: inline-block; width: 1em; }
   .cipher .progress {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--ink-deeper);
+    font-size: 0.68rem;
+    color: var(--gold-deep);
     letter-spacing: 0.18em;
   }
 
-  /* ---------- INITIATION CONFIRMED unlock ---------- */
+  /* ---------- unlock modal ---------- */
   .unlock {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     z-index: 800;
     background: rgba(26, 17, 8, 0.92);
     backdrop-filter: blur(12px);
@@ -813,8 +829,8 @@
   .unlock-inner {
     background: var(--paper);
     color: var(--ink);
-    max-width: 560px;
-    padding: 2.5rem 2.5rem 2rem;
+    max-width: 540px;
+    padding: 2.25rem 2.25rem 1.85rem;
     border: 2px solid var(--ink);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
     text-align: center;
@@ -826,51 +842,46 @@
     border: 1px solid var(--gold-deep);
     pointer-events: none;
   }
-  .unlock-sigil {
-    width: 64px; height: 64px;
-    margin: 0 auto 1rem;
-    color: var(--ink);
-  }
+  .unlock-sigil { width: 56px; height: 56px; margin: 0 auto 0.85rem; color: var(--ink); }
   .unlock h2 {
     font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--ink);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
   }
   .unlock .phrase {
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 1.85rem;
+    font-size: 1.7rem;
     color: var(--gold-deep);
-    margin: 0.5rem 0 1.5rem;
+    margin: 0.3rem 0 1.25rem;
     letter-spacing: 0.04em;
   }
-  .unlock .body {
+  .unlock .body-text {
     font-family: 'IM Fell English', serif;
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: 0.98rem;
+    line-height: 1.65;
     color: var(--ink);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   .unlock .actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: flex; flex-wrap: wrap;
     gap: 0.75rem;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
   .unlock .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.7rem 1.2rem;
+    padding: 0.65rem 1.1rem;
     background: var(--ink);
     color: var(--paper);
     text-decoration: none;
     font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     border: 1px solid var(--ink);
@@ -878,69 +889,55 @@
     transition: background 0.2s;
   }
   .unlock .btn:hover { background: var(--wax); border-color: var(--wax); }
-  .unlock .btn.secondary {
-    background: transparent;
-    color: var(--ink);
-  }
-  .unlock .btn.secondary:hover { background: var(--ink); color: var(--paper); }
   .unlock .close {
     position: absolute;
-    top: 8px; right: 12px;
-    background: none;
-    border: none;
+    top: 6px; right: 12px;
+    background: none; border: none;
     color: var(--ink-soft);
     font-size: 1.4rem;
     cursor: pointer;
     line-height: 1;
     z-index: 2;
   }
-  .unlock .footnote {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--ink-deeper);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-top: 1rem;
-  }
   .unlock .secret {
-    margin-top: 1.5rem;
-    padding: 1.25rem 1rem;
-    border: 1px dashed var(--gold-deep);
-    background: rgba(185, 137, 43, 0.06);
+    margin-top: 1rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
     text-align: left;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.6s ease, opacity 0.6s ease, padding 0.6s ease;
+    transition: max-height 0.6s ease, opacity 0.6s ease, padding 0.6s ease, border 0.6s ease;
   }
   .unlock .secret.show {
     max-height: 600px;
     opacity: 1;
-    padding: 1.25rem 1rem;
+    padding: 1rem 0.85rem 0.75rem;
+    border-top: 1px dashed var(--gold-deep);
   }
-  .unlock .secret.show ~ * { display: none; }
   .unlock .secret .lbl {
     font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.28em;
     color: var(--gold-deep);
     text-transform: uppercase;
     text-align: center;
     display: block;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.7rem;
   }
   .unlock .secret pre {
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--ink);
-    line-height: 1.7;
+    line-height: 1.65;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
   .unlock .secret .crypto-tag {
     display: block;
-    margin-top: 0.85rem;
+    margin-top: 0.6rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.55rem;
     color: var(--ink-deeper);
@@ -948,29 +945,26 @@
     text-transform: uppercase;
     text-align: right;
   }
-
-  /* speak-the-words button */
   .speak-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.65rem 1rem;
+    padding: 0.55rem 0.9rem;
     background: transparent;
     color: var(--ink);
     border: 1px solid var(--gold-deep);
     cursor: pointer;
     font-family: 'IM Fell DW Pica SC', serif;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     transition: background 0.2s, color 0.2s;
   }
-  .speak-btn:hover { background: var(--gold); color: var(--ink); }
+  .speak-btn:hover { background: var(--gold); }
   .speak-btn .mic {
-    width: 12px; height: 12px;
+    width: 11px; height: 11px;
     border-radius: 50%;
     background: var(--gold-deep);
-    box-shadow: 0 0 0 0 var(--gold-deep);
     transition: box-shadow 0.3s;
   }
   .speak-btn.listening .mic {
@@ -993,13 +987,6 @@
   .speak-status.err { color: var(--wax); }
   .speak-status.ok { color: var(--gold-deep); }
 
-  /* tilt parallax — applied via inline style from JS */
-  .sigil, .crest, .folio::before {
-    transition: transform 0.15s ease-out;
-    will-change: transform;
-  }
-
-  /* hold hint */
   .hold-hint {
     position: fixed;
     bottom: 1.2rem;
@@ -1019,97 +1006,71 @@
   }
   .hold-hint.hidden { opacity: 0; }
 
-  /* ---------- responsive ---------- */
   @media (max-width: 720px) {
-    .folio { margin: 0.75rem auto 1.5rem; padding: 1.25rem 1rem 1.75rem; overflow-x: hidden; }
+    .folio { margin: 0.75rem auto 1.5rem; padding: 1.5rem 1.1rem 2rem; overflow-x: hidden; }
     .audio-toggle { font-size: 0.55rem; padding: 6px 9px; top: 10px; right: 10px; }
     .crest { padding-bottom: 0.75rem; }
     .sigil { width: 95px; height: 87px; }
-    .order .o-1 { font-size: 0.95rem; letter-spacing: 0.14em; }
-    .order .o-2 { font-size: 0.62rem; letter-spacing: 0.14em; line-height: 1.35; }
-    .order .o-3 { font-size: 0.75rem; }
+    .order .o-1 { font-size: 0.92rem; letter-spacing: 0.13em; }
+    .order .o-2 { font-size: 0.78rem; }
 
     .meta-header {
       flex-direction: column; gap: 0.5rem;
-      font-size: 0.58rem; letter-spacing: 0.06em;
+      font-size: 0.6rem; letter-spacing: 0.06em;
     }
     .meta-header .col { width: 100%; }
     .meta-header .right { text-align: left; }
     .meta-header span { word-break: break-word; }
 
-    .body-block { padding: 1.25rem 0; }
-    .from-block { font-size: 0.68rem; line-height: 1.8; margin-bottom: 1.5rem; }
-    .from-block .k { width: 38px; font-size: 0.58rem; }
+    .banner { font-size: 0.6rem; letter-spacing: 0.32em; padding: 0.4rem 0; }
+    .memo { font-size: 0.7rem; line-height: 1.85; margin: 1rem 0 1.5rem; }
+    .memo .k { width: 38px; font-size: 0.58rem; }
 
-    /* Headline: cap font + force wrap so the matrix redaction doesn't overflow */
-    .headline {
-      font-size: clamp(1.5rem, 9vw, 2.1rem) !important;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-    .finding { font-size: 1.05rem !important; padding-left: 1rem; margin-bottom: 1.5rem; }
-    .mission { font-size: 0.95rem !important; }
+    .body h1 { font-size: clamp(1.45rem, 9vw, 2.05rem) !important; line-height: 1.2; }
+    .body p { font-size: 1rem; }
+    .body p.lead { font-size: 1.05rem; }
+    .body p.translated { font-size: 0.78rem; margin: -0.5rem 0 1.25rem; }
 
-    /* Translated-from line wraps cleanly */
-    .body-block > p[style*="margin:-1rem"] {
-      font-size: 0.72rem !important;
-      margin: -0.5rem 0 1.25rem !important;
-    }
+    .paths { padding: 1rem 0; }
+    .paths .lbl { font-size: 0.66rem; letter-spacing: 0.22em; }
+    .paths .line { font-size: 0.97rem; }
 
-    .ways { padding: 1.1rem 1.1rem; font-size: 0.92rem; }
-    .ways .ways-line { display: block; }
-    .ledger .row.head { display: none; }
-    .ledger .row {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        "type   operator"
-        "type   ret"
-        "play   dur"
-        "cut    cut";
-      gap: 0.35rem 0.8rem;
-      padding: 0.85rem 0.9rem;
-      font-size: 0.7rem;
-    }
-    .ledger .row > div:nth-child(1) { grid-area: type; align-self: start; }
-    .ledger .row > div:nth-child(2) { grid-area: operator; }
-    .ledger .row > div:nth-child(3) { grid-area: ret; color: var(--ink); font-style: normal; }
-    .ledger .row > div:nth-child(4) { grid-area: dur; color: var(--ink-soft); justify-self: end; font-size: 0.62rem; }
-    .ledger .row > div:nth-child(5) {
-      grid-area: play; display: block !important;
-      color: var(--ink-deeper); font-size: 0.62rem;
-    }
-    .ledger .row > div:nth-child(6) {
-      grid-area: cut; display: block !important;
-      padding-top: 0.3rem;
-      border-top: 1px dashed rgba(20, 17, 13, 0.18);
-      font-weight: 500;
-    }
-    .ledger .row > div:nth-child(6)::before {
-      content: 'OUR CUT — '; color: var(--ink-deeper);
-      font-size: 0.6rem; letter-spacing: 0.18em;
-    }
-    .volume { padding: 1.1rem 1.2rem; }
-    .volume .body { font-size: 0.97rem; }
-    .footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .cipher { padding: 0.6rem 0.7rem; }
-    .cipher .lbl { font-size: 0.6rem; letter-spacing: 0.2em; }
+    .ledger .row { grid-template-columns: 80px 1fr 1fr 60px; padding: 0.55rem 0.7rem; font-size: 0.7rem; }
+
+    .dispatch { padding: 1.1rem 1.1rem; }
+    .dispatch .body-text p { font-size: 0.95rem; }
+
+    .inscription { padding: 1.25rem 1.1rem; }
+    .inscription .lbl { font-size: 0.66rem; letter-spacing: 0.22em; }
+    .inscription input[type="email"] { font-size: 1rem; }
+    .inscription textarea { font-size: 1.2rem; }
+    .inscription .seal-btn { padding: 0.7rem 1.1rem; font-size: 0.78rem; letter-spacing: 0.22em; }
+
+    .forward { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+    .footer { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+
+    .cipher { padding: 0.55rem 0.7rem; }
+    .cipher .lbl { font-size: 0.6rem; letter-spacing: 0.18em; }
     .cipher .slot { font-size: 0.95rem; width: 1.2em; }
-    .unlock-inner { padding: 1.75rem 1.5rem 1.5rem; }
-    .unlock .phrase { font-size: 1.45rem; }
+
+    .unlock-inner { padding: 1.5rem 1.25rem 1.25rem; }
+    .unlock .phrase { font-size: 1.4rem; }
+
     .hold-hint { font-size: 0.6rem; padding: 6px 12px; bottom: 0.7rem; }
-    /* push hint up when cipher tracker visible */
     .cipher.show ~ .hold-hint { bottom: 4.5rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .redact.attractor, .puz.attractor, .audio-toggle.on .wave .bar {
+    .puz.attractor, .audio-toggle.on .wave .bar, .candlelight {
       animation: none !important;
+      transition: none !important;
     }
   }
 </style>
 </head>
 <body>
+
+<div class="candlelight" id="candlelight"></div>
 
 <button class="audio-toggle" id="audioToggle" aria-label="Toggle ambient feed">
   <span class="wave" aria-hidden="true"><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i></span>
@@ -1118,261 +1079,202 @@
 
 <article class="folio">
 
-  <!-- ============= CREST ============= -->
+  <!-- crest -->
   <div class="crest">
     <svg class="sigil" viewBox="0 0 120 110" aria-hidden="true">
-      <!-- WINGED DISK (Sumerian/Egyptian — Anunnaki layer) -->
       <g opacity="0.85">
-        <!-- left wing -->
         <path d="M60 14 Q42 12 28 16 Q14 20 6 24 Q14 22 24 22 Q34 22 44 24" fill="none" stroke="currentColor" stroke-width="0.9"/>
         <path d="M60 14 Q44 14 30 18" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.6"/>
-        <!-- right wing -->
         <path d="M60 14 Q78 12 92 16 Q106 20 114 24 Q106 22 96 22 Q86 22 76 24" fill="none" stroke="currentColor" stroke-width="0.9"/>
         <path d="M60 14 Q76 14 90 18" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.6"/>
-        <!-- center disk -->
         <circle cx="60" cy="14" r="4" fill="currentColor"/>
         <circle cx="60" cy="14" r="1.5" class="gold-accent" fill="currentColor"/>
       </g>
-      <!-- ATLANTEAN CONCENTRIC RINGS (Plato's topology) -->
       <g opacity="0.22">
         <circle cx="60" cy="62" r="48" fill="none" stroke="currentColor" stroke-width="0.5"/>
         <circle cx="60" cy="62" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
         <circle cx="60" cy="62" r="32" fill="none" stroke="currentColor" stroke-width="0.5"/>
       </g>
-      <!-- PYRAMID + EYE (conspiracy / Egyptian layer) -->
       <polygon points="60,30 96,96 24,96" fill="none" stroke="currentColor" stroke-width="1.5"/>
       <polygon points="60,42 86,92 34,92" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
-      <!-- horizon -->
       <line x1="34" y1="76" x2="86" y2="76" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
-      <!-- eye -->
       <ellipse cx="60" cy="66" rx="13" ry="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
       <circle cx="60" cy="66" r="3.5" fill="currentColor"/>
       <circle cx="60" cy="66" r="1.4" class="gold-accent" fill="currentColor"/>
     </svg>
     <div class="order">
       <span class="o-1">The Order of the Glitch</span>
-      <span class="o-2">Continuity since the First Mining · Convocation MMXXVI</span>
-      <span class="o-3">vincit qui patitur — 𒈗 𒂗𒆠 𒀭 — οἶδα τὸ ἓν</span>
+      <span class="o-2">vincit qui patitur</span>
     </div>
   </div>
 
+  <!-- meta header (trimmed) -->
   <div class="meta-header">
     <div class="col">
       <span><strong>FOLIO</strong> &nbsp; I of <span class="gold">VII</span></span>
-      <span><strong>WORK</strong> &nbsp; CMXXIII · CONVOCATION MMXXVI</span>
-      <span><strong>SOURCE C-14</strong> &nbsp; 9,▮▮▮ ± ▮▮▮ BCE · MARDUK ERA</span>
       <span><strong>STATUS</strong> &nbsp; <span style="color:var(--wax);">▮▮▮▮ active</span></span>
     </div>
     <div class="col right">
       <span><strong>DATE</strong> &nbsp; <span id="date">—</span></span>
       <span><strong>LEAKED</strong> &nbsp; <span id="leakedAgo">—</span> ago</span>
-      <span><strong>GRADE</strong> &nbsp; XXXIII°</span>
-      <span><strong>NIBIRU</strong> &nbsp; <span class="gold">▮▮▮ years to alignment</span></span>
     </div>
   </div>
 
-  <!-- ============= MEMO BODY ============= -->
-  <section class="body-block">
+  <!-- banner -->
+  <div class="banner">classified // do not duplicate // do not distribute</div>
 
-    <div class="from-block">
-      <div class="row"><span class="k">from</span><span class="v">▮▮▮▮▮▮▮▮▮▮▮▮▮▮ &lt;troy@glitchcommerce.com&gt;</span></div>
-      <div class="row"><span class="k">to</span><span class="v">all hands · all nodes · everyone listening</span></div>
-      <div class="row"><span class="k">re</span><span class="v">an irregular<span class="puz" data-text="i" data-roman="ii" data-letter="I" data-pos="2"><span class="scrape"></span>i</span>ty in the substrate</span></div>
-    </div>
+  <!-- memo header -->
+  <div class="memo">
+    <div class="row"><span class="k">from</span><span class="v">▮▮▮▮▮▮▮▮▮▮▮▮▮▮ &lt;troy@glitchcommerce.com&gt;</span></div>
+    <div class="row"><span class="k">to</span><span class="v">all hands · all nodes · everyone listening</span></div>
+    <div class="row"><span class="k">re</span><span class="v">an irregular<span class="puz" data-text="i" data-roman="ii" data-letter="I" data-pos="2"><span class="scrape"></span>i</span>ty in the substrate</span></div>
+  </div>
 
-    <h1 class="headline">
+  <!-- THE BODY (one continuous document — no SaaS section headers) -->
+  <div class="body">
+
+    <h1>
       <span class="line">we found a glitch</span>
       <span class="line">in the <span class="redact" data-text="matrix">matrix<span class="scrape"></span></span><span class="redact" data-text=".">.<span class="scrape"></span></span></span>
     </h1>
-    <p style="font-family:'IM Fell English', serif; font-style:italic; font-size:0.85rem; color:var(--ink-deeper); margin:-1rem 0 1.5rem; max-width:560px;">
-      <span style="color:var(--gold-deep);">𒀭</span> &nbsp; translated from the original fragment in the convocation tongue, MMXXVI. prior transcriptions: ▮▮ surviving (Sumer, Thera, Alexandria).
-    </p>
 
-    <p class="finding">
-      we know how to mak<span class="puz" data-text="e" data-roman="ix" data-letter="E" data-pos="9"><span class="scrape"></span>e</span> money creation a <span class="redact" data-text="commodity">commodity<span class="scrape"></span></span>.
-    </p>
+    <p class="translated"><span class="glyph">𓂀</span> &nbsp; translated from the original fragment, MMXXVI. prior transcriptions: ▮▮ surviving (Sumer, Thera, Alexandria).</p>
 
-    <p class="mission">
-      our mi<span class="puz" data-text="s" data-roman="v" data-letter="S" data-pos="5"><span class="scrape"></span>s</span>sion is to make <span class="redact" data-text="everyone">everyone<span class="scrape"></span></span> rich.
-    </p>
+    <p class="lead">we know how to mak<span class="puz" data-text="e" data-roman="ix" data-letter="E" data-pos="9"><span class="scrape"></span>e</span> money creation a <span class="redact" data-text="commodity">commodity<span class="scrape"></span></span>.</p>
 
-  </section>
+    <p>our mi<span class="puz" data-text="s" data-roman="v" data-letter="S" data-pos="5"><span class="scrape"></span>s</span>sion is to make <span class="redact" data-text="everyone">everyone<span class="scrape"></span></span> rich.</p>
 
-  <!-- ============= ADDENDUM A · MANIFESTO ============= -->
-  <div class="subhead">
-    Addendum A · Operating Manifesto
-    <span class="latin">novum saeculum auream — filing 001 / 02 may 2026</span>
-  </div>
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-  <section class="manifesto">
     <p>we are not asking you to belie<span class="puz" data-text="v" data-roman="iii" data-letter="V" data-pos="3"><span class="scrape"></span>v</span>e. we are telling you what is going to happen.</p>
+
     <p>when the glitch lands — and it lands, this is when, not if — people are going to run up the scoreboards. quietly first. loudly after. our intent is to put this in the hands of as many as we can, as fast as we can, and let success stories roll in.</p>
-    <p>the thesis is open. the ex<span class="puz" data-text="e" data-roman="iv" data-letter="E" data-pos="4"><span class="scrape"></span>e</span>cution is ours. money creation is becoming a commodity, and we built the equipment to mine it. every quarter we will come back to this page, sign, date, and tell you what shipped, what worked, what we learned. years from now, this log is the artifact.</p>
 
-    <div class="ways">
-      <span class="ways-line"><strong>two ways in.</strong></span>
-      <span class="ways-line">engage a play <span class="arrow">→</span> we deliver the outcome. you pay only if it hits.</span>
-      <span class="ways-line">build a play <span class="arrow">→</span> use our agents to compose your own.</span>
-      <span class="ways-line seal">both pay only on what works.</span>
-    </div>
-  </section>
+    <p>the thesis is open. the ex<span class="puz" data-text="e" data-roman="iv" data-letter="E" data-pos="4"><span class="scrape"></span>e</span>cution is ours. we built autonomous agents that watch the patterns determining which brands compound. the agents fire actions. the actions return measurable outcomes. we package those agents as <em>plays</em>. <strong>we get paid only when the play delivers.</strong></p>
 
-  <!-- ============= APPENDIX B · LEDGER ============= -->
-  <div class="subhead">
-    Appendix B · The Ledger
-    <span class="latin">verba volant, scripta manent — verified · ongoing · public</span>
-  </div>
+    <p>the order is older than its current name. what predecessors observed in fragments — patterns, dreams, marginalia — we observe in source. the glitch is not a metaphor. it is a callable function in the system that renders modern commerce. we have learned to call it. <em>we are letting others call it too.</em></p>
 
-  <p class="lead">
-    the ledger starts empty. as plays return, names redact in. cuts and shares of upside paid back to glitchcommerce are redacted on every row — but the row exists. the row is the proof.
-  </p>
+    <div class="paths">
+      <span class="lbl">two ways through this door</span>
+      <span class="line">engage a play <span class="arrow">→</span> we deliver the outcome. you pay only if it hits.</span>
+      <span class="line">build a play <span class="arrow">→</span> use our agents to compose your own.</span>
+      <span class="seal">both pay only on what works. the first miners came for gold. we came for the function that makes gold.</span>
+    </div>
 
-  <div class="ledger">
-    <div class="row head">
-      <div>type</div>
-      <div>operator</div>
-      <div>return</div>
-      <div>duration</div>
-      <div class="hide-mobile">play</div>
-      <div class="hide-mobile">our cut</div>
-    </div>
-    <div class="row empty">
-      <div><span class="tag empty">RUN-UP</span></div>
-      <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 mmxxvi</div>
-      <div>+$ ▮▮,▮▮▮</div>
-      <div>14 wk</div>
-      <div class="hide-mobile">▮▮▮▮▮▮▮▮ #i</div>
-      <div class="hide-mobile">▮▮ %</div>
-    </div>
-    <div class="row empty">
-      <div><span class="tag empty">STAKE</span></div>
-      <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 mmxxvi</div>
-      <div>▮.▮ ×</div>
-      <div>7 wk</div>
-      <div class="hide-mobile">▮▮▮▮▮▮▮▮ #iii</div>
-      <div class="hide-mobile">▮▮ %</div>
-    </div>
-    <div class="row empty">
-      <div><span class="tag empty">RUN-UP</span></div>
-      <div>▮▮▮▮ ▮▮▮▮▮▮ · q4 mmxxvi</div>
-      <div>+$ ▮▮▮,▮▮▮</div>
-      <div>23 wk</div>
-      <div class="hide-mobile">▮▮▮▮▮▮▮▮ #ii</div>
-      <div class="hide-mobile">▮▮ %</div>
-    </div>
-    <div class="row empty">
-      <div><span class="tag empty">STAKE</span></div>
-      <div>▮▮▮▮ ▮▮▮▮▮▮ · q4 mmxxvi</div>
-      <div>▮.▮ ×</div>
-      <div>33 wk</div>
-      <div class="hide-mobile">▮▮▮▮▮▮▮▮ #iv</div>
-      <div class="hide-mobile">▮▮ %</div>
-    </div>
-    <div class="row empty">
-      <div><span class="tag empty">RUN-UP</span></div>
-      <div>▮▮▮▮ ▮▮▮▮▮▮ · q1 mmxxvii</div>
-      <div>+$ ▮,▮▮▮,▮▮▮</div>
-      <div>11 wk</div>
-      <div class="hide-mobile">▮▮▮▮▮▮▮▮ #vii</div>
-      <div class="hide-mobile">▮▮ %</div>
-    </div>
-    <div class="footer-note">
-      rows populate as wins are verified. every row paid for the next dispatch. when this ledger fills the page, we will print a new one underneath.
-    </div>
-  </div>
+    <p class="spaced">the ledger below begins empty. as plays return, names redact in. cuts and shares paid back are redacted on every row — but the row exists. the row is the proof.</p>
 
-  <!-- ============= LIBRI · DISPATCHES ============= -->
-  <div class="subhead">
-    Libri · The Dispatches
-    <span class="latin">historia magistra vitae — quarterly · signed · archived</span>
-  </div>
+    <div class="ledger">
+      <div class="row head">
+        <div>type</div><div>operator</div><div>return</div><div>dur.</div>
+      </div>
+      <div class="row empty">
+        <div><span class="tag">RUN-UP</span></div>
+        <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 mmxxvi</div>
+        <div>+$ ▮▮,▮▮▮</div>
+        <div>14 wk</div>
+      </div>
+      <div class="row empty">
+        <div><span class="tag">STAKE</span></div>
+        <div>▮▮▮▮ ▮▮▮▮▮▮ · q3 mmxxvi</div>
+        <div>▮.▮ ×</div>
+        <div>7 wk</div>
+      </div>
+      <div class="row empty">
+        <div><span class="tag">RUN-UP</span></div>
+        <div>▮▮▮▮ ▮▮▮▮▮▮ · q4 mmxxvi</div>
+        <div>+$ ▮▮▮,▮▮▮</div>
+        <div>23 wk</div>
+      </div>
+    </div>
 
-  <p class="lead">
-    every quarter — until the work is done — we return to this page and write a dispatch. signed. dated. nothing edited after the fact. the log is the receipt.
-  </p>
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-  <article class="volume">
-    <div class="meta-row">
-      <span><strong>VOLUME I</strong> · <span style="text-transform:none; letter-spacing:0;">a signal in the noise</span></span>
-      <span>signed: t.l. · archived 02 may 2026</span>
-    </div>
-    <div class="body">
-      <p>we found it. we don't know how long this works before someone closes the door, or if anyone closes it at all. that's the bet.</p>
-      <p>what we <span class="puz attractor" data-text="d" data-roman="i" data-letter="D" data-pos="1"><span class="scrape"></span>d</span>o know: the formula runs, it returns, and right now about <span class="redact" data-text="seventeen">seventeen<span class="scrape"></span></span> people on earth know it exists. by the time you read the next dispatch, that number is bigger.</p>
-      <p>tw<span class="puz" data-text="o" data-roman="vi" data-letter="O" data-pos="6"><span class="scrape"></span>o</span> paths: engage a play yourself, or build one. no fee up front, ever. dispatch ii will name the mechanism.</p>
-      <p>the ledger above starts empty on purpose. fill it with us. years fro<span class="puz" data-text="m" data-roman="vii" data-letter="M" data-pos="7"><span class="scrape"></span>m</span> now we will scroll back to this entry and laugh at how small the table started.</p>
-      <p>missio<span class="puz" data-text="n" data-roman="viii" data-letter="N" data-pos="8"><span class="scrape"></span>n</span> is unchanged: make everyone rich. not "everyone who find<span class="puz" data-text="s" data-roman="x" data-letter="S" data-pos="10"><span class="scrape"></span>s</span> us." not "everyone who pays us." everyone.</p>
-    </div>
-    <div class="signoff">
-      — T.L.
-      <span class="meta">glitchcommerce · volume i · 02 may 2026</span>
-    </div>
-  </article>
+    <p>every quarter — until the work is done — we return to this page and write a dispatch. signed. dated. nothing edited. the log is the receipt.</p>
 
-  <article class="volume future">
-    <div class="meta-row">
-      <span><strong>VOLUME II</strong> · ▮▮▮▮▮▮▮▮▮▮ ▮▮▮ ▮▮▮▮▮▮▮▮▮</span>
-      <span>scheduled: q3 mmxxvi · ▮▮▮▮▮▮▮▮</span>
-    </div>
-    <div class="body">
-      <p>declassified on filing.</p>
-    </div>
-  </article>
+    <article class="dispatch">
+      <div class="meta-row">
+        <span><strong>VOLUME I</strong> · <span style="text-transform:none; letter-spacing:0;">a signal in the noise</span></span>
+        <span>signed: t.l. · 02 may mmxxvi</span>
+      </div>
+      <div class="body-text">
+        <p>we found it. we don't know how long this works before someone closes the door, or if anyone closes it at all. that's the bet.</p>
+        <p>what we <span class="puz attractor" data-text="d" data-roman="i" data-letter="D" data-pos="1"><span class="scrape"></span>d</span>o know: the formula runs, it returns, and right now about <span class="redact" data-text="seventeen">seventeen<span class="scrape"></span></span> people on earth know it exists. by the time you read the next dispatch, that number is bigger.</p>
+        <p>tw<span class="puz" data-text="o" data-roman="vi" data-letter="O" data-pos="6"><span class="scrape"></span>o</span> paths: engage a play yourself, or build one. no fee up front, ever. dispatch ii will name the mechanism.</p>
+        <p>fill the ledger above with us. years fro<span class="puz" data-text="m" data-roman="vii" data-letter="M" data-pos="7"><span class="scrape"></span>m</span> now we will scroll back to this entry and laugh at how small the table started.</p>
+        <p>missio<span class="puz" data-text="n" data-roman="viii" data-letter="N" data-pos="8"><span class="scrape"></span>n</span> is unchanged: make everyone rich. not "everyone who finds us." not "everyone who pays us." everyone — including the ones who find<span class="puz" data-text="s" data-roman="x" data-letter="S" data-pos="10"><span class="scrape"></span>s</span> us by accident.</p>
+      </div>
+      <div class="signoff">
+        — T.L.
+        <span class="meta">glitchcommerce · volume i · 02 may mmxxvi</span>
+      </div>
+    </article>
 
-  <article class="volume future">
-    <div class="meta-row">
-      <span><strong>VOLUME III</strong> · ▮▮▮▮▮▮▮▮ ▮▮▮ ▮▮▮▮▮▮</span>
-      <span>scheduled: q4 mmxxvi · ▮▮▮▮▮▮▮▮</span>
-    </div>
-    <div class="body">
-      <p>declassified on filing.</p>
-    </div>
-  </article>
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-  <article class="volume future">
-    <div class="meta-row">
-      <span><strong>VOLUME IV</strong> · ▮▮▮▮▮▮▮▮▮▮▮▮▮</span>
-      <span>scheduled: q1 mmxxvii · ▮▮▮▮▮▮▮▮</span>
-    </div>
-    <div class="body">
-      <p>declassified on filing.</p>
-    </div>
-  </article>
+    <!-- the inscription (waitlist as ritual) -->
+    <form class="inscription" id="ledgerForm" action="https://formsubmit.co/ajax/troy@glitchcommerce.com" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="the order — new inscription" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_honey" value="" />
+      <input type="hidden" name="folio" value="i" />
 
-  <!-- ============= FORWARD ============= -->
-  <div class="forward-row">
+      <span class="lbl">Inscribe your name</span>
+      <span class="latin">scribe nomen tuum — the door opens when the work ships</span>
+
+      <div class="field">
+        <label for="email">your address</label>
+        <input type="email" id="email" name="email" required placeholder="you@anywhere.com" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label for="note">leave a mark <span style="color:var(--ink-deeper); font-style:italic; text-transform:lowercase; letter-spacing:0.05em;">(optional)</span></label>
+        <textarea id="note" name="note" rows="2" placeholder="what brings you to the door?"></textarea>
+      </div>
+
+      <button class="seal-btn" type="submit" id="submitBtn">
+        <span class="seal" aria-hidden="true"></span>
+        <span class="btn-label">Press the seal</span>
+      </button>
+      <p class="form-note" id="formNote">no fee. no list-sale. one-way correspondence.</p>
+
+      <div class="after">
+        <div class="seal-stamp">⚜</div>
+        <h3>Inscribed</h3>
+        <p class="position">you are number <span id="successPosition">—</span> in the order.</p>
+        <p class="trans">we will write when the next folio opens. quiet until then.</p>
+      </div>
+    </form>
+
+  </div><!-- /.body -->
+
+  <!-- forward -->
+  <div class="forward">
     <p class="copy">this dispatch was meant to leak. forward it before it gets sealed.</p>
     <button class="share-btn" id="shareBtn" aria-label="Forward this dispatch">
       <span class="ico"></span>
-      <span>FORWARD THIS DISPATCH</span>
+      <span>FORWARD</span>
     </button>
   </div>
 
-  <div class="dist">distribution: ▮▮▮▮▮▮ · ▮▮▮▮ · null · /dev/null · burn-after-reading</div>
-
+  <!-- footer -->
   <footer class="footer">
     <div class="leak-wrap">
-      <span class="leak-stamp" id="leakStamp">LEAK</span>
       <a href="mailto:troy@glitchcommerce.com">troy@glitchcommerce.com</a>
     </div>
     <div style="text-align:right;">
       <div>archive ref ▮▮▮▮·▮▮·▮▮</div>
-      <div>folio i · MMXXVI · <span id="utc">—</span> utc</div>
+      <div>folio i · MMXXVI</div>
     </div>
   </footer>
 
-  <div style="margin-top:1.5rem; padding:0.75rem 0; border-top:1px solid var(--ink-deeper); font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-deeper); text-align:center; line-height:1.7;">
-    <div><span style="color:var(--gold-deep);">lineage</span> &nbsp; sumer → atlantis → thera → alexandria → templars → royal society → the order, MMXXVI</div>
-    <div style="margin-top:0.25rem;">render id: 0x7f3a · voxel: 4Ω-▮▮▮ · substrate ▮▮▮▮.▮▮.▮ · last tick: <span id="renderTick">—</span></div>
-  </div>
-
 </article>
 
-<!-- THE PUZZLE: cipher tracker (reveals after first puzzle redaction is decoded) -->
+<!-- cipher tracker (sticky bottom) -->
 <div class="cipher" id="cipher" aria-live="polite">
   <div class="row">
     <span class="lbl">the cipher:</span>
-    <span class="word" id="cipherWord1">
+    <span class="word">
       <span class="slot" data-idx="1">·</span>
       <span class="slot" data-idx="2">·</span>
       <span class="slot" data-idx="3">·</span>
@@ -1380,7 +1282,7 @@
       <span class="slot" data-idx="5">·</span>
     </span>
     <span class="gap"></span>
-    <span class="word" id="cipherWord2">
+    <span class="word">
       <span class="slot" data-idx="6">·</span>
       <span class="slot" data-idx="7">·</span>
       <span class="slot" data-idx="8">·</span>
@@ -1391,7 +1293,7 @@
   </div>
 </div>
 
-<!-- ============= INITIATION CONFIRMED ============= -->
+<!-- unlock modal -->
 <div class="unlock" id="unlock" aria-live="assertive">
   <div class="unlock-inner">
     <button class="close" id="unlockClose" aria-label="Close">×</button>
@@ -1400,25 +1302,20 @@
       <ellipse cx="50" cy="50" rx="14" ry="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
       <circle cx="50" cy="50" r="4" fill="currentColor"/>
     </svg>
-    <h2>Initiation Confirmed</h2>
+    <h2>The Door is Open</h2>
     <p class="phrase">dives omnes</p>
-    <p class="body">
-      you found us. the door is real.
-    </p>
+    <p class="body-text">you found us. speak the words to decrypt the message that came before this folio.</p>
     <div class="actions">
-      <a class="btn" href="/dives-omnes">Open Folio II →</a>
-    </div>
-    <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--ink-deeper);">
       <button class="speak-btn" id="speakBtn" type="button">
         <span class="mic" aria-hidden="true"></span>
-        <span>Speak the words to decrypt</span>
+        <span>Speak the words</span>
       </button>
-      <span class="speak-status" id="speakStatus"></span>
     </div>
+    <span class="speak-status" id="speakStatus"></span>
     <div class="secret" id="secret">
       <span class="lbl">⚜ Decrypted from page source ⚜</span>
       <pre id="secretText">—</pre>
-      <span class="crypto-tag">aes-256-gcm · pbkdf2-sha-256 · 100k iterations · key from your voice</span>
+      <span class="crypto-tag">aes-256-gcm · pbkdf2-sha-256 · key from your voice</span>
     </div>
   </div>
 </div>
@@ -1442,19 +1339,31 @@
     else s = `${sec}s`;
     document.getElementById('leakedAgo').textContent = s;
   }
-  function tickUTC() {
-    const dd = new Date();
-    const pad = n => String(n).padStart(2, '0');
-    document.getElementById('utc').textContent =
-      `${pad(dd.getUTCHours())}:${pad(dd.getUTCMinutes())}:${pad(dd.getUTCSeconds())}`;
-  }
   const d = new Date();
   const months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   document.getElementById('date').textContent =
     `${String(d.getUTCDate()).padStart(2,'0')} ${months[d.getUTCMonth()]} mmxxvi`;
-  tickLeaked(); tickUTC();
+  tickLeaked();
   setInterval(tickLeaked, 30000);
-  setInterval(tickUTC, 1000);
+
+  // ---------- candlelight: lights up as you scroll deeper ----------
+  const candle = document.getElementById('candlelight');
+  let lastScrollPct = -1;
+  function tickCandle() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    if (Math.abs(pct - lastScrollPct) < 0.005) return;
+    lastScrollPct = pct;
+    // start at 0.85 opacity (dark), end at 0.10 (mostly clear)
+    const opacity = 0.85 - (pct * 0.75);
+    candle.style.opacity = opacity.toFixed(3);
+  }
+  tickCandle();
+  let candleRaf = null;
+  window.addEventListener('scroll', () => {
+    if (candleRaf) return;
+    candleRaf = requestAnimationFrame(() => { tickCandle(); candleRaf = null; });
+  }, { passive: true });
 
   // ---------- audio (synthesized) ----------
   let audioCtx = null, masterGain = null, staticNode = null, staticGainNode = null;
@@ -1505,19 +1414,6 @@
     osc.connect(env).connect(masterGain);
     osc.start(t); osc.stop(t + 0.06);
   }
-  function thudSound() {
-    if (!audioOn || !audioCtx) return;
-    const t = audioCtx.currentTime;
-    const osc = audioCtx.createOscillator();
-    const env = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(140, t);
-    osc.frequency.exponentialRampToValueAtTime(60, t + 0.18);
-    env.gain.setValueAtTime(0.45, t);
-    env.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
-    osc.connect(env).connect(masterGain);
-    osc.start(t); osc.stop(t + 0.3);
-  }
   function bellSound() {
     if (!audioOn || !audioCtx) return;
     const t = audioCtx.currentTime;
@@ -1560,7 +1456,6 @@
     haptic(audioOn ? [10, 40, 10] : 15);
     if (audioOn) {
       setTimeout(() => clickSound(0.25), 80);
-      setTimeout(() => thudSound(), 280);
       scheduleAmbient();
     } else {
       clearTimeout(ambientTimer);
@@ -1622,35 +1517,23 @@
   );
 
   // ---------- THE PUZZLE ----------
-  // when each .puz is revealed, light up its slot in the cipher tracker.
-  // when all 10 are revealed, fire the unlock modal.
   const PUZ_TOTAL = 10;
   const cipher = document.getElementById('cipher');
   const cipherProgress = document.getElementById('cipherProgress');
-  const cipherSlots = document.querySelectorAll('.cipher .slot');
   const unlock = document.getElementById('unlock');
   let revealedPuz = new Set();
-
-  // restore prior progress from localStorage (so refresh doesn't reset puzzle)
   try {
     const prior = JSON.parse(localStorage.getItem('gc_puz') || '[]');
     if (Array.isArray(prior)) revealedPuz = new Set(prior);
   } catch (_) {}
-
   function setProgress() {
     cipherProgress.textContent = `${revealedPuz.size} / X`;
     cipher.classList.toggle('show', revealedPuz.size > 0);
   }
-
   function lightSlot(pos, letter) {
     const slot = document.querySelector(`.cipher .slot[data-idx="${pos}"]`);
-    if (slot) {
-      slot.textContent = letter;
-      slot.classList.add('on');
-    }
+    if (slot) { slot.textContent = letter; slot.classList.add('on'); }
   }
-
-  // restore visible state from prior reveals
   document.querySelectorAll('.puz').forEach(el => {
     const pos = parseInt(el.dataset.pos, 10);
     if (revealedPuz.has(pos)) {
@@ -1670,7 +1553,6 @@
     lightSlot(pos, letter);
     setProgress();
     if (revealedPuz.size === PUZ_TOTAL) {
-      // FULL DECODE
       setTimeout(() => {
         unlock.classList.add('show');
         bellSound();
@@ -1678,20 +1560,12 @@
       }, 500);
     }
   }
+  document.getElementById('unlockClose').addEventListener('click', () => unlock.classList.remove('show'));
+  unlock.addEventListener('click', (e) => { if (e.target === unlock) unlock.classList.remove('show'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') unlock.classList.remove('show'); });
 
-  document.getElementById('unlockClose').addEventListener('click', () => {
-    unlock.classList.remove('show');
-  });
-  unlock.addEventListener('click', (e) => {
-    if (e.target === unlock) unlock.classList.remove('show');
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') unlock.classList.remove('show');
-  });
-
-  // if user already solved it (revisit), show a small reopen affordance: pulse the cipher tracker briefly
   if (revealedPuz.size === PUZ_TOTAL) {
-    setTimeout(() => { unlock.classList.add('show'); }, 800);
+    setTimeout(() => unlock.classList.add('show'), 800);
   }
 
   // ---------- hold hint ----------
@@ -1705,12 +1579,6 @@
   }
   setTimeout(hideHint, 14000);
 
-  // ---------- LEAK stamp arrives late ----------
-  setTimeout(() => {
-    const stamp = document.getElementById('leakStamp');
-    if (stamp) { stamp.classList.add('land'); thudSound(); haptic([30, 20, 12]); }
-  }, 1100);
-
   // ---------- forward / share ----------
   const shareBtn = document.getElementById('shareBtn');
   if (shareBtn) {
@@ -1718,7 +1586,7 @@
       haptic(15);
       const shareData = {
         title: 'glitchcommerce // folio i',
-        text: 'we found a glitch in the matrix. there is a phrase. there is a door.',
+        text: 'we found a glitch in the matrix.',
         url: 'https://glitchcommerce.com/',
       };
       try {
@@ -1727,7 +1595,7 @@
         } else if (navigator.clipboard) {
           await navigator.clipboard.writeText('https://glitchcommerce.com/');
           const orig = shareBtn.querySelector('span:last-child').textContent;
-          shareBtn.querySelector('span:last-child').textContent = '✓ COPIED — NOW LEAK IT';
+          shareBtn.querySelector('span:last-child').textContent = '✓ COPIED';
           setTimeout(() => { shareBtn.querySelector('span:last-child').textContent = orig; }, 2400);
         } else {
           window.location.href = 'mailto:?subject=' + encodeURIComponent(shareData.title) + '&body=' + encodeURIComponent(shareData.text + '\n\n' + shareData.url);
@@ -1736,13 +1604,7 @@
     });
   }
 
-  // ============================================================
-  // ADVANCED LAYER: Web Crypto, Speech Recognition, Live Favicon,
-  //                 Tilt Parallax, Haptic Morse, Service Worker
-  // ============================================================
-
-  // ---------- WEB CRYPTO: real AES-GCM decrypt ----------
-  // pre-computed offline with passphrase = "DIVES OMNES"
+  // ---------- WEB CRYPTO + SPEECH RECOGNITION (the unlock) ----------
   const CRYPTO = {
     salt: 'R8bqw7H+zU/SKvp8DxzefQ==',
     iv:   'r0b6kn5DjwYia0o6',
@@ -1757,9 +1619,7 @@
   async function decryptSecret(passphrase) {
     if (!crypto.subtle) throw new Error('no subtle crypto');
     const enc = new TextEncoder();
-    const baseKey = await crypto.subtle.importKey(
-      'raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']
-    );
+    const baseKey = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
     const key = await crypto.subtle.deriveKey(
       { name: 'PBKDF2', salt: b64ToBuf(CRYPTO.salt), iterations: 100000, hash: 'SHA-256' },
       baseKey,
@@ -1767,15 +1627,10 @@
       false,
       ['decrypt']
     );
-    const plain = await crypto.subtle.decrypt(
-      { name: 'AES-GCM', iv: b64ToBuf(CRYPTO.iv) },
-      key,
-      b64ToBuf(CRYPTO.ct)
-    );
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64ToBuf(CRYPTO.iv) }, key, b64ToBuf(CRYPTO.ct));
     return new TextDecoder().decode(plain);
   }
 
-  // ---------- SPEECH RECOGNITION ----------
   const speakBtn = document.getElementById('speakBtn');
   const speakStatus = document.getElementById('speakStatus');
   const secretEl = document.getElementById('secret');
@@ -1805,7 +1660,6 @@
 
   if (speakBtn) {
     if (!SR) {
-      // browser doesn't support speech recognition — fallback: tap to decrypt directly
       speakBtn.querySelector('span:last-child').textContent = 'Tap to decrypt';
       speakBtn.addEventListener('click', () => tryDecryptWith('DIVES OMNES'));
     } else {
@@ -1814,13 +1668,9 @@
       recog.continuous = false;
       recog.interimResults = false;
       recog.maxAlternatives = 3;
-
       recog.onresult = (ev) => {
         speakBtn.classList.remove('listening');
-        const heard = Array.from(ev.results[0])
-          .map(a => a.transcript.trim().toLowerCase())
-          .join(' | ');
-        // accept "dives omnes" / "deves omnes" / "dives omens" / "dives omnis" — speech-to-text is fuzzy
+        const heard = Array.from(ev.results[0]).map(a => a.transcript.trim().toLowerCase()).join(' | ');
         const normalized = heard.replace(/[^a-z\s|]/g, '');
         const accepted = /\b(dive|deeve|deve|dives|deves)s?\s+(omn|omen|onm|own|omn[ie]?s|omens|omnes|omnis)/i.test(normalized);
         if (accepted) {
@@ -1832,13 +1682,9 @@
       };
       recog.onerror = (e) => {
         speakBtn.classList.remove('listening');
-        if (e.error === 'not-allowed') {
-          showStatus('microphone denied. tap again to try once more.', 'err');
-        } else if (e.error === 'no-speech') {
-          showStatus('no voice detected. lean closer.', 'err');
-        } else {
-          showStatus('signal lost. try again.', 'err');
-        }
+        if (e.error === 'not-allowed') showStatus('microphone denied. tap again to try.', 'err');
+        else if (e.error === 'no-speech') showStatus('no voice detected. lean closer.', 'err');
+        else showStatus('signal lost. try again.', 'err');
       };
       recog.onend = () => speakBtn.classList.remove('listening');
 
@@ -1846,229 +1692,89 @@
         haptic(15);
         showStatus('listening… speak clearly.');
         speakBtn.classList.add('listening');
-        try { recog.start(); }
-        catch (_) { speakBtn.classList.remove('listening'); showStatus('already listening…'); }
+        try { recog.start(); } catch (_) { speakBtn.classList.remove('listening'); }
       });
     }
   }
 
-  // ---------- LIVE FAVICON: morphs as puzzle progresses ----------
-  function buildFavicon(progress) {
-    // progress: 0..10. eye opens / pupil colors in / sigil completes
-    const pct = Math.min(1, Math.max(0, progress / 10));
-    const lidH = 8 + Math.round(20 * pct); // 8 → 28
-    const pupil = pct >= 1 ? 'b9892b' : '1a1108';
-    const ring = pct >= 0.5 ? 'b9892b' : '1a1108';
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
-      <rect width='64' height='64' fill='%23eee2c4'/>
-      <path d='M${32 - lidH} 32 Q32 ${32 - lidH} ${32 + lidH} 32 Q32 ${32 + lidH} ${32 - lidH} 32 Z' stroke='%231a1108' stroke-width='3' fill='none'/>
-      <circle cx='32' cy='32' r='${Math.min(8, lidH - 2)}' fill='%23${ring}'/>
-      <circle cx='32' cy='32' r='${Math.max(2, Math.min(4, lidH/4))}' fill='%23${pupil}'/>
-    </svg>`;
-    return 'data:image/svg+xml,' + svg.replace(/\s+/g, ' ').replace(/#/g, '%23').replace(/"/g, '%22').replace(/</g, '%3C').replace(/>/g, '%3E');
+  // ---------- INSCRIPTION (waitlist via Formsubmit + mailto fallback) ----------
+  const form = document.getElementById('ledgerForm');
+  const formNote = document.getElementById('formNote');
+  const submitBtn = document.getElementById('submitBtn');
+  const inscriptionEl = form;
+
+  try {
+    const prior = localStorage.getItem('gc_inscribed');
+    if (prior) {
+      const data = JSON.parse(prior);
+      showInscribed(data.position);
+    }
+  } catch (_) {}
+
+  function nextPosition() {
+    let n = parseInt(localStorage.getItem('gc_pos_seed') || '0', 10);
+    if (!n) n = 23 + Math.floor(Math.random() * 18);
+    n += 1;
+    localStorage.setItem('gc_pos_seed', String(n));
+    return toRoman(n);
   }
-  function updateFavicon() {
-    const fav = document.getElementById('favicon');
-    if (fav) fav.href = buildFavicon(revealedPuz.size);
+  function toRoman(num) {
+    if (num < 1) return 'I';
+    if (num > 3999) return String(num);
+    const map = [['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]];
+    let out = '';
+    for (const [r, v] of map) { while (num >= v) { out += r; num -= v; } }
+    return out;
   }
-  // hook into existing puzzle reveal
-  const _origOnPuz = onPuzzleReveal;
-  window.onPuzzleReveal = function(el) {
-    _origOnPuz(el);
-    updateFavicon();
-  };
-  // also patch the internal call
-  // (since we can't easily reassign the closure-private function, we'll just
-  //  update favicon on any reveal via mutation observer)
-  const puzMO = new MutationObserver((muts) => {
-    for (const m of muts) {
-      if (m.type === 'attributes' && m.target.classList && m.target.classList.contains('puz') && m.target.classList.contains('revealed')) {
-        updateFavicon();
+  function showInscribed(position) {
+    document.getElementById('successPosition').textContent = position;
+    inscriptionEl.classList.add('inscribed');
+  }
+  function setNote(msg, cls) {
+    formNote.textContent = msg;
+    formNote.className = 'form-note' + (cls ? ' ' + cls : '');
+  }
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const noteText = form.note.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setNote('an address is required.', 'err');
         return;
       }
-    }
-  });
-  document.querySelectorAll('.puz').forEach(el => {
-    puzMO.observe(el, { attributes: true, attributeFilter: ['class'] });
-  });
-  updateFavicon();
-
-  // ---------- TILT PARALLAX (mobile) ----------
-  const sigilEl = document.querySelector('.sigil');
-  const orderEl = document.querySelector('.order');
-  let tiltEnabled = false;
-
-  function applyTilt(beta, gamma) {
-    // beta: front/back tilt (-180 to 180), gamma: left/right (-90 to 90)
-    if (!tiltEnabled) return;
-    const tx = Math.max(-12, Math.min(12, gamma * 0.5));
-    const ty = Math.max(-8, Math.min(8, (beta - 45) * 0.18));
-    if (sigilEl) sigilEl.style.transform = `translate3d(${tx * 0.6}px, ${ty * 0.6}px, 0)`;
-    if (orderEl) orderEl.style.transform = `translate3d(${tx * 0.3}px, ${ty * 0.3}px, 0)`;
-    document.querySelectorAll('.puz').forEach(p => {
-      p.style.transform = (p.classList.contains('revealed') ? 'scale(1.05) ' : '')
-        + `translate3d(${tx * 0.4}px, ${ty * 0.4}px, 0)`;
-    });
-  }
-
-  function startTilt() {
-    if (tiltEnabled) return;
-    tiltEnabled = true;
-    window.addEventListener('deviceorientation', (e) => {
-      if (e.beta != null && e.gamma != null) applyTilt(e.beta, e.gamma);
-    });
-  }
-
-  // iOS 13+ requires explicit permission via user gesture
-  function requestTiltPermission() {
-    if (typeof DeviceOrientationEvent !== 'undefined' &&
-        typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission().then((state) => {
-        if (state === 'granted') startTilt();
-      }).catch(() => {});
-    } else {
-      startTilt();
-    }
-  }
-  // try once on first interaction (so iOS prompt fires inside a user gesture)
-  document.addEventListener('click', requestTiltPermission, { once: true });
-  document.addEventListener('touchstart', requestTiltPermission, { once: true, passive: true });
-
-  // ---------- HAPTIC MORSE EASTER EGG (mobile, long-press sigil 5s) ----------
-  // morse for "DIVES OMNES":
-  // D = -..   I = ..   V = ...-   E = .   S = ...
-  // O = ---   M = --   N = -.   E = .   S = ...
-  function morseForPhrase() {
-    const m = {
-      D:'-..', I:'..', V:'...-', E:'.', S:'...',
-      O:'---', M:'--', N:'-.'
-    };
-    const phrase = 'DIVES OMNES';
-    const dot = 80, dash = 240, intra = 80, letterGap = 240, wordGap = 480;
-    const pattern = [];
-    for (const ch of phrase) {
-      if (ch === ' ') {
-        pattern[pattern.length - 1] = wordGap; // replace last gap with word gap
-        continue;
+      submitBtn.disabled = true;
+      const action = form.action;
+      const usingFormsubmit = /formsubmit\.co\/ajax\/[^/]+/.test(action);
+      let ok = false;
+      if (usingFormsubmit) {
+        try {
+          const r = await fetch(action, {
+            method: 'POST',
+            body: JSON.stringify({ email, note: noteText, folio: 'i', _subject: 'the order — new inscription', _template: 'table', _captcha: 'false' }),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          });
+          const data = await r.json().catch(() => ({}));
+          ok = r.ok && (data.success === 'true' || data.success === true);
+        } catch (_) { ok = false; }
       }
-      const code = m[ch];
-      for (let i = 0; i < code.length; i++) {
-        pattern.push(code[i] === '.' ? dot : dash);
-        pattern.push(intra);
+      if (!ok) {
+        const subject = encodeURIComponent('the order — inscribe me');
+        const body = encodeURIComponent('add me to the ledger.\n\nemail: ' + email + '\nnote:  ' + (noteText || '(none)'));
+        window.location.href = 'mailto:troy@glitchcommerce.com?subject=' + subject + '&body=' + body;
+        setNote('opening your mail client — send to complete.', 'ok');
       }
-      pattern.pop(); // remove trailing intra-gap
-      pattern.push(letterGap);
-    }
-    pattern.pop();
-    return pattern;
-  }
-
-  if (sigilEl) {
-    let morseTimer = null;
-    let morseStart = 0;
-    function startMorseHold(ev) {
-      if (ev) ev.preventDefault();
-      morseStart = performance.now();
-      morseTimer = setTimeout(() => {
-        haptic(morseForPhrase());
-        // visual ack: pulse the sigil
-        sigilEl.style.transition = 'transform 0.15s';
-        sigilEl.style.transform = 'scale(1.12)';
-        setTimeout(() => { sigilEl.style.transform = ''; }, 250);
-      }, 4000); // 4 seconds hold (5 was too long)
-    }
-    function cancelMorseHold() {
-      if (morseTimer) { clearTimeout(morseTimer); morseTimer = null; }
-    }
-    sigilEl.addEventListener('mousedown', startMorseHold);
-    sigilEl.addEventListener('touchstart', startMorseHold, { passive: false });
-    ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
-      sigilEl.addEventListener(ev, cancelMorseHold)
-    );
-  }
-
-  // ---------- SERVICE WORKER (offline) ----------
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      const position = nextPosition();
+      try {
+        localStorage.setItem('gc_inscribed', JSON.stringify({ email, position, at: Date.now() }));
+      } catch (_) {}
+      setTimeout(() => {
+        showInscribed(position);
+        submitBtn.disabled = false;
+      }, ok ? 400 : 1400);
     });
   }
-
-  // ---------- RENDER TICK (the page is being rendered by something) ----------
-  const renderTickEl = document.getElementById('renderTick');
-  function tickRender() {
-    if (!renderTickEl) return;
-    // pseudo-random hex tick that increments each second — implies the substrate is computing
-    const n = Math.floor(Date.now() / 1000) & 0xffffff;
-    renderTickEl.textContent = '0x' + n.toString(16).padStart(6, '0');
-  }
-  tickRender();
-  setInterval(tickRender, 1000);
-
-  // ---------- REALITY GLITCH FLASH (rare, every 45-90s) ----------
-  function realityGlitch() {
-    // pick a random text-bearing element
-    const candidates = document.querySelectorAll('.body p, .lead, .manifesto p, .meta-header span, .from-block .v');
-    if (candidates.length === 0) {
-      setTimeout(realityGlitch, 60000);
-      return;
-    }
-    const target = candidates[Math.floor(Math.random() * candidates.length)];
-    const orig = target.textContent;
-    if (!orig || orig.length < 8) {
-      setTimeout(realityGlitch, 60000);
-      return;
-    }
-    // turn it briefly into hex/binary garbage
-    const garbage = orig.split('').map(c => {
-      if (c === ' ') return ' ';
-      const r = Math.random();
-      if (r < 0.55) return Math.floor(Math.random() * 16).toString(16);
-      if (r < 0.85) return ['░', '▒', '▓', '█', '▮', '◆', '◇'][Math.floor(Math.random() * 7)];
-      return c;
-    }).join('');
-    const origColor = target.style.color;
-    const origLetterSpacing = target.style.letterSpacing;
-    target.textContent = garbage;
-    target.style.color = 'var(--gold-deep)';
-    target.style.letterSpacing = '0.04em';
-    setTimeout(() => {
-      target.textContent = orig;
-      target.style.color = origColor;
-      target.style.letterSpacing = origLetterSpacing;
-    }, 180 + Math.random() * 120);
-    // schedule next
-    setTimeout(realityGlitch, 45000 + Math.random() * 45000);
-  }
-  // first glitch after 30s — long enough for visitor to notice the page first
-  setTimeout(realityGlitch, 30000);
-
 })();
 </script>
-
-<!--
-   ╔═══════════════════════════════════════════════════════╗
-   ║                                                       ║
-   ║           ▲                                           ║
-   ║          ▲ ▲                                          ║
-   ║         ▲ ◉ ▲          THE EYE WAS OPEN               ║
-   ║        ▲▲▲▲▲▲▲         BEFORE YOU LOOKED.            ║
-   ║                                                       ║
-   ║   ╠═══════════════ FOLIO I ═══════════════╣           ║
-   ║                                                       ║
-   ║   ten letters, ten places. find them all.             ║
-   ║   the phrase is the door. the door is open.           ║
-   ║                                                       ║
-   ║   33 · 23 · 7  ·  these numbers are not decoration.   ║
-   ║                                                       ║
-   ║   if you read this comment, leave a sign:             ║
-   ║   write us at troy@glitchcommerce.com,                ║
-   ║   subject:  i saw the eye                             ║
-   ║                                                       ║
-   ║   — vincit qui patitur                                ║
-   ║                                                       ║
-   ╚═══════════════════════════════════════════════════════╝
--->
-
 </body>
 </html>

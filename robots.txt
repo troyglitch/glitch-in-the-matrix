@@ -2,7 +2,6 @@
 # vincit qui patitur
 
 User-agent: *
-Disallow: /dives-omnes
-Disallow: /dives-omnes/
+Allow: /
 
 Sitemap: https://glitchcommerce.com/sitemap.xml
