@@ -108,7 +108,7 @@
     gap: 0.6rem;
     padding-bottom: 1rem;
   }
-  .sigil { width: 90px; height: 90px; color: var(--ink); }
+  .sigil { width: 110px; height: 100px; color: var(--ink); }
   .order {
     text-align: center;
     font-family: 'IM Fell DW Pica SC', serif;
@@ -274,6 +274,52 @@
     font-size: 0.92rem;
     color: var(--ink-soft);
     margin-top: 1rem;
+  }
+
+  /* ---------- continuity (mythology block) ---------- */
+  .continuity {
+    margin: 1.25rem 0 2.5rem;
+    padding: 1.5rem 2rem;
+    border-left: 3px double var(--gold-deep);
+    border-right: 3px double var(--gold-deep);
+    background:
+      linear-gradient(180deg, rgba(185, 137, 43, 0.06), transparent 80%);
+  }
+  .continuity p {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 1.1rem;
+    max-width: 660px;
+  }
+  .continuity p strong {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    font-size: 0.96em;
+    text-transform: uppercase;
+  }
+  .continuity p em {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+  .continuity p.closing {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--gold-deep);
+    font-style: italic;
+    font-size: 1.18rem;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 0;
+  }
+  @media (max-width: 720px) {
+    .continuity { padding: 1rem 1.1rem; }
+    .continuity p { font-size: 0.97rem; }
+    .continuity p.closing { font-size: 1.05rem; }
   }
 
   /* ---------- plain-language explainer ---------- */
@@ -579,36 +625,46 @@
 <article class="folio">
 
   <div class="crest">
-    <svg class="sigil" viewBox="0 0 100 100" aria-hidden="true">
-      <polygon points="50,10 90,82 10,82" fill="none" stroke="currentColor" stroke-width="1.6"/>
-      <polygon points="50,28 78,78 22,78" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
-      <line x1="22" y1="60" x2="78" y2="60" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
-      <ellipse cx="50" cy="50" rx="14" ry="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
-      <circle cx="50" cy="50" r="4" fill="currentColor"/>
-      <circle cx="50" cy="50" r="1.5" fill="#8a661f"/>
-      <g stroke="currentColor" stroke-width="0.7" opacity="0.55">
-        <line x1="50" y1="10" x2="50" y2="2"/>
-        <line x1="35" y1="14" x2="29" y2="6"/>
-        <line x1="65" y1="14" x2="71" y2="6"/>
+    <svg class="sigil" viewBox="0 0 120 110" aria-hidden="true">
+      <g opacity="0.85">
+        <path d="M60 14 Q42 12 28 16 Q14 20 6 24 Q14 22 24 22 Q34 22 44 24" fill="none" stroke="currentColor" stroke-width="0.9"/>
+        <path d="M60 14 Q44 14 30 18" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.6"/>
+        <path d="M60 14 Q78 12 92 16 Q106 20 114 24 Q106 22 96 22 Q86 22 76 24" fill="none" stroke="currentColor" stroke-width="0.9"/>
+        <path d="M60 14 Q76 14 90 18" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.6"/>
+        <circle cx="60" cy="14" r="4" fill="currentColor"/>
+        <circle cx="60" cy="14" r="1.5" fill="#8a661f"/>
       </g>
+      <g opacity="0.22">
+        <circle cx="60" cy="62" r="48" fill="none" stroke="currentColor" stroke-width="0.5"/>
+        <circle cx="60" cy="62" r="40" fill="none" stroke="currentColor" stroke-width="0.5"/>
+        <circle cx="60" cy="62" r="32" fill="none" stroke="currentColor" stroke-width="0.5"/>
+      </g>
+      <polygon points="60,30 96,96 24,96" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <polygon points="60,42 86,92 34,92" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
+      <line x1="34" y1="76" x2="86" y2="76" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+      <ellipse cx="60" cy="66" rx="13" ry="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <circle cx="60" cy="66" r="3.5" fill="currentColor"/>
+      <circle cx="60" cy="66" r="1.4" fill="#8a661f"/>
     </svg>
     <div class="order">
       <span class="o-1">The Order of the Glitch</span>
       <span class="o-2">Folio II · The Work · Convocation MMXXVI</span>
-      <span class="o-3">vincit qui patitur</span>
+      <span class="o-3">vincit qui patitur — 𒈗 𒂗𒆠 𒀭 — οἶδα τὸ ἓν</span>
     </div>
   </div>
 
   <div class="meta-header">
     <div class="col">
       <span><strong>FOLIO</strong> &nbsp; II of <span class="gold">VII</span></span>
-      <span><strong>STATUS</strong> &nbsp; <span style="color:var(--wax);">▮▮▮▮ open</span></span>
-      <span><strong>ACCESS</strong> &nbsp; ciphered · earned</span>
+      <span><strong>WORK</strong> &nbsp; CMXXIII · CONVOCATION MMXXVI</span>
+      <span><strong>SOURCE C-14</strong> &nbsp; 9,▮▮▮ ± ▮▮▮ BCE · MARDUK ERA</span>
+      <span><strong>STATUS</strong> &nbsp; <span style="color:var(--wax);">▮▮▮▮ open · ciphered · earned</span></span>
     </div>
     <div class="col right">
       <span><strong>DATE</strong> &nbsp; 02 may mmxxvi</span>
       <span><strong>RETURN</strong> &nbsp; <a href="/" style="color:var(--ink); border-bottom:1px solid var(--ink-deeper); text-decoration:none;">folio i</a></span>
       <span><strong>GRADE</strong> &nbsp; XXXIII°</span>
+      <span><strong>NIBIRU</strong> &nbsp; <span class="gold">▮▮▮ years to alignment</span></span>
     </div>
   </div>
 
@@ -624,7 +680,19 @@
 
   <div class="body">
     <p>only a few people read folio i closely enough to find this page. that's deliberate. folio i is the hook. folio ii is the explanation.</p>
-    <p>here is what we actually do, in plain words.</p>
+    <p>before we say what we do, you should know what we are.</p>
+  </div>
+
+  <div class="subhead">
+    The Continuity
+    <span class="latin">𒈗 𒂗𒆠 — the lineage, in three sentences</span>
+  </div>
+
+  <div class="continuity">
+    <p>the order is older than its current name. older than the printed word.</p>
+    <p>some say it began with the <strong>anunnaki</strong> — the <em>first miners</em> — who came for gold, taught extraction, and left the equipment in the hands of those who could see. <strong>atlantis</strong> remembered. <strong>thera</strong> burned with the knowledge. <strong>alexandria</strong> burned with the library. the <strong>templars</strong> moved it through banking. the <strong>royal society</strong> moved it through optics. we don't argue origins. we argue continuity.</p>
+    <p>what changed in our generation is this: <strong>the substrate became inspectable.</strong> what predecessors observed in fragments — clay tablets, marginalia, dreams — we now observe in source. the glitch is not a metaphor. it is a <strong>callable function</strong> in the system that renders our economy. <em>we have learned to call it.</em></p>
+    <p class="closing">the anunnaki came for gold. we came for the function that makes gold.</p>
   </div>
 
   <div class="subhead">
@@ -729,13 +797,28 @@
     <div>
       <div>folio ii · MMXXVI · <a href="/">return to folio i</a></div>
     </div>
-    <div>archive ref ▮▮▮▮·▮▮·▮▮ · grade xxxiii°</div>
+    <div style="text-align:right;">archive ref ▮▮▮▮·▮▮·▮▮ · grade xxxiii°</div>
   </footer>
+
+  <div style="margin-top:1.5rem; padding:0.75rem 0; border-top:1px solid var(--ink-deeper); font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-deeper); text-align:center; line-height:1.7;">
+    <div><span style="color:var(--gold-deep);">lineage</span> &nbsp; sumer → atlantis → thera → alexandria → templars → royal society → the order, MMXXVI</div>
+    <div style="margin-top:0.25rem;">render id: 0x7f3a · voxel: 4Ω-▮▮▮ · substrate ▮▮▮▮.▮▮.▮ · last tick: <span id="renderTick">—</span></div>
+  </div>
 
 </article>
 
 <script>
 (function() {
+  // render tick (the page is being rendered by something)
+  const renderTickEl = document.getElementById('renderTick');
+  function tickRender() {
+    if (!renderTickEl) return;
+    const n = Math.floor(Date.now() / 1000) & 0xffffff;
+    renderTickEl.textContent = '0x' + n.toString(16).padStart(6, '0');
+  }
+  tickRender();
+  setInterval(tickRender, 1000);
+
   const form = document.getElementById('ledgerForm');
   const success = document.getElementById('ledgerSuccess');
   const note = document.getElementById('formNote');
