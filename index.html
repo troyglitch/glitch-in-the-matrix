@@ -1021,19 +1021,43 @@
 
   /* ---------- responsive ---------- */
   @media (max-width: 720px) {
-    .folio { margin: 0.75rem auto 1.5rem; padding: 1.5rem 1.25rem 2rem; }
+    .folio { margin: 0.75rem auto 1.5rem; padding: 1.25rem 1rem 1.75rem; overflow-x: hidden; }
     .audio-toggle { font-size: 0.55rem; padding: 6px 9px; top: 10px; right: 10px; }
     .crest { padding-bottom: 0.75rem; }
-    .sigil { width: 70px; height: 70px; }
+    .sigil { width: 95px; height: 87px; }
     .order .o-1 { font-size: 0.95rem; letter-spacing: 0.14em; }
-    .order .o-2 { font-size: 0.65rem; letter-spacing: 0.16em; }
-    .order .o-3 { font-size: 0.78rem; }
-    .meta-header { flex-direction: column; gap: 0.5rem; font-size: 0.6rem; }
+    .order .o-2 { font-size: 0.62rem; letter-spacing: 0.14em; line-height: 1.35; }
+    .order .o-3 { font-size: 0.75rem; }
+
+    .meta-header {
+      flex-direction: column; gap: 0.5rem;
+      font-size: 0.58rem; letter-spacing: 0.06em;
+    }
+    .meta-header .col { width: 100%; }
     .meta-header .right { text-align: left; }
-    .body-block { padding: 1.5rem 0; }
-    .from-block { font-size: 0.7rem; line-height: 1.85; }
-    .from-block .k { width: 45px; font-size: 0.6rem; }
-    .ways { padding: 1.25rem 1.25rem; font-size: 1rem; }
+    .meta-header span { word-break: break-word; }
+
+    .body-block { padding: 1.25rem 0; }
+    .from-block { font-size: 0.68rem; line-height: 1.8; margin-bottom: 1.5rem; }
+    .from-block .k { width: 38px; font-size: 0.58rem; }
+
+    /* Headline: cap font + force wrap so the matrix redaction doesn't overflow */
+    .headline {
+      font-size: clamp(1.5rem, 9vw, 2.1rem) !important;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .finding { font-size: 1.05rem !important; padding-left: 1rem; margin-bottom: 1.5rem; }
+    .mission { font-size: 0.95rem !important; }
+
+    /* Translated-from line wraps cleanly */
+    .body-block > p[style*="margin:-1rem"] {
+      font-size: 0.72rem !important;
+      margin: -0.5rem 0 1.25rem !important;
+    }
+
+    .ways { padding: 1.1rem 1.1rem; font-size: 0.92rem; }
+    .ways .ways-line { display: block; }
     .ledger .row.head { display: none; }
     .ledger .row {
       display: grid;
