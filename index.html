@@ -301,7 +301,7 @@
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
-    touch-action: none;
+    touch-action: manipulation;
     position: relative;
     cursor: grab;
     transform: skewX(-1.5deg);
@@ -340,7 +340,7 @@
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
-    touch-action: none;
+    touch-action: manipulation;
     position: relative;
     overflow: visible;
     font-family: 'JetBrains Mono', monospace;
@@ -970,7 +970,7 @@
     text-align: right;
   }
 
-  /* ---------- WAX SEAL CRACK (the ritual reveal) ---------- */
+  /* ---------- PYRAMID OPENING (the ritual reveal) ---------- */
   .wax-ceremony {
     position: fixed;
     inset: 0;
@@ -979,108 +979,86 @@
     display: none;
     align-items: center;
     justify-content: center;
+    background: rgba(26, 17, 8, 0);
+    transition: background 0.6s ease;
   }
   .wax-ceremony.fire {
     display: flex;
     pointer-events: auto;
+    background: rgba(26, 17, 8, 0.85);
   }
-  .wax-ceremony .seal {
+  .pyramid-rite {
     position: relative;
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #c4392f, #7d1d1d 55%, #4d0d0d 100%);
-    box-shadow:
-      0 8px 30px rgba(0,0,0,0.7),
-      inset -8px -8px 18px rgba(0,0,0,0.45),
-      inset 8px 8px 14px rgba(255,180,140,0.12);
-    transform: scale(0.05) rotate(-30deg);
+    width: 320px;
+    height: 320px;
+    transform: scale(0.05);
     opacity: 0;
-    animation: seal-press 0.7s cubic-bezier(.2,1.6,.4,1) forwards;
+    animation: rite-in 0.7s cubic-bezier(.2,1.6,.4,1) forwards;
   }
-  .wax-ceremony .seal::before {
-    content: '✦';
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 230, 200, 0.9);
-    font-size: 5rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    animation: seal-icon 0.7s ease-out forwards;
-  }
-  /* the crack — a jagged white line slicing the seal in half */
-  .wax-ceremony .crack {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 4px;
-    height: 0;
-    background: linear-gradient(to bottom,
-      transparent 0%, transparent 5%,
-      rgba(255, 240, 200, 0.95) 10%, rgba(255, 240, 200, 0.95) 30%,
-      transparent 35%, transparent 45%,
-      rgba(255, 240, 200, 0.95) 50%, rgba(255, 240, 200, 0.95) 70%,
-      transparent 75%, transparent 85%,
-      rgba(255, 240, 200, 0.95) 90%, rgba(255, 240, 200, 0.95) 100%);
-    transform: translateX(-50%);
-    box-shadow: 0 0 12px rgba(255, 240, 200, 0.85);
-    animation: crack-down 0.55s ease-in 0.7s forwards;
-  }
-  /* the two halves splitting apart */
-  .wax-ceremony .seal {
+  .pyramid-rite svg {
+    width: 100%;
+    height: 100%;
     overflow: visible;
   }
-  .wax-ceremony .half {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: inherit;
-    background-size: 200% 100%;
-    transform: translateX(0);
+  /* the eye behind the pyramid (gold, glowing) */
+  .pyramid-rite .eye-back {
+    transform-origin: center;
     opacity: 0;
+    animation: eye-glow 0.6s ease-out 1.4s forwards;
   }
-  .wax-ceremony .half.l {
-    left: 0;
-    background-position: left center;
-    border-radius: 120px 0 0 120px;
-    animation: half-l 0.6s cubic-bezier(.5,0,.5,1) 1.25s forwards;
+  /* left half of pyramid — swings open */
+  .pyramid-rite .half-l {
+    transform-origin: 50% 100%;
+    transform: rotateY(0deg);
+    animation: half-open-l 0.85s cubic-bezier(.5,0,.4,1) 0.85s forwards;
   }
-  .wax-ceremony .half.r {
-    right: 0;
-    background-position: right center;
-    border-radius: 0 120px 120px 0;
-    animation: half-r 0.6s cubic-bezier(.5,0,.5,1) 1.25s forwards;
+  .pyramid-rite .half-r {
+    transform-origin: 50% 100%;
+    transform: rotateY(0deg);
+    animation: half-open-r 0.85s cubic-bezier(.5,0,.4,1) 0.85s forwards;
   }
-  @keyframes seal-press {
-    0%   { transform: scale(0.05) rotate(-30deg); opacity: 0; }
-    35%  { transform: scale(1.1) rotate(-3deg); opacity: 1; }
-    65%  { transform: scale(0.95) rotate(-1deg); }
+  /* light beam shooting up out of the open pyramid */
+  .pyramid-rite .beam {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    width: 40px;
+    height: 0;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(255, 230, 130, 0.0) 5%,
+      rgba(255, 230, 130, 0.55) 50%,
+      rgba(255, 230, 130, 0.0) 100%);
+    box-shadow:
+      0 0 60px 20px rgba(255, 220, 130, 0.35),
+      0 0 120px 40px rgba(255, 200, 100, 0.18);
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: beam-up 0.6s ease-out 1.55s forwards;
+  }
+  @keyframes rite-in {
+    0%   { transform: scale(0.05) rotate(-12deg); opacity: 0; }
+    50%  { transform: scale(1.08) rotate(-2deg); opacity: 1; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
   }
-  @keyframes seal-icon {
-    0%, 60% { opacity: 0; transform: scale(0.5); }
-    100%    { opacity: 1; transform: scale(1); }
+  @keyframes half-open-l {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: perspective(1200px) rotateY(-95deg) translateX(-12%); }
   }
-  @keyframes crack-down {
+  @keyframes half-open-r {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: perspective(1200px) rotateY(95deg) translateX(12%); }
+  }
+  @keyframes eye-glow {
+    0%   { opacity: 0; transform: scale(0.4); filter: drop-shadow(0 0 0 rgba(185, 137, 43, 0)); }
+    100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 18px rgba(255, 200, 90, 0.85)) drop-shadow(0 0 40px rgba(255, 180, 60, 0.5)); }
+  }
+  @keyframes beam-up {
     0%   { height: 0; opacity: 0; }
-    20%  { opacity: 1; }
-    100% { height: 100%; opacity: 1; }
-  }
-  @keyframes half-l {
-    0%   { opacity: 0; transform: translateX(0) rotate(0deg); }
-    10%  { opacity: 1; }
-    100% { opacity: 0; transform: translateX(-180px) rotate(-25deg); }
-  }
-  @keyframes half-r {
-    0%   { opacity: 0; transform: translateX(0) rotate(0deg); }
-    10%  { opacity: 1; }
-    100% { opacity: 0; transform: translateX(180px) rotate(25deg); }
+    100% { height: 80%; opacity: 1; }
   }
 
-  /* gold particles drifting up (post-crack ambience) */
+  /* gold particles drifting up from the open pyramid */
   .wax-ceremony .spark {
     position: absolute;
     width: 4px; height: 4px;
@@ -1089,6 +1067,11 @@
     box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(185, 137, 43, 0.6);
     opacity: 0;
     animation: spark-rise 1.6s ease-out forwards;
+  }
+  @keyframes spark-rise {
+    0%   { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx, 0), var(--dy, -200px)) scale(1.2); }
   }
 
   /* INITIATE STAMP — slams down at the end of the message */
@@ -1579,12 +1562,33 @@
 
 <div class="hold-hint" id="holdHint">↪ hold any block to decrypt</div>
 
-<!-- ceremonial wax seal that cracks before the message reveals -->
+<!-- ceremonial pyramid that opens to reveal the eye before the message reveals -->
 <div class="wax-ceremony" id="waxCeremony" aria-hidden="true">
-  <div class="seal" id="seal">
-    <div class="half l"></div>
-    <div class="half r"></div>
-    <div class="crack"></div>
+  <div class="pyramid-rite">
+    <svg viewBox="0 0 320 320" aria-hidden="true">
+      <!-- the eye behind, glowing gold -->
+      <g class="eye-back">
+        <circle cx="160" cy="200" r="55" fill="#b9892b" opacity="0.25"/>
+        <circle cx="160" cy="200" r="38" fill="#b9892b" opacity="0.7"/>
+        <ellipse cx="160" cy="200" rx="42" ry="22" fill="none" stroke="#1a1108" stroke-width="3"/>
+        <circle cx="160" cy="200" r="13" fill="#1a1108"/>
+        <circle cx="160" cy="200" r="6" fill="#b9892b"/>
+        <circle cx="158" cy="198" r="2" fill="#fff" opacity="0.7"/>
+      </g>
+      <!-- left half of the pyramid (apex at top, splits down the middle) -->
+      <g class="half-l">
+        <polygon points="160,40 160,300 30,300" fill="#1a1108" stroke="#1a1108" stroke-width="2"/>
+        <polygon points="160,80 160,290 60,290" fill="none" stroke="#b9892b" stroke-width="1.2" opacity="0.45"/>
+        <line x1="60" y1="240" x2="160" y2="240" stroke="#b9892b" stroke-width="0.8" opacity="0.35"/>
+      </g>
+      <!-- right half of the pyramid -->
+      <g class="half-r">
+        <polygon points="160,40 290,300 160,300" fill="#1a1108" stroke="#1a1108" stroke-width="2"/>
+        <polygon points="160,80 260,290 160,290" fill="none" stroke="#b9892b" stroke-width="1.2" opacity="0.45"/>
+        <line x1="160" y1="240" x2="260" y2="240" stroke="#b9892b" stroke-width="0.8" opacity="0.35"/>
+      </g>
+    </svg>
+    <div class="beam"></div>
   </div>
 </div>
 
@@ -1734,15 +1738,44 @@
   const allReveals = document.querySelectorAll('.redact, .puz');
   let activeR = null, holdTimer = null, tickTimer = null;
 
+  let touchStartY = null;
+  let touchStartX = null;
+  const SCROLL_TOLERANCE = 10; // px movement before we consider it a scroll
+
   function startHold(el, ev) {
     if (el.classList.contains('revealed')) return;
-    if (ev) ev.preventDefault();
+    // record initial touch position so we can detect scroll intent
+    if (ev && ev.touches && ev.touches[0]) {
+      touchStartY = ev.touches[0].clientY;
+      touchStartX = ev.touches[0].clientX;
+    } else {
+      touchStartY = null;
+      touchStartX = null;
+    }
+    // for mouse, prevent text selection immediately. for touch, defer
+    // preventDefault to the move-tolerance check so vertical scroll works.
+    if (ev && !ev.touches) ev.preventDefault();
     activeR = el;
     el.classList.add('scraping');
     clickSound(); haptic(8); hideHint();
     tickTimer = setInterval(() => { clickSound(); haptic(6); }, TICK_MS);
     holdTimer = setTimeout(() => reveal(el), HOLD_MS);
   }
+
+  function checkTouchMove(ev) {
+    if (!activeR || touchStartY === null) return;
+    if (!ev.touches || !ev.touches[0]) return;
+    const dy = Math.abs(ev.touches[0].clientY - touchStartY);
+    const dx = Math.abs(ev.touches[0].clientX - touchStartX);
+    if (dy > SCROLL_TOLERANCE || dx > SCROLL_TOLERANCE) {
+      // user is scrolling — release the hold, let the browser scroll
+      cancelHold();
+    } else {
+      // still holding — keep blocking iOS callout etc.
+      ev.preventDefault();
+    }
+  }
+
   function cancelHold() {
     if (!activeR) return;
     clearTimeout(holdTimer); clearInterval(tickTimer);
@@ -1750,6 +1783,8 @@
       activeR.classList.remove('scraping');
     }
     activeR = null;
+    touchStartY = null;
+    touchStartX = null;
   }
   function reveal(el) {
     clearInterval(tickTimer);
@@ -1784,6 +1819,8 @@
   ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
     document.addEventListener(ev, cancelHold)
   );
+  // detect scroll intent on touch — release the hold if user moves finger
+  document.addEventListener('touchmove', checkTouchMove, { passive: false });
 
   // ---------- THE PUZZLE ----------
   const PUZ_TOTAL = 10;
