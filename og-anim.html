@@ -281,6 +281,24 @@
     100% { transform: rotate(-12deg) scale(1); opacity: 0.65; }
   }
 </style>
+<script>
+  // ?frame=N → scrub all animations to N*125ms and pause (for headless capture)
+  window.addEventListener('load', () => {
+    const params = new URLSearchParams(location.search);
+    const frame = params.get('frame');
+    if (frame === null) return;
+    const targetMs = parseInt(frame, 10) * 125;
+    // wait one tick so animations are registered
+    requestAnimationFrame(() => {
+      document.getAnimations().forEach(a => {
+        a.pause();
+        try { a.currentTime = targetMs; } catch (_) {}
+      });
+      // signal we're ready (for capture orchestrator)
+      document.title = 'OG-FRAME-' + frame + '-READY';
+    });
+  });
+</script>
 </head>
 <body>
 <div class="desk">
