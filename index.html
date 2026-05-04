@@ -992,7 +992,9 @@
     display: flex;
     pointer-events: auto;
     background:
-      radial-gradient(ellipse 800px 800px at 50% 50%, rgba(40, 20, 5, 0.92), rgba(0, 0, 0, 0.98) 80%);
+      radial-gradient(ellipse 800px 800px at 50% 50%, #2c1a08, #000 80%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .pyramid-rite {
     position: relative;
@@ -1052,12 +1054,12 @@
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
   }
   @keyframes half-open-l {
-    0%   { transform: rotateY(0deg); }
-    100% { transform: perspective(1200px) rotateY(-95deg) translateX(-12%); }
+    0%   { transform: perspective(1400px) rotateY(0deg); }
+    100% { transform: perspective(1400px) rotateY(-72deg); }
   }
   @keyframes half-open-r {
-    0%   { transform: rotateY(0deg); }
-    100% { transform: perspective(1200px) rotateY(95deg) translateX(12%); }
+    0%   { transform: perspective(1400px) rotateY(0deg); }
+    100% { transform: perspective(1400px) rotateY(72deg); }
   }
   @keyframes eye-glow {
     0%   { opacity: 0; transform: scale(0.4); filter: drop-shadow(0 0 0 rgba(185, 137, 43, 0)); }
