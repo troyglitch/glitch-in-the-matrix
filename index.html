@@ -298,6 +298,10 @@
     margin: 0 0.05em;
     border-radius: 1px;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
     position: relative;
     cursor: grab;
     transform: skewX(-1.5deg);
@@ -333,6 +337,10 @@
     border-radius: 2px;
     cursor: grab;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
     position: relative;
     overflow: visible;
     font-family: 'JetBrains Mono', monospace;
@@ -913,9 +921,10 @@
     overflow: hidden;
     opacity: 0;
     transition: max-height 0.6s ease, opacity 0.6s ease, padding 0.6s ease, border 0.6s ease;
+    position: relative;
   }
   .unlock .secret.show {
-    max-height: 600px;
+    max-height: 800px;
     opacity: 1;
     padding: 1rem 0.85rem 0.75rem;
     border-top: 1px dashed var(--gold-deep);
@@ -933,12 +942,23 @@
   .unlock .secret pre {
     font-family: 'IM Fell English', serif;
     font-style: italic;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--ink);
-    line-height: 1.65;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-wrap: break-word;
+    min-height: 1.7em;
   }
+  .unlock .secret pre .cur {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.05em;
+    background: var(--ink);
+    vertical-align: -3px;
+    animation: cur-blink 0.9s steps(1) infinite;
+    margin-left: 0.05em;
+  }
+  @keyframes cur-blink { 50% { background: transparent; } }
   .unlock .secret .crypto-tag {
     display: block;
     margin-top: 0.6rem;
@@ -948,6 +968,211 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     text-align: right;
+  }
+
+  /* ---------- WAX SEAL CRACK (the ritual reveal) ---------- */
+  .wax-ceremony {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    pointer-events: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .wax-ceremony.fire {
+    display: flex;
+    pointer-events: auto;
+  }
+  .wax-ceremony .seal {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #c4392f, #7d1d1d 55%, #4d0d0d 100%);
+    box-shadow:
+      0 8px 30px rgba(0,0,0,0.7),
+      inset -8px -8px 18px rgba(0,0,0,0.45),
+      inset 8px 8px 14px rgba(255,180,140,0.12);
+    transform: scale(0.05) rotate(-30deg);
+    opacity: 0;
+    animation: seal-press 0.7s cubic-bezier(.2,1.6,.4,1) forwards;
+  }
+  .wax-ceremony .seal::before {
+    content: '✦';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 230, 200, 0.9);
+    font-size: 5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    animation: seal-icon 0.7s ease-out forwards;
+  }
+  /* the crack — a jagged white line slicing the seal in half */
+  .wax-ceremony .crack {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom,
+      transparent 0%, transparent 5%,
+      rgba(255, 240, 200, 0.95) 10%, rgba(255, 240, 200, 0.95) 30%,
+      transparent 35%, transparent 45%,
+      rgba(255, 240, 200, 0.95) 50%, rgba(255, 240, 200, 0.95) 70%,
+      transparent 75%, transparent 85%,
+      rgba(255, 240, 200, 0.95) 90%, rgba(255, 240, 200, 0.95) 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px rgba(255, 240, 200, 0.85);
+    animation: crack-down 0.55s ease-in 0.7s forwards;
+  }
+  /* the two halves splitting apart */
+  .wax-ceremony .seal {
+    overflow: visible;
+  }
+  .wax-ceremony .half {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: inherit;
+    background-size: 200% 100%;
+    transform: translateX(0);
+    opacity: 0;
+  }
+  .wax-ceremony .half.l {
+    left: 0;
+    background-position: left center;
+    border-radius: 120px 0 0 120px;
+    animation: half-l 0.6s cubic-bezier(.5,0,.5,1) 1.25s forwards;
+  }
+  .wax-ceremony .half.r {
+    right: 0;
+    background-position: right center;
+    border-radius: 0 120px 120px 0;
+    animation: half-r 0.6s cubic-bezier(.5,0,.5,1) 1.25s forwards;
+  }
+  @keyframes seal-press {
+    0%   { transform: scale(0.05) rotate(-30deg); opacity: 0; }
+    35%  { transform: scale(1.1) rotate(-3deg); opacity: 1; }
+    65%  { transform: scale(0.95) rotate(-1deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes seal-icon {
+    0%, 60% { opacity: 0; transform: scale(0.5); }
+    100%    { opacity: 1; transform: scale(1); }
+  }
+  @keyframes crack-down {
+    0%   { height: 0; opacity: 0; }
+    20%  { opacity: 1; }
+    100% { height: 100%; opacity: 1; }
+  }
+  @keyframes half-l {
+    0%   { opacity: 0; transform: translateX(0) rotate(0deg); }
+    10%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-180px) rotate(-25deg); }
+  }
+  @keyframes half-r {
+    0%   { opacity: 0; transform: translateX(0) rotate(0deg); }
+    10%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(180px) rotate(25deg); }
+  }
+
+  /* gold particles drifting up (post-crack ambience) */
+  .wax-ceremony .spark {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold), 0 0 16px rgba(185, 137, 43, 0.6);
+    opacity: 0;
+    animation: spark-rise 1.6s ease-out forwards;
+  }
+
+  /* INITIATE STAMP — slams down at the end of the message */
+  .initiate-stamp {
+    margin: 1rem 0 0.5rem;
+    padding: 0.85rem 1rem 0.75rem;
+    border: 3px double var(--wax);
+    background: rgba(125, 29, 29, 0.04);
+    text-align: center;
+    transform: rotate(-2deg) scale(2);
+    opacity: 0;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(.2,1.6,.4,1), opacity 0.3s;
+  }
+  .initiate-stamp.land {
+    transform: rotate(-2deg) scale(1);
+    opacity: 1;
+  }
+  .initiate-stamp .lbl {
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.32em;
+    color: var(--wax);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .initiate-stamp .num {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+  .initiate-stamp .num strong {
+    color: var(--wax);
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  /* SHARE INITIATE button */
+  .share-initiate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .share-initiate:hover { background: var(--ink); color: var(--paper); }
+
+  /* PERSISTENT INITIATE BADGE (top-right, replaces re-entry button if they're verified) */
+  #initiate-badge {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 200;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--wax);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    font-family: 'IM Fell DW Pica SC', serif;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    padding: 7px 11px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    transition: background 0.2s, transform 0.1s;
+  }
+  #initiate-badge:hover { background: var(--ink); }
+  #initiate-badge:active { transform: scale(0.97); }
+  @media (max-width: 720px) {
+    #initiate-badge { font-size: 0.55rem; padding: 6px 9px; top: 10px; left: 10px; }
   }
   .speak-btn {
     display: inline-flex;
@@ -1354,6 +1579,15 @@
 
 <div class="hold-hint" id="holdHint">↪ hold any block to decrypt</div>
 
+<!-- ceremonial wax seal that cracks before the message reveals -->
+<div class="wax-ceremony" id="waxCeremony" aria-hidden="true">
+  <div class="seal" id="seal">
+    <div class="half l"></div>
+    <div class="half r"></div>
+    <div class="crack"></div>
+  </div>
+</div>
+
 <script>
 (function() {
   // ---------- date / leaked ago ----------
@@ -1543,6 +1777,9 @@
   allReveals.forEach(el => {
     el.addEventListener('mousedown', e => startHold(el, e));
     el.addEventListener('touchstart', e => startHold(el, e), { passive: false });
+    // belt + suspenders against iOS callout / right-click menu
+    el.addEventListener('contextmenu', e => e.preventDefault());
+    el.addEventListener('selectstart', e => e.preventDefault());
   });
   ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev =>
     document.addEventListener(ev, cancelHold)
@@ -1684,20 +1921,198 @@
     speakStatus.className = 'speak-status' + (cls ? ' ' + cls : '');
   }
 
+  // ---------- big chord audio ----------
+  function chordSound() {
+    if (!audioOn || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    // three bell tones (perfect fifth + octave)
+    [523.25, 783.99, 1046.50].forEach((f, i) => {
+      const osc = audioCtx.createOscillator();
+      const env = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(f, t);
+      env.gain.setValueAtTime(0.0001, t);
+      env.gain.exponentialRampToValueAtTime(0.22, t + 0.01 + i * 0.06);
+      env.gain.exponentialRampToValueAtTime(0.0001, t + 2.4);
+      osc.connect(env).connect(masterGain);
+      osc.start(t + i * 0.06);
+      osc.stop(t + 2.5);
+    });
+    // low ceremonial thud
+    const thud = audioCtx.createOscillator();
+    const thudEnv = audioCtx.createGain();
+    thud.type = 'sine';
+    thud.frequency.setValueAtTime(80, t);
+    thud.frequency.exponentialRampToValueAtTime(40, t + 0.4);
+    thudEnv.gain.setValueAtTime(0.55, t);
+    thudEnv.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+    thud.connect(thudEnv).connect(masterGain);
+    thud.start(t);
+    thud.stop(t + 0.7);
+  }
+
+  // ---------- wax ceremony (crack reveal) ----------
+  function fireWaxCeremony() {
+    return new Promise((resolve) => {
+      const ceremony = document.getElementById('waxCeremony');
+      ceremony.classList.add('fire');
+      // fire gold sparks during/after the crack
+      setTimeout(() => {
+        for (let i = 0; i < 18; i++) {
+          const s = document.createElement('div');
+          s.className = 'spark';
+          const startX = 50 + (Math.random() - 0.5) * 30;
+          const driftX = (Math.random() - 0.5) * 200;
+          const driftY = -100 - Math.random() * 200;
+          s.style.left = startX + '%';
+          s.style.top = '50%';
+          s.style.setProperty('--dx', driftX + 'px');
+          s.style.setProperty('--dy', driftY + 'px');
+          s.style.animationDelay = (Math.random() * 0.4) + 's';
+          ceremony.appendChild(s);
+        }
+      }, 1200);
+      // ceremony complete after 2.4s — clear + resolve
+      setTimeout(() => {
+        ceremony.classList.remove('fire');
+        ceremony.querySelectorAll('.spark').forEach(s => s.remove());
+        resolve();
+      }, 2400);
+    });
+  }
+
+  // ---------- typewriter reveal ----------
+  function typewrite(el, text, msPerChar) {
+    return new Promise((resolve) => {
+      el.textContent = '';
+      const cur = document.createElement('span');
+      cur.className = 'cur';
+      el.appendChild(cur);
+      let i = 0;
+      const tick = () => {
+        if (i >= text.length) {
+          cur.remove();
+          resolve();
+          return;
+        }
+        const ch = text[i++];
+        cur.before(document.createTextNode(ch));
+        // soft type-click ~every 4 chars to avoid being annoying
+        if (audioOn && audioCtx && i % 4 === 0 && ch !== ' ' && ch !== '\n') {
+          clickSound(0.05);
+        }
+        setTimeout(tick, ch === '\n' ? msPerChar * 4 : msPerChar);
+      };
+      tick();
+    });
+  }
+
+  // ---------- INITIATE NUMBER (Roman) ----------
+  function getOrAssignInitiate() {
+    let n = parseInt(localStorage.getItem('gc_initiate') || '0', 10);
+    if (n) return n;
+    // first time: generate a small initiate number based on rough order
+    let seed = parseInt(localStorage.getItem('gc_pos_seed') || '0', 10);
+    if (!seed) seed = 23 + Math.floor(Math.random() * 18);
+    n = seed + 1;
+    localStorage.setItem('gc_initiate', String(n));
+    localStorage.setItem('gc_pos_seed', String(n));
+    return n;
+  }
+  function romanNum(num) {
+    if (num < 1) return 'I';
+    if (num > 3999) return String(num);
+    const map = [['M',1000],['CM',900],['D',500],['CD',400],['C',100],['XC',90],['L',50],['XL',40],['X',10],['IX',9],['V',5],['IV',4],['I',1]];
+    let out = '';
+    for (const [r, v] of map) { while (num >= v) { out += r; num -= v; } }
+    return out;
+  }
+
   async function tryDecryptWith(passphrase) {
     try {
       const plain = await decryptSecret(passphrase);
-      secretTextEl.textContent = plain;
-      secretEl.classList.add('show');
-      bellSound();
-      haptic([80, 40, 80, 40, 200]);
       showStatus('✓ verified', 'ok');
+      // CEREMONY: wax seal cracks (2.4s)
+      chordSound();
+      haptic([200, 100, 80, 40, 80, 40, 300]);
+      await fireWaxCeremony();
+      // open the secret container
+      secretEl.classList.add('show');
+      // typewriter the message
+      await typewrite(secretTextEl, plain, 22);
+      // stamp the initiate number
+      const n = getOrAssignInitiate();
+      const roman = romanNum(n);
+      const stamp = document.createElement('div');
+      stamp.className = 'initiate-stamp';
+      stamp.innerHTML = '<div class="lbl">By the seal of the order</div><div class="num">you are initiate <strong>' + roman + '°</strong></div>';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'share-initiate';
+      btn.innerHTML = '⚜ Share your initiate number';
+      stamp.appendChild(btn);
+      secretEl.appendChild(stamp);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        stamp.classList.add('land');
+        if (audioOn && audioCtx) {
+          const t = audioCtx.currentTime;
+          const o = audioCtx.createOscillator();
+          const e = audioCtx.createGain();
+          o.type = 'sine';
+          o.frequency.setValueAtTime(160, t);
+          o.frequency.exponentialRampToValueAtTime(70, t + 0.18);
+          e.gain.setValueAtTime(0.5, t);
+          e.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+          o.connect(e).connect(masterGain);
+          o.start(t); o.stop(t + 0.3);
+        }
+        haptic([60, 30, 120]);
+      }));
+      // wire share button
+      btn.addEventListener('click', async () => {
+        const url = 'https://glitchcommerce.com/?initiate=' + roman;
+        const shareData = {
+          title: 'I am Initiate ' + roman + '° of the Order of the Glitch',
+          text: 'I cracked the cipher. I am Initiate ' + roman + '°.',
+          url
+        };
+        try {
+          if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+            await navigator.share(shareData);
+          } else if (navigator.clipboard) {
+            await navigator.clipboard.writeText(url);
+            btn.innerHTML = '✓ link copied';
+            setTimeout(() => { btn.innerHTML = '⚜ Share your initiate number'; }, 2400);
+          }
+        } catch (_) {}
+      });
+      // mount the persistent badge
+      mountInitiateBadge(roman);
       return true;
     } catch (_) {
       showStatus('the key was wrong. try again.', 'err');
       haptic(40);
       return false;
     }
+  }
+
+  // persistent badge in top-left for verified initiates
+  function mountInitiateBadge(roman) {
+    if (document.getElementById('initiate-badge')) return;
+    // remove the older "the door is open" reentry button if present
+    const re = document.getElementById('reentry');
+    if (re) re.remove();
+    const b = document.createElement('button');
+    b.id = 'initiate-badge';
+    b.type = 'button';
+    b.innerHTML = '⚜ <span>Initiate ' + roman + '°</span>';
+    b.addEventListener('click', () => unlock.classList.add('show'));
+    document.body.appendChild(b);
+  }
+  // mount on page load if already verified
+  const existingInitiate = parseInt(localStorage.getItem('gc_initiate') || '0', 10);
+  if (existingInitiate) {
+    mountInitiateBadge(romanNum(existingInitiate));
   }
 
   if (speakBtn) {
